@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -82,10 +83,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $skill;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_employed;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $created_at;
+
     public function __construct()
     {
         $this->experience = new ArrayCollection();
         $this->skill = new ArrayCollection();
+        //$this->is_employed = 1;
     }
 
     public function getId(): ?int
@@ -323,6 +335,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeSkill(Skill $skill): self
     {
         $this->skill->removeElement($skill);
+
+        return $this;
+    }
+
+    public function getIsEmployed(): ?bool
+    {
+        return $this->is_employed;
+    }
+
+    public function setIsEmployed(bool $is_employed): self
+    {
+        $this->is_employed = $is_employed;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

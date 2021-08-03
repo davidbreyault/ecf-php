@@ -21,7 +21,7 @@
                 <nav class="header-nav">
                     <div class="logo"><a href="{{ path('home') }}">Accueil</a></div>
                     <ul class="header-nav-links">
-                        {% if app.user %}
+                        {% if is_granted('ROLE_USER') %}
                             <li><a href="{{ path('profile') }}">{{ app.user.firstname }} {{ app.user.lastname }}</a></li>
                             <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
                         {% else %}

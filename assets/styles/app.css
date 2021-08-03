@@ -1,5 +1,6 @@
 :root {
   --primary-background:         #FFF;
+  --primary-color:              #000;
   --header-background:          #032354;
   --footer-background:          #032354;
 
@@ -43,6 +44,9 @@ h1 {
   background-color: var(--header-background);
   color: var(--header-links-color);
   text-decoration: none;
+}
+.cta.delete {
+  background-color: var(--alert-color);
 }
 .cta:hover {
   text-decoration: underline;
@@ -125,8 +129,55 @@ h1 {
 
 .home p {
   max-width: 90rem;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
   text-align: justify;
+}
+
+
+
+.profile h1 {
+  text-align: left;
+}
+.profile-infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile-data {
+  width: 30%;
+  padding: 2rem;
+  border-radius: 2rem;
+  background-color: var(--forms-background);
+}
+.profile-data > p {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #979797;
+}
+.profile-data .data {
+  margin-bottom: 0.5rem;
+}
+.profile-data .data p {
+  color: #646464;
+}
+.profile-data span {
+  display: block;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+.profile-dashboard {
+  width: 60%;
+}
+.actions-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.actions-cta .cta:not(.cta:last-of-type) {
+  margin-right: 1rem;
 }
 
 
@@ -134,10 +185,10 @@ h1 {
 
 .form {
   max-width: 100%;
-  margin: 3rem auto;
+  margin: 0 auto;
   padding: 2rem 1rem;
   border-radius: 2rem;
-  background-color: var(--forms-background)
+  background-color: var(--forms-background);
 }
 @media screen and (min-width: 36em) {
   .form {
@@ -218,6 +269,7 @@ h1 {
 .alert, 
 .success {
   width: 100%;
+  margin: 3rem 0;
   padding: 1rem 0;
 }
 .alert {

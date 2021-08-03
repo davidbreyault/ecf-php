@@ -1,15 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Votre espace personnel{% endblock %}
 
 {% block body %}
     <section class="profile">
         <div class="container">
-            <h1>Bonjour {{ app.user.firstname }} !</h1>
-
+            <h1>Mon espace personnel</h1>
             {% if is_granted('ROLE_USER') and not is_granted('ROLE_EMPLOYEE') %}
-                <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur le lien ci-dessous :</p>
-                <a href="{{ path('application') }}" class="cta">Candidatez</a>
+            <div class="profile-infos">
+                <div class="profile-data">
+                    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+                    <p class="job">{% if user.isEmployed %}Collaborateur{% else %}Candidat{% endif%}</p>
+                    {% if user.address %}
+                        <div class="data">
+                            <p><span>Adresse :</span>{{ user.address }}</p>
+                        </div>
+                        <div class="data">
+                            <p><span>Code postal :</span>{{ user.postcode }}</p>
+                        </div>
+                        <div class="data">
+                            <p><span>Ville :</span>{{ user.town }}</p>
+                        </div>
+                        <div class="data">
+                            <p><span>Email :</span>{{ user.email }}</p>
+                        </div>
+                        <div class="data">
+                            <p><span>Téléphone :</span>{{ user.phoneNumber }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="profile-dashboard">
+                    <h2>Mon tableau de bord</h2>
+                    <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
+                    <div class="actions-cta">
+                        {% if user.address %}
+                            <a href="#" class="cta">Modifier mes données</a>
+                        {% else %}
+                            <a href="{{ path('application') }}" class="cta">Candidatez</a>
+                        {% endif %}
+                        <a href="{{ path('delete_profile_confirmation') }}" class="cta delete">Supprimer mon compte</a>
+                    </div>
+                </div>
+            </div>
+                
             {% endif %}
 
         </div>
