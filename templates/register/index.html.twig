@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegisterController!{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container">
+        <h1>S'inscrire</h1>
+        {{ form_start(register_form, { 'attr': {'class': 'form register-form'} }) }}
+        {{ form_end(register_form) }}
+    </div>
+</section>
+{% endblock %}

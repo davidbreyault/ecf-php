@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+    <section class="profile">
+        <div class="container">
+            <h1>Bonjour {{ app.user.firstname }} !</h1>
+
+            {% if is_granted('ROLE_USER') and not is_granted('ROLE_EMPLOYEE') %}
+                <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur le lien ci-dessous :</p>
+                <a href="{{ path('application') }}" class="cta">Candidatez</a>
+            {% endif %}
+
+        </div>
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="success">
+                    <div class="container">
+                        <div>{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </section>
+{% endblock %}
