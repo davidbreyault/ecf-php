@@ -13,7 +13,7 @@
   --alert-background:           #EDBEBE;
   --alert-color:                #871919;
   --success-background:         #AEEBB5;
-  --success-color:              #138320;                          
+  --success-color:              #138320;                
 }
 
 
@@ -36,6 +36,12 @@ h1 {
   text-align: center;
   font-size: 3.2rem;
 }
+ul[class],
+li[class] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 .cta {
   display: block;
   width: max-content;
@@ -52,6 +58,9 @@ h1 {
 .cta:hover {
   text-decoration: underline;
   transition: all 0.3s ease-in-out;
+}
+.hidden {
+  display: none;
 }
 .container {
   width: 100%;
@@ -138,6 +147,11 @@ h1 {
 
 
 
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .profile h1 {
   text-align: left;
 }
@@ -151,6 +165,7 @@ h1 {
   padding: 2rem;
   border-radius: 2rem;
   background-color: var(--forms-background);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
 }
 .profile-data > p {
   margin-bottom: 2rem;
@@ -180,6 +195,64 @@ h1 {
 }
 .actions-cta .cta:not(.cta:last-of-type) {
   margin-right: 1rem;
+}
+.cta.add {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  border-radius: 50%;
+}
+.cta:hover {
+  text-decoration: none;
+}
+
+
+
+
+.profile-skills ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.profile-skills .skill {
+  width: max-content;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  border-radius: 0.2rem;
+  background-color: #F5F5F5;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.skill-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.skill-header a:first-of-type {
+  color: var(--header-background);
+}
+.skill-header a:last-of-type {
+  margin-left: 0.3rem;
+  color: var(--alert-color);
+  font-size: 1.9rem;
+}
+.skill-level i {
+  color: var(--header-background);
+}
+.skill-level {
+  display: flex;
+  justify-content: flex-start;
+  margin: 1rem 0;
+}
+.skill-like {
+  display: flex;
+  justify-content: flex-end;
+}
+.skill-like i {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--header-background);
 }
 
 

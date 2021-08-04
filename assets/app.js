@@ -9,5 +9,8 @@
 import './styles/base.css';
 import './styles/app.css';
 
+// Scripts JS
+import './scripts/fill-bubble.js';
+
 // start the Stimulus application
 import './bootstrap';

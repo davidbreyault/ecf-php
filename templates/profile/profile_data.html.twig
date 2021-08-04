@@ -1,0 +1,23 @@
+{% block profile_data %}
+    <div class="profile-data">
+        <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+        <p class="job">{% if user.isEmployed %}Collaborateur{% else %}Candidat{% endif%}</p>
+        {% if user.address %}
+            <div class="data">
+                <p><span>Adresse :</span>{{ user.address }}</p>
+            </div>
+            <div class="data">
+                <p><span>Code postal :</span>{{ user.postcode }}</p>
+            </div>
+            <div class="data">
+                <p><span>Ville :</span>{{ user.town }}</p>
+            </div>
+            <div class="data">
+                <p><span>Email :</span>{{ user.email }}</p>
+            </div>
+            <div class="data">
+                <p><span>Téléphone :</span>{{ user.phoneNumber }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
