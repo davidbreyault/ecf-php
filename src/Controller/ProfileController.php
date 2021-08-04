@@ -56,4 +56,32 @@ class ProfileController extends AbstractController
 
         return $this->redirectToRoute('home');
     }
+
+    /**
+     * @Route("/profile/update_data", name="update_data_profile")
+     */
+    public function update_data_profile(Request $request): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(ApplicationType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            // Transformation du nom de et de la ville de l'utilisateur en majuscule
+            $user->setLastname(strtoupper($user->getLastname()));
+            $user->setTown(strtoupper($user->getTown()));
+            // Transfert en base de donnée
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Vos données personnelles ont bien été modifiées.');
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('profile/update/update_data.html.twig', [
+            'user'                     => $user,
+            'update_profile_data_form' => $form->createView()
+        ]);
+    }
 }

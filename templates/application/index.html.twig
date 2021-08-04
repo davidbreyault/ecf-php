@@ -11,14 +11,5 @@
                 {{ form_end(application_form) }}
             {% endif %}
         </div>
-        {% for type, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="success">
-                    <div class="container">
-                        <div>{{ message }}</div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endfor %}
     </section>
 {% endblock %}

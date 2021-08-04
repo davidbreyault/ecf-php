@@ -6,7 +6,9 @@
     <section class="profile">
         <div class="container">
             <h1>Mon espace personnel</h1>
-            {% if is_granted('ROLE_USER') and not is_granted('ROLE_EMPLOYEE') %}
+            {% if is_granted('ROLE_USER') %}
+
+            {# {% if is_granted('ROLE_USER') and not is_granted('ROLE_EMPLOYEE') %} #}
             <div class="profile-infos">
                 <div class="profile-data">
                     <h2>{{ user.firstname }} {{ user.lastname }}</h2>
@@ -30,21 +32,34 @@
                     {% endif %}
                 </div>
                 <div class="profile-dashboard">
-                    <h2>Mon tableau de bord</h2>
-                    <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
+                    {% if is_granted('ROLE_EMPLOYEE') %}
+
+                        <h2>Mon tableau de bord</h2>
+                        <div class="actions-cta">
+                            <a href="#" class="cta">Mes compétences</a>
+                            <a href="#" class="cta">Mes missions</a>
+                            <a href="#" class="cta">Mes documents</a>
+                        </div>
+
+                    {% endif %}
+                    <h2>Mon compte</h2>
+                    {% if not user.address %}
+                        <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
+                    {% endif %}
                     <div class="actions-cta">
                         {% if user.address %}
-                            <a href="#" class="cta">Modifier mes données</a>
+                            <a href="{{ path('update_data_profile') }}" class="cta">Modifier mes données</a>
                         {% else %}
                             <a href="{{ path('application') }}" class="cta">Candidatez</a>
                         {% endif %}
-                        <a href="{{ path('delete_profile_confirmation') }}" class="cta delete">Supprimer mon compte</a>
+                        {% if is_granted('ROLE_USER') and not is_granted('ROLE_EMPLOYEE') %}
+                            <a href="{{ path('delete_profile_confirmation') }}" class="cta delete">Supprimer mon compte</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
                 
             {% endif %}
-
         </div>
         {% for type, messages in app.flashes %}
             {% for message in messages %}

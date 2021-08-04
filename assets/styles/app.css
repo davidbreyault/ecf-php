@@ -8,7 +8,7 @@
   --footer-links-color:         #D5D5D5;
   --footer-links-color-hover:   #FFF;
 
-  --forms-background:           #D5D5D5;
+  --forms-background:           #E4E4E4;
 
   --alert-background:           #EDBEBE;
   --alert-color:                #871919;
@@ -32,8 +32,9 @@ section {
   align-items: center;
 }
 h1 {
-  margin: 2rem 0;
+  margin: 3rem 0;
   text-align: center;
+  font-size: 3.2rem;
 }
 .cta {
   display: block;
@@ -112,7 +113,7 @@ h1 {
   padding: 1rem 2rem;
   border-radius: 2em;
 }
-.header-nav-links a:hover {
+.header-nav a:hover {
   text-decoration: underline;
   transition: all 0.3s ease-in-out;
 }
@@ -168,7 +169,8 @@ h1 {
   color: var(--primary-color);
 }
 .profile-dashboard {
-  width: 60%;
+  width: 70%;
+  padding: 2rem;
 }
 .actions-cta {
   display: flex;
@@ -218,6 +220,13 @@ h1 {
   display: flex;
   justify-content: flex-end;
   margin-top: 2rem;
+}
+.form select {
+  width: 100%;
+  padding: 0.6rem 0;
+  background-color: #FFF;
+  border: 1px solid #8F8F9D;
+  border-radius: 2px;
 }
 
 

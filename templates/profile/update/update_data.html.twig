@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifiez vos données{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <h1>Modifiez vos données</h1>
+            {% if is_granted('ROLE_USER') %}
+                {{ form_start(update_profile_data_form, {'attr': {'class': 'form update-form'}}) }}
+                    {# {% if not user.isEmployed %}
+                        <div>
+                            {{ form_label(update_profile_data_form.availability) }} 
+                            {{ form_widget(update_profile_data_form.availability) }}
+                        </div>
+                    {% endif %} #}
+                {{ form_end(update_profile_data_form) }}
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
