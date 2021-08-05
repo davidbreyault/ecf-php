@@ -9,11 +9,15 @@
   --footer-links-color-hover:   #FFF;
 
   --forms-background:           #E4E4E4;
+  --dashboard-feature:          #F5F5F5;
 
   --alert-background:           #EDBEBE;
   --alert-color:                #871919;
   --success-background:         #AEEBB5;
-  --success-color:              #138320;                
+  --success-color:              #138320;
+  
+  --shadow:                     1px 2px 3px rgba(0, 0, 0, 0.3);
+  --borders:                    #979797;
 }
 
 
@@ -59,9 +63,6 @@ li[class] {
   text-decoration: underline;
   transition: all 0.3s ease-in-out;
 }
-.hidden {
-  display: none;
-}
 .container {
   width: 100%;
   margin-left: auto;
@@ -94,7 +95,12 @@ li[class] {
     max-width: calc(87.5em - 3rem);
   }
 }
-
+.hidden {
+  display: none;
+}
+.italic {
+  font-style: italic;
+}
 
 
 
@@ -152,6 +158,12 @@ li[class] {
   justify-content: space-between;
   align-items: center;
 }
+.profile-header.cta-right {
+  justify-content: flex-end;
+}
+.profile-header.cta-right a {
+  margin-bottom: 0;
+}
 .profile h1 {
   text-align: left;
 }
@@ -170,7 +182,7 @@ li[class] {
 .profile-data > p {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid #979797;
+  border-bottom: 1px solid var(--borders);
 }
 .profile-data .data {
   margin-bottom: 0.5rem;
@@ -185,7 +197,8 @@ li[class] {
 }
 .profile-dashboard {
   width: 70%;
-  padding: 2rem;
+  margin-left: 4rem;
+  padding: 2rem 0;
 }
 .actions-cta {
   display: flex;
@@ -221,8 +234,8 @@ li[class] {
   margin-bottom: 1.5rem;
   padding: 1.2rem;
   border-radius: 0.2rem;
-  background-color: #F5F5F5;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  background-color: var(--dashboard-feature);
+  box-shadow: var(--shadow);
 }
 .skill-header {
   display: flex;
@@ -259,9 +272,38 @@ li[class] {
 
 
 
+.missions-list li {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: var(--dashboard-feature);
+  box-shadow: var(--shadow);
+  border-radius: 0.2rem;
+}
+.mission-date {
+  width: max-content;
+  padding: 0.2rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.2rem;
+  background-color: #FFD900;
+  font-style: italic;
+}
+.mission-infos {
+  margin-left: 2rem;
+}
+.mission-infos > p:first-of-type {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--borders);
+}
+
+
+
+
 .form {
   max-width: 100%;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4rem;
   padding: 2rem 1rem;
   border-radius: 2rem;
   background-color: var(--forms-background);
@@ -283,17 +325,25 @@ li[class] {
   }
 }
 .form input,
-.form label {
+.form label,
+.form textarea {
   display: block;
   width: 100%;
 }
 .form input {
   margin-bottom: 0.5rem;
 }
-.form div:last-of-type {
+.form > div:last-of-type {
   display: flex;
   justify-content: flex-end;
   margin-top: 2rem;
+}
+.form div[id] {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+.form div[id] > select:not(select:last-of-type) {
+  margin-right: 1rem;
 }
 .form select {
   width: 100%;

@@ -18,7 +18,7 @@ class SkillType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'         => 'Compétence/Techno',
+                'label'         => 'Compétence / Technologie',
                 'required'      => true
             ])
             ->add('level', ChoiceType::class, [

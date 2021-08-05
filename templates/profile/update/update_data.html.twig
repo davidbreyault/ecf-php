@@ -5,16 +5,36 @@
 {% block body %}
     <section>
         <div class="container">
+             <div class="profile-header cta-right">
+                <a href="{{ path('profile') }}" class="cta">Retour</a>
+            </div>
             <h1>Modifiez vos données</h1>
             {% if is_granted('ROLE_USER') %}
+
                 {{ form_start(update_profile_data_form, {'attr': {'class': 'form update-form'}}) }}
+                    {{ form_row(update_profile_data_form.firstname) }}
+                    {{ form_row(update_profile_data_form.lastname) }}
+                    {{ form_row(update_profile_data_form.address) }}
+                    {{ form_row(update_profile_data_form.postcode) }}
+                    {{ form_row(update_profile_data_form.town) }}
+                    {{ form_row(update_profile_data_form.phone_number) }}
+                    
                     {% if is_granted('ROLE_EMPLOYEE') %}
+
                         <div class="hidden">
                             {{ form_label(update_profile_data_form.availability) }} 
                             {{ form_widget(update_profile_data_form.availability) }}
                         </div>
+                        
+                    {% else %}
+
+                        {{ form_row(update_profile_data_form.availability) }}
+                        
                     {% endif %}
+
+                    {{ form_row(update_profile_data_form.send, {'label': 'Modifier'}) }}
                 {{ form_end(update_profile_data_form) }}
+
             {% endif %}
         </div>
     </section>

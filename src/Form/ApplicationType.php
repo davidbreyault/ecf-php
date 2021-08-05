@@ -48,7 +48,9 @@ class ApplicationType extends AbstractType
                     'Supérieure à 3 mois'   => 'Supérieure à 3 mois'
                 ]
             ])
-            ->add('send', SubmitType::class)
+            ->add('send', SubmitType::class, [
+                'label'         => 'Envoyer'
+            ])
         ;
     }
 

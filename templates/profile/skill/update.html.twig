@@ -3,13 +3,14 @@
 {% block title %}Modifiez votre compétence{% endblock %}
 
 {% block body %}
-    <section class="profile">
+    <section>
         <div class="container">
             {% if is_granted('ROLE_EMPLOYEE') %}
-                <div class="profile-header">
-                    <h1>Modifiez votre compétence</h1>
+
+                <div class="profile-header cta-right">
                     <a href="{{ path('skills') }}" class="cta">Retour</a>
                 </div>
+                <h1>Modifiez votre compétence</h1>
                 {{ form_start(skill_form, {'attr': {'class': 'form'}}) }}
                     
                     {{ form_row(skill_form.name) }}
@@ -19,6 +20,7 @@
                     {{ form_row(skill_form.send, {'label': 'Modifier'}) }}
                     
                 {{ form_end(skill_form) }}
+                
             {% endif %}
         </div>
     </section>

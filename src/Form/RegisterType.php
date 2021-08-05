@@ -40,7 +40,9 @@ class RegisterType extends AbstractType
                     'label' => 'Confirmez votre mot de passe'
                 ]
             ])
-            ->add('Envoyer', SubmitType::class);
+            ->add('Envoyer', SubmitType::class, [
+                'label'             => 'Inscription'
+            ]);
         ;
     }
 

@@ -58,7 +58,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/update_data", name="update_data_profile")
+     * @Route("/profile/data/update", name="update_data_profile")
      */
     public function update_data_profile(Request $request): Response
     {
