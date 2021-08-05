@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Skill;
-use App\Entity\Category;
 use App\Form\SkillType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,10 +38,8 @@ class SkillController extends AbstractController
 
     /**
      * @Route("/profile/skill/add", name="add_skill")
-     * 
-     * @IsGranted(ROLE_EMPLOYEE)
      */
-    public function add_skill(Request $request): Response
+    public function add(Request $request): Response
     {
         $skill = new Skill;
         $user = $this->getUser();
@@ -70,26 +66,23 @@ class SkillController extends AbstractController
 
     /**
      * @Route("profile/skill/delete/{id}", name="delete_skill")
-     * 
-     * @IsGranted(ROLE_EMPLOYEE)
      */
-    public function delete_skill($id): Response
+    public function delete($id): Response
     {
         $skill = $this->entityManager->getRepository(Skill::class)->find($id);
 
         $this->entityManager->persist($skill);
         $this->entityManager->remove($skill);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Votre compétence a bien été suprimée.');
         return $this->redirectToRoute('skills');
-
-        return $this->render('profile/skill/delete.html.twig');
     }
 
     /**
      * @Route("profile/skill/update/{id}", name="update_skill")
      * 
      */
-    public function update_skill(Request $request, $id): Response
+    public function update(Request $request, $id): Response
     {
         $skill = $this->entityManager->getRepository(Skill::class)->find($id);
         $user = $this->getUser();

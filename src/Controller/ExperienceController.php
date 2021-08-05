@@ -61,4 +61,45 @@ class ExperienceController extends AbstractController
             'experience_form'   => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/profile/experience/update/{id}", name="update_experience")
+     */
+    public function update(Request $request, $id): Response
+    {
+        $experience = $this->entityManager->getRepository(Experience::class)->find($id);
+        $user = $this->getUser();
+
+        $form = $this->createForm(ExperienceType::class, $experience);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $experience = $form->getData();
+            $user->addExperience($experience);
+            $this->entityManager->persist($experience);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Votre mission a bien été modifiée.');
+            return $this->redirectToRoute('experiences');
+        }
+
+        return $this->render('profile/experience/update.html.twig', [
+            'user'              => $user,
+            'experience_form'   => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profile/experience/delete/{id}", name="delete_experience")
+     */
+    public function delete(Request $request, $id): Response
+    {
+        $experience = $this->entityManager->getRepository(Experience::class)->find($id);
+
+        $this->entityManager->persist($experience);
+        $this->entityManager->remove($experience);
+        $this->entityManager->flush();
+        $this->addFlash('success', 'Votre mission a bien été suprimée.');
+        return $this->redirectToRoute('experiences');
+    }
 }

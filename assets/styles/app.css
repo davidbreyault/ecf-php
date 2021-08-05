@@ -10,6 +10,7 @@
 
   --forms-background:           #E4E4E4;
   --dashboard-feature:          #F5F5F5;
+  --profile-data:               #646464;
 
   --alert-background:           #EDBEBE;
   --alert-color:                #871919;
@@ -170,7 +171,7 @@ li[class] {
 .profile-infos {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 .profile-data {
   width: 30%;
@@ -188,7 +189,7 @@ li[class] {
   margin-bottom: 0.5rem;
 }
 .profile-data .data p {
-  color: #646464;
+  color: var(--profile-data);
 }
 .profile-data span {
   display: block;
@@ -272,6 +273,25 @@ li[class] {
 
 
 
+.mission-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.mission .actions {
+  display: flex;
+  align-items: center;
+
+}
+.mission-header a:first-of-type {
+  color: var(--header-background);
+}
+.mission-header a:last-of-type {
+  margin-left: 0.3rem;
+  color: var(--alert-color);
+  font-size: 1.9rem;
+}
 .missions-list li {
   margin-bottom: 2rem;
   padding: 2rem;
@@ -294,6 +314,9 @@ li[class] {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--borders);
+}
+.mission-infos > p:last-of-type {
+  color: var(--profile-data);
 }
 
 

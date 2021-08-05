@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifiez votre compétence{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_EMPLOYEE') %}
+
+                <div class="profile-header cta-right">
+                    <a href="{{ path('experiences') }}" class="cta">Retour</a>
+                </div>
+                <h1>Modifiez votre mission</h1>
+                {{ form_start(experience_form, {'attr': {'class': 'form'}}) }}
+                    
+                    {{ form_row(experience_form.profession) }}
+                    {{ form_row(experience_form.company_name) }}
+                    {{ form_row(experience_form.workplace_town) }}
+                    {{ form_row(experience_form.date_start) }}
+                    {{ form_row(experience_form.date_end) }}
+                    {{ form_row(experience_form.description) }}
+                    {{ form_row(experience_form.send, {'label': 'Modifier'}) }}
+                    
+                {{ form_end(experience_form) }}
+                
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
