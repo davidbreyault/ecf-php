@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,6 +27,22 @@ class ApplicationType extends AbstractType
             ->add('address', TextType::class, [
                 'label'         => 'Adresse',
                 'required'      => true
+            ])
+            ->add('gender', ChoiceType::class, [
+                'label'         => 'Genre',
+                'required'      => true,
+                'choices'       => [
+                    'Masculin'          => 'M',
+                    'Féminin'           => 'F'
+                ]
+            ])
+            ->add('birth', BirthdayType::class, [
+                'label'         => 'Date de naissance',
+                'required'      => true,
+                'format'        => 'ddMMyyyy',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
             ])
             ->add('postcode', TextType::class, [
                 'label'         => 'Code Postal',

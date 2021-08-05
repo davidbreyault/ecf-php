@@ -4,6 +4,17 @@
 
 {% block body %}
     <section class="profile">
+
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="success">
+                    <div class="container">
+                        <div>{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        
         <div class="container">
             <h1>Mon espace personnel</h1>
             {% if is_granted('ROLE_USER') %}
@@ -20,14 +31,5 @@
                 
             {% endif %}
         </div>
-        {% for type, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="success">
-                    <div class="container">
-                        <div>{{ message }}</div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endfor %}
     </section>
 {% endblock %}

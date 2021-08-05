@@ -1,7 +1,20 @@
 {% block profile_data %}
     <div class="profile-data">
         <h2>{{ user.firstname }} {{ user.lastname }}</h2>
-        <p class="job">{% if user.isEmployed %}Collaborateur{% else %}Candidat{% endif%}</p>
+        {% if user.isEmployed %}
+            {% if user.gender == 'M' %}
+                <p class="job">Collaborateur</p>
+            {% else %}
+                <p class="job">Collaboratrice</p>
+            {% endif %}
+        {% else %}
+            {% if user.gender == 'M' %}
+                <p class="job">Candidat</p>
+            {% else %}
+                <p class="job">Candidate</p>
+            {% endif %}
+        {% endif %}
+
         {% if user.address %}
             <div class="data">
                 <p><span>Adresse :</span>{{ user.address }}</p>
@@ -17,6 +30,12 @@
             </div>
             <div class="data">
                 <p><span>Téléphone :</span>{{ user.phoneNumber }}</p>
+            </div>
+            <div class="data">
+                <p><span>Date de naissance :</span>{{ user.birth|date('F j, Y') }}</p>
+            </div>
+            <div class="data">
+                <p><span>Age :</span>{{ date('now').diff((date(user.birth))).format('%y ans') }}</p>
             </div>
         {% endif %}
     </div>

@@ -199,7 +199,7 @@ li[class] {
 .profile-dashboard {
   width: 70%;
   margin-left: 4rem;
-  padding: 2rem 0;
+  padding-bottom: 2rem;
 }
 .actions-cta {
   display: flex;
@@ -353,17 +353,16 @@ li[class] {
   display: block;
   width: 100%;
 }
-.form input {
-  margin-bottom: 0.5rem;
-}
 .form > div:last-of-type {
   display: flex;
   justify-content: flex-end;
   margin-top: 2rem;
 }
+.form div {
+  margin-bottom: 0.5rem;
+}
 .form div[id] {
   display: flex;
-  margin-bottom: 0.5rem;
 }
 .form div[id] > select:not(select:last-of-type) {
   margin-right: 1rem;
