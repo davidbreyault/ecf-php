@@ -30,7 +30,7 @@ class Skill
     private $level;
 
     /**
-     * @ORM\Column(type="binary")
+     * @ORM\Column(type="boolean")
      */
     private $appreciated;
 
@@ -127,5 +127,10 @@ class Skill
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getCategory();
     }
 }

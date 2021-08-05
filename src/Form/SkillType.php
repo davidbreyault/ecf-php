@@ -47,7 +47,9 @@ class SkillType extends AbstractType
                 'choice_label'  => 'name',
                 'required'      => true
             ])
-            ->add('Ajoutez', SubmitType::class)
+            ->add('send', SubmitType::class, [
+                'label'         => 'Ajouter'
+            ])
         ;
     }
 

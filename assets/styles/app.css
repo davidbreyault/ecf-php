@@ -238,6 +238,7 @@ li[class] {
   font-size: 1.9rem;
 }
 .skill-level i {
+  margin-right: 0.2rem;
   color: var(--header-background);
 }
 .skill-level {

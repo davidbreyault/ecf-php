@@ -11,6 +11,13 @@
                     <a href="{{ path('skills') }}" class="cta">Retour</a>
                 </div>
                 {{ form_start(skill_form, {'attr': {'class': 'form'}}) }}
+                    
+                    {{ form_row(skill_form.name) }}
+                    {{ form_row(skill_form.level) }}
+                    {{ form_row(skill_form.appreciated) }}
+                    {{ form_row(skill_form.category) }}
+                    {{ form_row(skill_form.send, {'label': 'Modifier'}) }}
+                    
                 {{ form_end(skill_form) }}
             {% endif %}
         </div>

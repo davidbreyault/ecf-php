@@ -28,6 +28,7 @@
                                         <a href="{{ path('delete_skill', {'id': skill.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
                                     </div>
                                     <h3>{{ skill.name }}</h3>
+                                    <p>{{ skill.category.name }}</p>
                                     <div class="skill-level">
                                         <p class="rating hidden">{{ skill.level }}</p>
                                         <i class="far fa-circle"></i>
@@ -37,7 +38,7 @@
                                         <i class="far fa-circle"></i>
                                     </div>
                                     <div class="skill-like">
-                                        {% if skill.appreciated %}
+                                        {% if skill.appreciated == 1 %}
                                             <i class="far fa-thumbs-up"></i>
                                         {% endif %}
                                     </div>
