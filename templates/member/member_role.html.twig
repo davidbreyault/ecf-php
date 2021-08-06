@@ -1,0 +1,17 @@
+{% block member_role %}
+
+    {% if profile.roles[0] == 'ROLE_USER' %}
+
+        <p>{{ (profile.gender == 'M') ? 'Candidat' : 'Candidate' }}</p>
+
+    {% elseif profile.roles[0] == 'ROLE_EMPLOYEE' %}
+
+        <p>{{ (profile.gender == 'M') ? 'Collaborateur' : 'Collaboratrice' }}</p>
+
+    {% else %}
+
+        <p>{{ (profile.gender == 'M') ? 'Commercial' : 'Commerciale' }}</p>
+
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{# Affichage dynamique du rôle de l'utilisateur #}
+{% block profile_roles %}
+
+    {% if user.isEmployed %}
+
+        {% if is_granted('ROLE_COMMERCIAL') %}
+
+            {% if user.gender == 'M' %}
+                <p class="job">Commercial</p>
+            {% else %}
+                <p class="job">Commerciale</p>
+            {% endif %}
+
+        {% else %}
+
+            {% if user.gender == 'M' %}
+                <p class="job">Collaborateur</p>
+            {% else %}
+                <p class="job">Collaboratrice</p>
+            {% endif %}
+
+        {% endif %}
+
+    {% else %}
+
+        {% if user.gender == 'M' %}
+            <p class="job">Candidat</p>
+        {% else %}
+            <p class="job">Candidate</p>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}

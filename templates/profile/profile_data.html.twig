@@ -1,19 +1,11 @@
 {% block profile_data %}
     <div class="profile-data">
+        <img src="https://eu.ui-avatars.com/api/?name={{ user.firstname }}+{{ user.lastname }}&size=120&background=FFD900&color=000" alt="profile-picture">
         <h2>{{ user.firstname }} {{ user.lastname }}</h2>
-        {% if user.isEmployed %}
-            {% if user.gender == 'M' %}
-                <p class="job">Collaborateur</p>
-            {% else %}
-                <p class="job">Collaboratrice</p>
-            {% endif %}
-        {% else %}
-            {% if user.gender == 'M' %}
-                <p class="job">Candidat</p>
-            {% else %}
-                <p class="job">Candidate</p>
-            {% endif %}
-        {% endif %}
+        
+        {% block profile_roles %}
+            {% include "profile/profile_roles.html.twig" %}
+        {% endblock %}
 
         {% if user.address %}
             <div class="data">

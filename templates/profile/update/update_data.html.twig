@@ -20,8 +20,8 @@
                     {{ form_row(update_profile_data_form.postcode) }}
                     {{ form_row(update_profile_data_form.town) }}
                     {{ form_row(update_profile_data_form.phone_number) }}
-                    
-                    {% if is_granted('ROLE_EMPLOYEE') %}
+
+                    {% if is_granted('ROLE_COMMERCIAL') %}
 
                         <div class="hidden">
                             {{ form_label(update_profile_data_form.availability) }} 

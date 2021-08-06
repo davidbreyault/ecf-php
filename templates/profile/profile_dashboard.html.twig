@@ -10,6 +10,14 @@
             </div>
 
         {% endif %}
+        {% if is_granted('ROLE_COMMERCIAL') %}
+
+            <h2>Effectif</h2>
+            <div class="actions-cta">
+                <a href="{{ path('members') }}" class="cta">Voir les profils</a>
+            </div>
+
+        {% endif %}
         <h2>Mon compte</h2>
         {% if not user.address %}
             <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>

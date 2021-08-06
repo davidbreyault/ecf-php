@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les profiles{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_COMMERCIAL') %}
+                <div class="profile-header">
+                    <h1>Mon espace personnel</h1>
+                    <a href="{{ path('profile') }}" class="cta">Retour</a>
+                </div>
+                <div class="profile-infos">
+                    {% block profile_data %}
+                        {% include "profile/profile_data.html.twig" %}
+                    {% endblock %}
+
+                    <div class="profile-dashboard">
+                        <h2>Effectif</h2>
+                        <a href="#" class="cta">Rechercher</a>
+                        {% if profiles is not null %}
+                            <ul class="profiles-list">
+                            {% for profile in profiles|reverse %}
+                                <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} profile-user">
+                                    <h3>{{ profile.firstname }} {{ profile.lastname }}</h3>
+                                    {% block member_roles %}
+                                        {% include "member/member_role.html.twig" %}
+                                    {% endblock %}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
