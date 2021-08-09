@@ -107,6 +107,7 @@ class MemberController extends AbstractController
     public function update(Request $request, int $id): Response
     {
         $profile = $this->entityManager->getRepository(User::class)->find($id);
+        $user = $this->getUser();
 
         $form = $this->createForm(ApplicationType::class, $profile);
 
@@ -122,6 +123,7 @@ class MemberController extends AbstractController
         }
 
         return $this->render('member/update.html.twig', [
+            'user'                  => $user,
             'profile'               => $profile,
             'availibility_form'     => $form->createView()
         ]);

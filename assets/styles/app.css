@@ -381,6 +381,10 @@ li.profile-user {
   align-items: flex-start;
   margin-bottom: 2rem;
 }
+.member-data .actions {
+  display: flex;
+  align-items: center;
+}
 .member-data .data {
   color: var(--profile-data);
 }
@@ -394,7 +398,8 @@ li.profile-user {
 .member-skills {
   margin-bottom: 4rem;
 }
-.member-skills h2 {
+.member-skills h2,
+.member-missions h2 {
   margin-bottom: 2rem;
 }
 
