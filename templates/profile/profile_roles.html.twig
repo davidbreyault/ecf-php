@@ -1,7 +1,7 @@
 {# Affichage dynamique du rôle de l'utilisateur #}
 {% block profile_roles %}
 
-    {% if user.isEmployed %}
+    {# {% if user.isEmployed %}
 
         {% if is_granted('ROLE_COMMERCIAL') %}
 
@@ -28,6 +28,20 @@
         {% else %}
             <p class="job">Candidate</p>
         {% endif %}
+
+    {% endif %} #}
+
+    {% if user.roles[0] == 'ROLE_USER' %}
+
+        <p>{{ (user.gender == 'M') ? 'Candidat' : 'Candidate' }}</p>
+
+    {% elseif user.roles[0] == 'ROLE_EMPLOYEE' %}
+
+        <p>{{ (user.gender == 'M') ? 'Collaborateur' : 'Collaboratrice' }}</p>
+
+    {% else %}
+
+        <p>{{ (user.gender == 'M') ? 'Commercial' : 'Commerciale' }}</p>
 
     {% endif %}
 

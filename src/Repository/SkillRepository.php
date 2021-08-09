@@ -19,6 +19,15 @@ class SkillRepository extends ServiceEntityRepository
         parent::__construct($registry, Skill::class);
     }
 
+    public function getDistinctValues() 
+    {
+        $query = $this->createQueryBuilder('skill')
+            ->select('skill')
+            ->distinct(true)
+            ->orderBy('skill.name');
+
+        return $query;
+    }
     // /**
     //  * @return Skill[] Returns an array of Skill objects
     //  */

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les profils{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_COMMERCIAL') %}
+
+                <div class="profile-header cta-right">
+                    <a href="{{ path('members') }}" class="cta">Retour</a>
+                </div>
+                <h1>Rechercher avancée</h1>
+                {{ form_start(search_member_form, {'attr': {'class': 'form'}}) }}
+                {{ form_end(search_member_form) }}
+
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

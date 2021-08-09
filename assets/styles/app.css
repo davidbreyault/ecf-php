@@ -336,11 +336,20 @@ ul[class='profiles-list'] {
   margin-bottom: 2rem;
 }
 li.profile-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 1rem;
   box-shadow: var(--shadow);
 }
-li.is-employed {
-  background-color: var(--dashboard-feature);
+.profile-user a {
+  color: var(--secondary-background);
+}
+.profile-user p {
+  color: var(--profile-data);
+}
+.is-employed {
+  background-color: var(--forms-background);
 }
 
 

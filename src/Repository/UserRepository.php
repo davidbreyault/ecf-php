@@ -36,9 +36,47 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    public function searchProfile($settings)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u');
+
+            if (!is_null($settings['skill']) || !is_null($settings['level'])) {
+                $query = $query
+                    ->innerJoin('u.skill', 's')
+                    ->addSelect('s');
+            }
+
+            if (!is_null($settings['name'])) {
+                $query = $query
+                    ->where('u.lastname = :lastname')
+                    ->setParameter('lastname', $settings['name']);
+            }
+
+            if (!is_null($settings['skill'])) {
+                $query = $query
+                    // ->innerJoin('u.skill', 's', 'WITH', 's.name = :name')
+                    // ->addSelect('s')
+                    ->andWhere('s.name = :name')
+                    ->setParameter('name', $settings['skill']->getName());
+            }
+
+            if (!is_null($settings['level'])) {
+                $query = $query
+                    //->innerJoin('u.skill', 's', 'WITH', 's.level >= :level')
+                    //->addSelect('s')
+                    ->andWhere('s.level >= :level')
+                    ->setParameter('level', $settings['level']);
+            }
+
+        return $query->getQuery()->getResult();
+    }
+
+    
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
+
     /*
     public function findByExampleField($value)
     {
