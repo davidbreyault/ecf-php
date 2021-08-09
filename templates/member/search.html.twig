@@ -10,9 +10,28 @@
                 <div class="profile-header cta-right">
                     <a href="{{ path('members') }}" class="cta">Retour</a>
                 </div>
-                <h1>Rechercher avancée</h1>
+                <h1>Recherche avancée</h1>
                 {{ form_start(search_member_form, {'attr': {'class': 'form'}}) }}
                 {{ form_end(search_member_form) }}
+
+                {% if profiles is not null %}
+                    <ul class="profiles-list">
+                        {% for profile in profiles|reverse %}
+                            <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} profile-user">
+                                <div>
+                                    <h3>{{ profile.firstname }} {{ profile.lastname }}</h3>
+                                    {% block member_roles %}
+                                        {% include "member/member_role.html.twig" %}
+                                    {% endblock %}
+                                    <a href="#">Plus d'infos</a>
+                                </div>
+                                <div>
+                                    <img src="https://eu.ui-avatars.com/api/?name={{ profile.firstname }}+{{ profile.lastname }}&size=50&background={{ (profile.gender == 'M') ? '448CF8' : 'FF9DAD' }}&color=FFF" alt="profile-picture">
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
             {% endif %}
         </div>

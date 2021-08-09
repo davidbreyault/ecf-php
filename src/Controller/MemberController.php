@@ -37,39 +37,39 @@ class MemberController extends AbstractController
     /**
      * @Route("/profile/members/search", name="search_members")
      */
-    // public function search_members(Request $request, UserRepository $userRepository)
-    // {
-    //     $searchMemberForm = $this->createForm(SearchMemberType::class);
-
-    //     $searchMemberForm->handleRequest($request);
-
-    //     if ($searchMemberForm->isSubmitted() && $searchMemberForm->isValid()) {
-    //         $settings = $searchMemberForm->getData();
-    //         //dd($settings);
-    //         $profiles = $userRepository->searchProfile($settings);
-    //         //dd($profiles);
-    //     }
-
-    //     return $this->render('member/search.html.twig', [
-    //         'search_member_form'       => $searchMemberForm->createView()
-    //     ]);
-    // }
-    public function search_members(Request $request)
+    public function search(Request $request)
     {
         $searchMemberForm = $this->createForm(SearchMemberType::class);
-
+        $profiles = null;
         $searchMemberForm->handleRequest($request);
 
         if ($searchMemberForm->isSubmitted() && $searchMemberForm->isValid()) {
             $settings = $searchMemberForm->getData();
-            //dd($settings);
             $profiles = $this->entityManager->getRepository(User::class)->searchProfile($settings);
-            dd($profiles);
+            //dd($profiles);
         }
-            
 
         return $this->render('member/search.html.twig', [
-            'search_member_form'       => $searchMemberForm->createView()
+            'search_member_form'       => $searchMemberForm->createView(),
+            'profiles'                 => $profiles
+        ]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}", name="card_member")
+     */
+    public function card(Request $request, int $id)
+    {
+        $user = $this->getUser();
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+        $skills = $profile->getSkill()->toArray();
+        $experiences = $profile->getExperience()->toArray();
+
+        return $this->render('member/card.html.twig', [
+            'user'              => $user,
+            'profile'           => $profile,
+            'skills'            => $skills,
+            'experiences'       => $experiences
         ]);
     }
 }

@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les profils{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_COMMERCIAL') %}
+
+                <div class="profile-header">
+                    <h1>Mon espace personnel</h1>
+                    <a href="{{ path('members') }}" class="cta">Retour</a>
+                </div>
+                <div class="profile-infos">
+                    {% block profile_data %}
+                        {% include "profile/profile_data.html.twig" %}
+                    {% endblock %}
+
+                    <div class="profile-dashboard">
+                        <div class="member-infos {{ (profile.isEmployed == 1) ? 'is-employed' : '' }}">
+                            <div class="member-img">
+                                <img src="https://eu.ui-avatars.com/api/?name={{ profile.firstname }}+{{ profile.lastname }}&size=120&background={{ (profile.gender == 'M') ? '448CF8' : 'FF9DAD' }}&color=FFF" alt="profile-picture">
+                            </div>
+                            <div class="member-data">
+                                <div class="member-data-header">
+                                    <div>
+                                        <h2>{{ profile.firstname }} {{ profile.lastname }}</h2>
+                                        {% block member_roles %}
+                                            {% include "member/member_role.html.twig" %}
+                                        {% endblock %}
+                                    </div>
+                                    <div class="actions">
+                                        <a href="#" class="update"><i class="fas fa-pen"></i></a>
+                                    </div>
+                                </div>
+                                <div class="data">
+                                    <p><span>Disponibilité : </span>{{ profile.availability }}</p>
+                                </div>
+                                <div class="data">
+                                    <p><span>Adresse : </span>{{ user.address }}</p>
+                                </div>
+                                <div class="data">
+                                    <p><span>Code postal : </span>{{ user.postcode }}</p>
+                                </div>
+                                <div class="data">
+                                    <p><span>Ville : </span>{{ user.town }}</p>
+                                </div>
+                                <div class="data">
+                                    <p><span>Email : </span>{{ user.email }}</p>
+                                </div>
+                                <div class="data">
+                                    <p><span>Téléphone : </span>{{ user.phoneNumber }}</p>
+                                </div>
+                                <div class="data">
+                                    <p><span>Date de naissance : </span>{{ user.birth|date('F j, Y') }}</p>
+                                </div>
+                                <div class="data">
+                                    <p><span>Age : </span>{{ date('now').diff((date(user.birth))).format('%y ans') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="member-skills">
+                            <h2>Compétences de {{ profile.firstname }}</h2>
+                            {% if skills %}
+                                <ul class="skills-list">
+                                    {% for skill in skills %}
+                                        <li class="skill">
+                                            <h3>{{ skill.name }}</h3>
+                                            <p class="italic">{{ skill.category.name }}</p>
+                                            <div class="skill-level">
+                                                <p class="rating hidden">{{ skill.level }}</p>
+                                                <i class="far fa-circle"></i>
+                                                <i class="far fa-circle"></i>
+                                                <i class="far fa-circle"></i>
+                                                <i class="far fa-circle"></i>
+                                                <i class="far fa-circle"></i>
+                                            </div>
+                                            <div class="skill-like">
+                                                {% if skill.appreciated == 1 %}
+                                                    <i class="far fa-thumbs-up"></i>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>{{ profile.firstname }} n'a pas encore ajouté ses compétences.</p>
+                            {% endif %}
+                        </div>
+                        <div class="member-missions">
+                            <h2>Expériences de {{ profile.firstname }}</h2>
+                            <a href="{{ path('add_experience') }}" class="cta add"><i class="fas fa-plus"></i></a>
+                            {% if experiences %}
+                                <ul class="missions-list">
+                                    {% for experience in experiences|sort((a, b) => b.dateStart <=> a.dateStart) %}
+                                        <li class="mission">
+                                            <div class="mission-header">
+                                                <div class="actions">
+                                                    <a href="{{ path('update_experience', {'id': experience.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                                                    <a href="{{ path('delete_experience', {'id': experience.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
+                                                </div>
+                                                {% if experience.dateEnd %}
+                                                    <p class="mission-date">du {{ experience.dateStart|date('d/m/Y') }} au {{ experience.dateEnd|date('d/m/Y') }}</p>
+                                                {% else %}
+                                                    <p class="mission-date">depuis le {{ experience.dateStart|date('d/m/Y') }}</p>
+                                                {% endif %}
+                                            </div>
+                                            <div class="mission-infos">
+                                                <h3>{{ experience.profession }}</h3>
+                                                <p>{{ experience.companyName }} - {{ experience.workplaceTown }}</p>
+                                                <p>{{ experience.description }}</p>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>{{ profile.firstname }} n'a pas encore ajouté ses expériences.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

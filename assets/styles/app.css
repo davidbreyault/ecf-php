@@ -230,14 +230,14 @@ li[class] {
 
 
 
-.profile-skills ul {
-  display: flex;
-  flex-wrap: wrap;
+.profile-skills ul,
+.member-skills ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
-.profile-skills .skill {
-  width: max-content;
-  margin-right: 1.5rem;
-  margin-bottom: 1.5rem;
+.profile-skills .skill, 
+.member-skills .skill {
   padding: 1.2rem;
   border-radius: 0.2rem;
   background-color: var(--dashboard-feature);
@@ -350,6 +350,52 @@ li.profile-user {
 }
 .is-employed {
   background-color: var(--forms-background);
+}
+
+
+
+
+.member-infos {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+  padding: 2rem;
+  border-radius: 0.2rem;
+}
+.member-infos.is-employed {
+  box-shadow: var(--shadow);
+}
+.member-infos .update i {
+  color: var(--secondary-background);
+}
+.member-data {
+  width: 100%;
+  margin-left: 2rem;
+  padding-left: 2rem;
+  border-left: solid 1px var(--borders);
+}
+.member-data-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.member-data .data {
+  color: var(--profile-data);
+}
+.member-data .data span {
+  color: var(--primary-color);
+}
+
+
+
+
+.member-skills {
+  margin-bottom: 4rem;
+}
+.member-skills h2 {
+  margin-bottom: 2rem;
 }
 
 
