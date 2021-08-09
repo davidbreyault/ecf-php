@@ -32,7 +32,7 @@ class SearchMemberType extends AbstractType
                 }
             ])
             ->add('level', ChoiceType::class, [
-                'label'         => 'Sélectionner le niveau de compétence à rechercher',
+                'label'         => 'Niveau de compétence',
                 'choices'       => [
                     '0'           => 0,
                     '1'           => 1,

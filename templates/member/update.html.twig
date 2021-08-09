@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier les données de {{ profile.firstname }}.{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_COMMERCIAL') %}
+             <div class="profile-header cta-right">
+                <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
+            </div>
+            <h1>Modifier la disponibilité de {{ profile.firstname }}</h1>
+
+                {{ form_start(availibility_form, {'attr': {'class': 'form update-form'}}) }}
+                    <div class="hidden">
+                            {{ form_label(availibility_form.firstname) }} 
+                            {{ form_widget(availibility_form.firstname) }}
+                    </div>
+                    <div class="hidden">
+                            {{ form_label(availibility_form.lastname) }} 
+                            {{ form_widget(availibility_form.lastname) }}
+                    </div>
+                    <div class="hidden">
+                            {{ form_label(availibility_form.gender) }} 
+                            {{ form_widget(availibility_form.gender) }}
+                    </div>
+                    <div class="hidden">
+                            {{ form_label(availibility_form.birth) }} 
+                            {{ form_widget(availibility_form.birth) }}
+                    </div>
+                    <div class="hidden">
+                            {{ form_label(availibility_form.address) }} 
+                            {{ form_widget(availibility_form.address) }}
+                    </div>
+                    <div class="hidden">
+                            {{ form_label(availibility_form.postcode) }} 
+                            {{ form_widget(availibility_form.postcode) }}
+                    </div>
+                    <div class="hidden">
+                            {{ form_label(availibility_form.town) }} 
+                            {{ form_widget(availibility_form.town) }}
+                    </div>
+                    <div class="hidden">
+                            {{ form_label(availibility_form.phone_number) }} 
+                            {{ form_widget(availibility_form.phone_number) }}
+                    </div>
+
+                    {{ form_row(availibility_form.availability) }}
+                    {{ form_row(availibility_form.send, {'label': 'Modifier'}) }}
+                {{ form_end(availibility_form) }}
+
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\Experience;
+use App\Form\ExperienceType;
+use App\Form\ApplicationType;
 use App\Form\SearchMemberType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +28,6 @@ class MemberController extends AbstractController
     {
         $user = $this->getUser();
         $profiles = $this->entityManager->getRepository(User::class)->findAll();
-        //dd($profiles);
 
         return $this->render('member/index.html.twig', [
             'user'              => $user,
@@ -46,7 +47,6 @@ class MemberController extends AbstractController
         if ($searchMemberForm->isSubmitted() && $searchMemberForm->isValid()) {
             $settings = $searchMemberForm->getData();
             $profiles = $this->entityManager->getRepository(User::class)->searchProfile($settings);
-            //dd($profiles);
         }
 
         return $this->render('member/search.html.twig', [
@@ -70,6 +70,89 @@ class MemberController extends AbstractController
             'profile'           => $profile,
             'skills'            => $skills,
             'experiences'       => $experiences
+        ]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/experience/add", name="add_experience_member")
+     */
+    public function add_experience(Request $request, int $id): Response
+    {
+        $experience = new Experience;
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+
+        $form = $this->createForm(ExperienceType::class, $experience);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $experience = $form->getData();
+
+            $profile->addExperience($experience);
+            $this->entityManager->persist($experience);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'La mission a bien été ajoutée sur le profil de ' . $profile->getFirstname());
+            return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+        }
+
+        return $this->render('member/experience/add.html.twig', [
+            'profile'           => $profile,
+            'experience_form'   => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/update", name="update_data_member")
+     */
+    public function update(Request $request, int $id): Response
+    {
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+
+        $form = $this->createForm(ApplicationType::class, $profile);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $profile = $form->getData();
+
+            $this->entityManager->persist($profile);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'La disponibilité de ' . $profile->getFirstname() . ' a bien été mise à jour.');
+            return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+        }
+
+        return $this->render('member/update.html.twig', [
+            'profile'               => $profile,
+            'availibility_form'     => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/experience/update", name="update_experience_member")
+     */
+    public function update_experience(Request $request, int $id): Response
+    {
+        $experience = $this->entityManager->getRepository(Experience::class)->find($id);
+        $profile_id = $experience->getUser()->getId();
+        $profile = $this->entityManager->getRepository(User::class)->find($profile_id);
+
+        $form = $this->createForm(ExperienceType::class, $experience);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $experience = $form->getData();
+
+            $profile->addExperience($experience);
+            $this->entityManager->persist($experience);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'La mission a bien été modifiée sur le profil de ' . $profile->getFirstname());
+            return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+        }
+
+        return $this->render('member/experience/update.html.twig', [
+            'profile'           => $profile,
+            'experience_form'   => $form->createView()
         ]);
     }
 }

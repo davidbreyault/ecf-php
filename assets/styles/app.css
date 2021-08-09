@@ -289,10 +289,10 @@ li[class] {
   align-items: center;
 
 }
-.mission-header a:first-of-type {
+.mission-header a.update {
   color: var(--seconday-background);
 }
-.mission-header a:last-of-type {
+.mission-header a.delete {
   margin-left: 0.3rem;
   color: var(--alert-color);
   font-size: 1.9rem;

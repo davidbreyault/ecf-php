@@ -4,12 +4,23 @@
 
 {% block body %}
     <section>
+
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="success">
+                    <div class="container">
+                        <div>{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         <div class="container">
             {% if is_granted('ROLE_COMMERCIAL') %}
 
                 <div class="profile-header">
                     <h1>Mon espace personnel</h1>
-                    <a href="{{ path('members') }}" class="cta">Retour</a>
+                    <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
                 </div>
                 <div class="profile-infos">
                     {% block profile_data %}
@@ -30,32 +41,32 @@
                                         {% endblock %}
                                     </div>
                                     <div class="actions">
-                                        <a href="#" class="update"><i class="fas fa-pen"></i></a>
+                                        <a href="{{ path('update_data_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
                                     </div>
                                 </div>
                                 <div class="data">
                                     <p><span>Disponibilité : </span>{{ profile.availability }}</p>
                                 </div>
                                 <div class="data">
-                                    <p><span>Adresse : </span>{{ user.address }}</p>
+                                    <p><span>Adresse : </span>{{ profile.address }}</p>
                                 </div>
                                 <div class="data">
-                                    <p><span>Code postal : </span>{{ user.postcode }}</p>
+                                    <p><span>Code postal : </span>{{ profile.postcode }}</p>
                                 </div>
                                 <div class="data">
-                                    <p><span>Ville : </span>{{ user.town }}</p>
+                                    <p><span>Ville : </span>{{ profile.town }}</p>
                                 </div>
                                 <div class="data">
-                                    <p><span>Email : </span>{{ user.email }}</p>
+                                    <p><span>Email : </span>{{ profile.email }}</p>
                                 </div>
                                 <div class="data">
-                                    <p><span>Téléphone : </span>{{ user.phoneNumber }}</p>
+                                    <p><span>Téléphone : </span>{{ profile.phoneNumber }}</p>
                                 </div>
                                 <div class="data">
-                                    <p><span>Date de naissance : </span>{{ user.birth|date('F j, Y') }}</p>
+                                    <p><span>Date de naissance : </span>{{ profile.birth|date('F j, Y') }}</p>
                                 </div>
                                 <div class="data">
-                                    <p><span>Age : </span>{{ date('now').diff((date(user.birth))).format('%y ans') }}</p>
+                                    <p><span>Age : </span>{{ date('now').diff((date(profile.birth))).format('%y ans') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -89,15 +100,14 @@
                         </div>
                         <div class="member-missions">
                             <h2>Expériences de {{ profile.firstname }}</h2>
-                            <a href="{{ path('add_experience') }}" class="cta add"><i class="fas fa-plus"></i></a>
+                            <a href="{{ path('add_experience_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
                             {% if experiences %}
                                 <ul class="missions-list">
                                     {% for experience in experiences|sort((a, b) => b.dateStart <=> a.dateStart) %}
                                         <li class="mission">
                                             <div class="mission-header">
                                                 <div class="actions">
-                                                    <a href="{{ path('update_experience', {'id': experience.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                                                    <a href="{{ path('delete_experience', {'id': experience.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
+                                                    <a href="{{ path('update_experience_member', {'id': experience.id}) }}" class="update"><i class="fas fa-pen"></i></a>
                                                 </div>
                                                 {% if experience.dateEnd %}
                                                     <p class="mission-date">du {{ experience.dateStart|date('d/m/Y') }} au {{ experience.dateEnd|date('d/m/Y') }}</p>
