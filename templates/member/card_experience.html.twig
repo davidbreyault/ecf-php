@@ -3,12 +3,10 @@
     <div class="member-missions">
         <h2>Expériences de {{ profile.firstname }}</h2>
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_COMMERCIAL') %}
+
             <a href="{{ path('add_experience_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
-        {% else %}
-            {% if profile.roles[0] != 'ROLE_COMMERCIAL' and profile.roles[0] != 'ROLE_ADMIN' %}
-                <a href="{{ path('add_experience_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
-            {% endif %}
+        
         {% endif %}
 
         {% if experiences %}

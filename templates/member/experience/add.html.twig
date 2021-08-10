@@ -3,6 +3,7 @@
 {% block title %}Ajoutez une expérience{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
             {% if is_granted('ROLE_COMMERCIAL') %}
@@ -10,10 +11,11 @@
                 <div class="profile-header cta-right">
                     <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
                 </div>
-                <h1>Ajoutez une expérience à {{ profile.firstname }}</h1>
+                <h1>{{ (experience is defined) ? 'Modifier' : 'Ajouter' }} une expérience à {{ profile.firstname }}</h1>
                 {{ form_start(experience_form, {'attr': {'class': 'form'}}) }}
                 {{ form_end(experience_form) }}
             {% endif %}
         </div>
     </section>
+
 {% endblock %}

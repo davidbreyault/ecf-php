@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Experience;
+use App\Entity\Skill;
 use App\Form\UserType;
 use App\Form\ExperienceType;
+use App\Form\SkillType;
 use App\Form\ApplicationType;
 use App\Form\SearchMemberType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -178,14 +180,21 @@ class MemberController extends AbstractController
     public function takeOn(Request $request, int $id): Response
     {
         $profile = $this->entityManager->getRepository(User::class)->find($id);
-        //dd($profile->getIsEmployed());
         $profile->setIsEmployed(1);
         $profile->setRoles(['ROLE_EMPLOYEE']);
+
         $this->entityManager->persist($profile);
         $this->entityManager->flush();
         $this->addFlash('success', 'Félicitations ! Vous avez embauché ' . $profile->getFirstname() . ' ' . $profile->getLastname());
         return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
     }
+
+
+
+
+
+
+
 
     /**
      * @Route("/profile/member/{id}/experience/add", name="add_experience_member")
@@ -238,7 +247,8 @@ class MemberController extends AbstractController
             return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
         }
 
-        return $this->render('member/experience/update.html.twig', [
+        return $this->render('member/experience/add.html.twig', [
+            'experience'        => $experience,
             'profile'           => $profile,
             'experience_form'   => $form->createView()
         ]);
@@ -258,6 +268,87 @@ class MemberController extends AbstractController
         $this->entityManager->remove($experience);
         $this->entityManager->flush();
         $this->addFlash('success', 'La mission a bien été supprimée des expériences de ' . $profile->getFirstname());
+        return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+    }
+
+
+
+
+
+
+
+    /**
+     * @Route("/profile/member/{id}/skill/add", name="add_skill_member")
+     */
+    public function add_skill(Request $request, int $id): Response
+    {
+        $skill = new Skill;
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+
+        $form = $this->createForm(SkillType::class, $skill);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $skill = $form->getData();
+
+            $profile->addSkill($skill);
+            $this->entityManager->persist($skill);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'La compétence a bien été ajoutée sur le profil de ' . $profile->getFirstname());
+            return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+        }
+
+        return $this->render('member/skill/add.html.twig', [
+            'profile'           => $profile,
+            'skill_form'        => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/skill/update", name="update_skill_member")
+     */
+    public function update_skill(Request $request, int $id): Response
+    {
+        $skill = $this->entityManager->getRepository(Skill::class)->find($id);
+        $profile_id = $skill->getUsers()[0]->getId();
+        $profile = $this->entityManager->getRepository(User::class)->find($profile_id);
+
+        $form = $this->createForm(SkillType::class, $skill);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $skill = $form->getData();
+
+            $profile->addSkill($skill);
+            $this->entityManager->persist($skill);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'La compétence a bien été modifiée sur le profil de ' . $profile->getFirstname());
+            return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+        }
+
+        return $this->render('member/skill/add.html.twig', [
+            'skill'             => $skill,
+            'profile'           => $profile,
+            'skill_form'        => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/skill/delete", name="delete_skill_member")
+     */
+    public function delete_skill(Request $request, int $id): Response
+    {
+        $skill = $this->entityManager->getRepository(Skill::class)->find($id);
+        $profile_id = $skill->getUsers()[0]->getId();
+        $profile = $this->entityManager->getRepository(User::class)->find($profile_id);
+
+        $profile->removeSkill($skill);
+        $this->entityManager->persist($skill);
+        $this->entityManager->remove($skill);
+        $this->entityManager->flush();
+        $this->addFlash('success', 'La compétence de '. $profile->getFirstname() .' a bien été supprimée.');
         return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
     }
 }

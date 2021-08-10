@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une compétence{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_COMMERCIAL') %}
+                
+                <div class="profile-header cta-right">
+                    <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
+                </div>
+                <h1>{{ (skill is defined) ? 'Modifier' : 'Ajouter' }} une compétence à {{ profile.firstname }}</h1>
+                {{ form_start(skill_form, {'attr': {'class': 'form'}}) }}
+                    <div>
+                        {{ form_label(skill_form.name) }} 
+                        {{ form_widget(skill_form.name) }}
+                    </div>
+                    <div>
+                        {{ form_label(skill_form.level, '', {'label': 'Estimez son niveau de compétence'}) }} 
+                        {{ form_widget(skill_form.level) }}
+                    </div>
+                {{ form_end(skill_form) }}
+                
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

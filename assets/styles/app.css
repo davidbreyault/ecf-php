@@ -278,12 +278,14 @@ li[class] {
 
 
 
+
 .mission-header {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
 }
+.skill .actions,
 .mission .actions {
   display: flex;
   align-items: center;
@@ -397,6 +399,11 @@ li.profile-user {
 .member-skills h2,
 .member-missions h2 {
   margin-bottom: 2rem;
+}
+.member-skills .skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 

@@ -18,6 +18,17 @@
             </div>
 
         {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+
+            <h2>Nomenclature</h2>
+            <div class="actions-cta">
+                <a href="#" class="cta">Gérer les entreprises</a>
+                <a href="#" class="cta">Gérer les catégories</a>
+                <a href="#" class="cta">Gérer les compétences</a>
+            </div>
+
+        {% endif %}
+    
         <h2>Mon compte</h2>
         {% if not user.address %}
             <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
