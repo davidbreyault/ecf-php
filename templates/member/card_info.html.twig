@@ -15,10 +15,10 @@
                 <div class="actions">
 
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('update_data_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                        <a href="{{ path('update_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
                     {% else %}
                         {% if profile.roles[0] != 'ROLE_COMMERCIAL' and profile.roles[0] != 'ROLE_ADMIN' %}
-                            <a href="{{ path('update_data_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                            <a href="{{ path('update_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
                         {% endif %}
                     {% endif %}
 

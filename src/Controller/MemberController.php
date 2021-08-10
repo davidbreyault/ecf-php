@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Experience;
+use App\Form\UserType;
 use App\Form\ExperienceType;
 use App\Form\ApplicationType;
 use App\Form\SearchMemberType;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MemberController extends AbstractController
 {
@@ -74,7 +76,42 @@ class MemberController extends AbstractController
     }
 
     /**
-     * @Route("/profile/member/{id}/update", name="update_data_member")
+     * @Route("/profile/members/add", name="add_member")
+     */
+    public function add(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $profile = new User;
+        $addMemberForm = $this->createForm(UserType::class, $profile);
+        $addMemberForm->handleRequest($request);
+
+        if ($addMemberForm->isSubmitted() && $addMemberForm->isValid()) {
+            $profile = $addMemberForm->getData();
+            // Encodage du mot de passe
+            $profile->setPassword($passwordEncoder->encodePassword($profile, $profile->getPassword()));
+            // Transformation du nom de et de la ville de l'utilisateur en majuscule
+            $profile->setLastname(strtoupper($profile->getLastname()));
+            $profile->setTown(strtoupper($profile->getTown()));
+            $profile->setCreatedAt(new \DateTimeImmutable());
+            // Si le nouveau profil compte parmi l'effectif de l'entreprise
+            if ($profile->getIsEmployed()) {
+                // Attribution de son rôle
+                $profile->setRoles(['ROLE_EMPLOYEE']);
+            }
+
+            // Transfert en base de donnéees
+            $this->entityManager->persist($profile);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Le nouvel utilisateur a bien été crée !');
+            return $this->redirectToRoute('members');
+        }
+
+        return $this->render('member/add.html.twig', [
+            'add_member_form'           => $addMemberForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/update", name="update_member")
      */
     public function update(Request $request, int $id): Response
     {
@@ -90,7 +127,7 @@ class MemberController extends AbstractController
 
             $this->entityManager->persist($profile);
             $this->entityManager->flush();
-            $this->addFlash('success', 'La disponibilité de ' . $profile->getFirstname() . ' a bien été mise à jour.');
+            $this->addFlash('success', 'Les données de ' . $profile->getFirstname() . ' ont bien été mises à jour.');
             return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
         }
 
