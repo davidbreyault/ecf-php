@@ -1,0 +1,55 @@
+{% block card_infos %}
+
+    <div class="member-infos {{ (profile.isEmployed == 1) ? 'is-employed' : '' }}">
+        <div class="member-img">
+            <img src="https://eu.ui-avatars.com/api/?name={{ profile.firstname }}+{{ profile.lastname }}&size=120&background={{ (profile.gender == 'M') ? '448CF8' : 'FF9DAD' }}&color=FFF" alt="profile-picture">
+        </div>
+        <div class="member-data">
+            <div class="member-data-header">
+                <div>
+                    <h2>{{ profile.firstname }} {{ profile.lastname }}</h2>
+                    {% block member_roles %}
+                        {% include "member/member_role.html.twig" %}
+                    {% endblock %}
+                </div>
+                <div class="actions">
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('update_data_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                    {% else %}
+                        {% if profile.roles[0] != 'ROLE_COMMERCIAL' and profile.roles[0] != 'ROLE_ADMIN' %}
+                            <a href="{{ path('update_data_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="data">
+                <p><span>Disponibilité : </span>{{ profile.availability }}</p>
+            </div>
+            <div class="data">
+                <p><span>Adresse : </span>{{ profile.address }}</p>
+            </div>
+            <div class="data">
+                <p><span>Code postal : </span>{{ profile.postcode }}</p>
+            </div>
+            <div class="data">
+                <p><span>Ville : </span>{{ profile.town }}</p>
+            </div>
+            <div class="data">
+                <p><span>Email : </span>{{ profile.email }}</p>
+            </div>
+            <div class="data">
+                <p><span>Téléphone : </span>{{ profile.phoneNumber }}</p>
+            </div>
+            <div class="data">
+                <p><span>Date de naissance : </span>{{ profile.birth|date('F j, Y') }}</p>
+            </div>
+            <div class="data">
+                <p><span>Age : </span>{{ date('now').diff((date(profile.birth))).format('%y ans') }}</p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

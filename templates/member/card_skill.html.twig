@@ -1,0 +1,32 @@
+{% block card_skill %}
+
+    <div class="member-skills">
+        <h2>Compétences de {{ profile.firstname }}</h2>
+        {% if skills %}
+            <ul class="skills-list">
+                {% for skill in skills %}
+                    <li class="skill">
+                        <h3>{{ skill.name }}</h3>
+                        <p class="italic">{{ skill.category.name }}</p>
+                        <div class="skill-level">
+                            <p class="rating hidden">{{ skill.level }}</p>
+                            <i class="far fa-circle"></i>
+                            <i class="far fa-circle"></i>
+                            <i class="far fa-circle"></i>
+                            <i class="far fa-circle"></i>
+                            <i class="far fa-circle"></i>
+                        </div>
+                        <div class="skill-like">
+                            {% if skill.appreciated == 1 %}
+                                <i class="far fa-thumbs-up"></i>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ profile.firstname }} n'a pas encore ajouté ses compétences.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

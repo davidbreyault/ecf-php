@@ -3,7 +3,19 @@
 {% block title %}Tous les profils{% endblock %}
 
 {% block body %}
+
     <section>
+
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="success">
+                    <div class="container">
+                        <div>{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         <div class="container">
             {% if is_granted('ROLE_COMMERCIAL') %}
 
@@ -43,4 +55,5 @@
             {% endif %}
         </div>
     </section>
+
 {% endblock %}

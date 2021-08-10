@@ -26,7 +26,6 @@ class ExperienceController extends AbstractController
     {
         $user = $this->getUser();
         $experiences = $user->getExperience()->toArray();
-        //dd($experiences);
 
         return $this->render('profile/experience/index.html.twig', [
             'user'          => $user,

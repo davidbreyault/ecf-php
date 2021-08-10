@@ -3,6 +3,7 @@
 {% block title %}Tous les profils{% endblock %}
 
 {% block body %}
+
     <section>
 
         {% for type, messages in app.flashes %}
@@ -20,7 +21,7 @@
 
                 <div class="profile-header">
                     <h1>Mon espace personnel</h1>
-                    <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
+                    <a href="{{ path('members') }}" class="cta">Retour</a>
                 </div>
                 <div class="profile-infos">
                     {% block profile_data %}
@@ -30,139 +31,28 @@
                     <div class="profile-dashboard">
 
                         {% if is_granted('ROLE_ADMIN') %}
-                            {# Empêche l'administrateur de supprimer son propre compte #}
-                            {% if user.email != profile.email %}
-                                <a href="#" class="cta delete">Supprimer l'utilisateur</a>
-                            {% endif %}
+                            <div class="actions-cta">
+                                {% if profile.isEmployed == 0 %}
+                                    <a href="{{ path('takeon_candidate', {'id': profile.id}) }}" class="cta">Embaucher {{ profile.firstname }}</a>
+                                {% endif %}
+                                {# Empêche l'administrateur de supprimer son propre compte #}
+                                {% if user.email != profile.email %}
+                                    <a href="{{ path('delete_member', {'id': profile.id}) }}" class="cta delete">Supprimer l'utilisateur</a>
+                                {% endif %}
+                            </div>
                         {% endif %}
 
-                        <div class="member-infos {{ (profile.isEmployed == 1) ? 'is-employed' : '' }}">
-                            <div class="member-img">
-                                <img src="https://eu.ui-avatars.com/api/?name={{ profile.firstname }}+{{ profile.lastname }}&size=120&background={{ (profile.gender == 'M') ? '448CF8' : 'FF9DAD' }}&color=FFF" alt="profile-picture">
-                            </div>
-                            <div class="member-data">
-                                <div class="member-data-header">
-                                    <div>
-                                        <h2>{{ profile.firstname }} {{ profile.lastname }}</h2>
-                                        {% block member_roles %}
-                                            {% include "member/member_role.html.twig" %}
-                                        {% endblock %}
-                                    </div>
-                                    <div class="actions">
+                        {% block card_infos %}
+                            {% include "member/card_info.html.twig" %}
+                        {% endblock %}
 
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a href="{{ path('update_data_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                                        {% else %}
-                                            {% if profile.roles[0] != 'ROLE_COMMERCIAL' and profile.roles[0] != 'ROLE_ADMIN' %}
-                                                <a href="{{ path('update_data_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                                            {% endif %}
-                                        {% endif %}
+                        {% block card_skill %}
+                            {% include "member/card_skill.html.twig" %}
+                        {% endblock %}
 
-                                    </div>
-                                </div>
-                    
-                                <div class="data">
-                                    <p><span>Disponibilité : </span>{{ profile.availability }}</p>
-                                </div>
-                                <div class="data">
-                                    <p><span>Adresse : </span>{{ profile.address }}</p>
-                                </div>
-                                <div class="data">
-                                    <p><span>Code postal : </span>{{ profile.postcode }}</p>
-                                </div>
-                                <div class="data">
-                                    <p><span>Ville : </span>{{ profile.town }}</p>
-                                </div>
-                                <div class="data">
-                                    <p><span>Email : </span>{{ profile.email }}</p>
-                                </div>
-                                <div class="data">
-                                    <p><span>Téléphone : </span>{{ profile.phoneNumber }}</p>
-                                </div>
-                                <div class="data">
-                                    <p><span>Date de naissance : </span>{{ profile.birth|date('F j, Y') }}</p>
-                                </div>
-                                <div class="data">
-                                    <p><span>Age : </span>{{ date('now').diff((date(profile.birth))).format('%y ans') }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-skills">
-                            <h2>Compétences de {{ profile.firstname }}</h2>
-                            {% if skills %}
-                                <ul class="skills-list">
-                                    {% for skill in skills %}
-                                        <li class="skill">
-                                            <h3>{{ skill.name }}</h3>
-                                            <p class="italic">{{ skill.category.name }}</p>
-                                            <div class="skill-level">
-                                                <p class="rating hidden">{{ skill.level }}</p>
-                                                <i class="far fa-circle"></i>
-                                                <i class="far fa-circle"></i>
-                                                <i class="far fa-circle"></i>
-                                                <i class="far fa-circle"></i>
-                                                <i class="far fa-circle"></i>
-                                            </div>
-                                            <div class="skill-like">
-                                                {% if skill.appreciated == 1 %}
-                                                    <i class="far fa-thumbs-up"></i>
-                                                {% endif %}
-                                            </div>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>{{ profile.firstname }} n'a pas encore ajouté ses compétences.</p>
-                            {% endif %}
-                        </div>
-
-                        <div class="member-missions">
-                            <h2>Expériences de {{ profile.firstname }}</h2>
-
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('add_experience_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
-                            {% else %}
-                                {% if profile.roles[0] != 'ROLE_COMMERCIAL' and profile.roles[0] != 'ROLE_ADMIN' %}
-                                    <a href="{{ path('add_experience_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
-                                {% endif %}
-                            {% endif %}
-
-                            {% if experiences %}
-                                <ul class="missions-list">
-                                    {% for experience in experiences|sort((a, b) => b.dateStart <=> a.dateStart) %}
-                                        <li class="mission">
-                                            <div class="mission-header">
-                                                <div class="actions">
-
-                                                {% if is_granted('ROLE_ADMIN') %}
-                                                    <a href="{{ path('update_experience_member', {'id': experience.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                                                    <a href="#" class="delete"><i class="fas fa-times-circle"></i></a>
-                                                {% else %}
-                                                    {% if profile.roles[0] != 'ROLE_COMMERCIAL' and profile.roles[0] != 'ROLE_ADMIN' %}
-                                                        <a href="{{ path('update_experience_member', {'id': experience.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                                                    {% endif %}
-                                                {% endif %}
-
-                                                </div>
-                                                {% if experience.dateEnd %}
-                                                    <p class="mission-date">du {{ experience.dateStart|date('d/m/Y') }} au {{ experience.dateEnd|date('d/m/Y') }}</p>
-                                                {% else %}
-                                                    <p class="mission-date">depuis le {{ experience.dateStart|date('d/m/Y') }}</p>
-                                                {% endif %}
-                                            </div>
-                                            <div class="mission-infos">
-                                                <h3>{{ experience.profession }}</h3>
-                                                <p>{{ experience.companyName }} - {{ experience.workplaceTown }}</p>
-                                                <p>{{ experience.description }}</p>
-                                            </div>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>{{ profile.firstname }} n'a pas encore ajouté ses expériences.</p>
-                            {% endif %}
-                        </div>
+                        {% block card_experience %}
+                            {% include "member/card_experience.html.twig" %}
+                        {% endblock %}
 
                     </div>
                 </div>
@@ -170,4 +60,5 @@
             {% endif %}
         </div>
     </section>
+
 {% endblock %}

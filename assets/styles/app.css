@@ -381,10 +381,6 @@ li.profile-user {
   align-items: flex-start;
   margin-bottom: 2rem;
 }
-.member-data .actions {
-  display: flex;
-  align-items: center;
-}
 .member-data .data {
   color: var(--profile-data);
 }

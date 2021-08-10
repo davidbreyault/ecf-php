@@ -10,43 +10,43 @@
                 <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
             </div>
             <h1>Modifier les données de {{ profile.firstname }}</h1>
-                {{ form_start(availibility_form, {'attr': {'class': 'form update-form'}}) }}
+                {{ form_start(profile_form, {'attr': {'class': 'form update-form'}}) }}
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.firstname) }} 
-                            {{ form_widget(availibility_form.firstname) }}
+                            {{ form_label(profile_form.firstname) }} 
+                            {{ form_widget(profile_form.firstname) }}
                     </div>
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.lastname) }} 
-                            {{ form_widget(availibility_form.lastname) }}
+                            {{ form_label(profile_form.lastname) }} 
+                            {{ form_widget(profile_form.lastname) }}
                     </div>
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.gender) }} 
-                            {{ form_widget(availibility_form.gender) }}
+                            {{ form_label(profile_form.gender) }} 
+                            {{ form_widget(profile_form.gender) }}
                     </div>
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.birth) }} 
-                            {{ form_widget(availibility_form.birth) }}
+                            {{ form_label(profile_form.birth) }} 
+                            {{ form_widget(profile_form.birth) }}
                     </div>
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.address) }} 
-                            {{ form_widget(availibility_form.address) }}
+                            {{ form_label(profile_form.address) }} 
+                            {{ form_widget(profile_form.address) }}
                     </div>
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.postcode) }} 
-                            {{ form_widget(availibility_form.postcode) }}
+                            {{ form_label(profile_form.postcode) }} 
+                            {{ form_widget(profile_form.postcode) }}
                     </div>
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.town) }} 
-                            {{ form_widget(availibility_form.town) }}
+                            {{ form_label(profile_form.town) }} 
+                            {{ form_widget(profile_form.town) }}
                     </div>
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
-                            {{ form_label(availibility_form.phone_number) }} 
-                            {{ form_widget(availibility_form.phone_number) }}
+                            {{ form_label(profile_form.phone_number) }} 
+                            {{ form_widget(profile_form.phone_number) }}
                     </div>
 
-                    {{ form_row(availibility_form.availability) }}
-                    {{ form_row(availibility_form.send, {'label': 'Modifier'}) }}
-                {{ form_end(availibility_form) }}
+                    {{ form_row(profile_form.availability) }}
+                    {{ form_row(profile_form.send, {'label': 'Modifier'}) }}
+                {{ form_end(profile_form) }}
 
             {% endif %}
         </div>
