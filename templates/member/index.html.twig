@@ -40,6 +40,7 @@
                             {% endif %}
                         </div>
                         {% if profiles is not null %}
+
                             <ul class="profiles-list">
                             {% for profile in profiles|reverse %}
                                 <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} profile-user">
@@ -56,6 +57,7 @@
                                 </li>
                             {% endfor %}
                             </ul>
+                            
                         {% endif %}
                     </div>
                 </div>

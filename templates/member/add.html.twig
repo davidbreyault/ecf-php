@@ -3,16 +3,20 @@
 {% block title %}Ajouter un profil utilisateur{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
             {% if is_granted('ROLE_ADMIN') %}
-             <div class="profile-header cta-right">
-                <a href="{{ path('members') }}" class="cta">Retour</a>
-            </div>
-            <h1>Ajouter un utilisateur</h1>
+
+                <div class="profile-header cta-right">
+                    <a href="{{ path('members') }}" class="cta">Retour</a>
+                </div>
+                <h1>Ajouter un utilisateur</h1>
                 {{ form_start(add_member_form, {'attr': {'class': 'form add-member-form'}}) }}
                 {{ form_end(add_member_form) }}
+
             {% endif %}
         </div>
     </section>
+
 {% endblock %}

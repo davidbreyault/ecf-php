@@ -63,8 +63,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
             if (!is_null($settings['level'])) {
                 $query = $query
-                    //->innerJoin('u.skill', 's', 'WITH', 's.level >= :level')
-                    //->addSelect('s')
                     ->andWhere('s.level >= :level')
                     ->setParameter('level', $settings['level']);
             }
@@ -76,7 +74,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
-
     /*
     public function findByExampleField($value)
     {

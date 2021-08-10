@@ -3,6 +3,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
             <h1>Se connecter</h1>
@@ -28,6 +29,7 @@
                 </div>
             </div>
         {% endif %}
+
         {% for type, messages in app.flashes %}
             {% for message in messages %}
                 <div class="success">
@@ -37,5 +39,7 @@
                 </div>
             {% endfor %}
         {% endfor %}
+
     </section>
+    
 {% endblock %}

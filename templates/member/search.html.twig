@@ -3,6 +3,7 @@
 {% block title %}Tous les profils{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
             {% if is_granted('ROLE_COMMERCIAL') %}
@@ -13,8 +14,8 @@
                 <h1>Recherche avancée</h1>
                 {{ form_start(search_member_form, {'attr': {'class': 'form'}}) }}
                 {{ form_end(search_member_form) }}
-
                 {% if profiles is not null %}
+
                     <ul class="profiles-list">
                         {% for profile in profiles|reverse %}
                             <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} profile-user">
@@ -31,11 +32,15 @@
                             </li>
                         {% endfor %}
                     </ul>
+
                 {% else %}
+                    
                     <p>ℹ️ Aucun profil utilisateur ne correspond à votre recherche</p>
+                
                 {% endif %}
 
             {% endif %}
         </div>
     </section>
+
 {% endblock %}

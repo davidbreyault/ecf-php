@@ -1,4 +1,5 @@
 {% block profile_data %}
+
     <div class="profile-data">
         <img src="https://eu.ui-avatars.com/api/?name={{ user.firstname }}+{{ user.lastname }}&size=120&background=FFD900&color=000" alt="profile-picture">
         <h2>{{ user.firstname }} {{ user.lastname }}</h2>
@@ -8,6 +9,7 @@
         {% endblock %}
 
         {% if user.address %}
+
             <div class="data">
                 <p><span>Adresse :</span>{{ user.address }}</p>
             </div>
@@ -29,6 +31,8 @@
             <div class="data">
                 <p><span>Age :</span>{{ date('now').diff((date(user.birth))).format('%y ans') }}</p>
             </div>
+            
         {% endif %}
     </div>
+
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block title %}Modifiez vos données{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
              <div class="profile-header cta-right">
@@ -20,7 +21,6 @@
                     {{ form_row(update_profile_data_form.postcode) }}
                     {{ form_row(update_profile_data_form.town) }}
                     {{ form_row(update_profile_data_form.phone_number) }}
-
                     {% if is_granted('ROLE_COMMERCIAL') %}
 
                         <div class="hidden">
@@ -33,11 +33,11 @@
                         {{ form_row(update_profile_data_form.availability) }}
                         
                     {% endif %}
-
                     {{ form_row(update_profile_data_form.send, {'label': 'Modifier'}) }}
                 {{ form_end(update_profile_data_form) }}
 
             {% endif %}
         </div>
     </section>
+
 {% endblock %}

@@ -1,4 +1,5 @@
 {% block profile_dashboard %}
+
     <div class="profile-dashboard">
         {% if is_granted('ROLE_EMPLOYEE') %}
 
@@ -28,21 +29,28 @@
             </div>
 
         {% endif %}
-    
         <h2>Mon compte</h2>
         {% if not user.address %}
+
             <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
+        
         {% endif %}
         <div class="actions-cta">
             {% if user.address %}
+
                 <a href="{{ path('update_data_profile') }}" class="cta">Modifier mes données</a>
-            {% else %}
-                <a href="{{ path('application') }}" class="cta">Candidatez</a>
-            {% endif %}
             
+            {% else %}
+
+                <a href="{{ path('application') }}" class="cta">Candidatez</a>
+            
+            {% endif %}
             {% if is_granted('ROLE_USER') and not is_granted('ROLE_EMPLOYEE') %}
+
                 <a href="{{ path('delete_profile_confirmation') }}" class="cta delete">Supprimer mon compte</a>
+            
             {% endif %}
         </div>
     </div>
+
 {% endblock %}

@@ -8,23 +8,20 @@
             <div class="member-data-header">
                 <div>
                     <h2>{{ profile.firstname }} {{ profile.lastname }}</h2>
+
                     {% block member_roles %}
                         {% include "member/member_role.html.twig" %}
                     {% endblock %}
+
                 </div>
                 <div class="actions">
+                    {% if is_granted('ROLE_COMMERCIAL') %}
 
-                    {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('update_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                    {% else %}
-                        {% if profile.roles[0] != 'ROLE_COMMERCIAL' and profile.roles[0] != 'ROLE_ADMIN' %}
-                            <a href="{{ path('update_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                        {% endif %}
+                    
                     {% endif %}
-
                 </div>
             </div>
-
             <div class="data">
                 <p><span>Disponibilité : </span>{{ profile.availability }}</p>
             </div>

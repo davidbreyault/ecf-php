@@ -3,6 +3,7 @@
 {% block title %}Ajoutez une compétence{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
             {% if is_granted('ROLE_EMPLOYEE') %}
@@ -17,4 +18,5 @@
             {% endif %}
         </div>
     </section>
+    
 {% endblock %}

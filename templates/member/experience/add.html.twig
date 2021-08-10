@@ -13,7 +13,25 @@
                 </div>
                 <h1>{{ (experience is defined) ? 'Modifier' : 'Ajouter' }} une expérience à {{ profile.firstname }}</h1>
                 {{ form_start(experience_form, {'attr': {'class': 'form'}}) }}
+
+                    {{ form_row(experience_form.profession) }}
+                    {{ form_row(experience_form.company_name) }}
+                    {{ form_row(experience_form.workplace_town) }}
+                    {{ form_row(experience_form.date_start) }}
+                    {{ form_row(experience_form.date_end) }}
+                    {{ form_row(experience_form.description) }}
+                    {% if experience is defined %}
+                        
+                        {{ form_row(experience_form.send, {'label': 'Modifier'}) }}
+                    
+                    {% else %}
+                        
+                        {{ form_row(experience_form.send, {'label': 'Ajouter'}) }}
+                    
+                    {% endif %}
+
                 {{ form_end(experience_form) }}
+
             {% endif %}
         </div>
     </section>

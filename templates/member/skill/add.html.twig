@@ -13,6 +13,7 @@
                 </div>
                 <h1>{{ (skill is defined) ? 'Modifier' : 'Ajouter' }} une compétence à {{ profile.firstname }}</h1>
                 {{ form_start(skill_form, {'attr': {'class': 'form'}}) }}
+
                     <div>
                         {{ form_label(skill_form.name) }} 
                         {{ form_widget(skill_form.name) }}
@@ -21,6 +22,24 @@
                         {{ form_label(skill_form.level, '', {'label': 'Estimez son niveau de compétence'}) }} 
                         {{ form_widget(skill_form.level) }}
                     </div>
+                    <div>
+                        {{ form_label(skill_form.appreciated) }} 
+                        {{ form_widget(skill_form.appreciated) }}
+                    </div>
+                    <div>
+                        {{ form_label(skill_form.category) }} 
+                        {{ form_widget(skill_form.category) }}
+                    </div>
+                    {% if skill is defined %}
+
+                        {{ form_row(skill_form.send, {'label': 'Modifier'}) }}
+                    
+                    {% else %}
+
+                        {{ form_row(skill_form.send, {'label': 'Ajouter'}) }}
+                    
+                    {% endif %}
+                    
                 {{ form_end(skill_form) }}
                 
             {% endif %}

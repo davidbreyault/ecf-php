@@ -3,14 +3,17 @@
 {% block title %}Modifier les données de {{ profile.firstname }}.{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
             {% if is_granted('ROLE_COMMERCIAL') %}
+
              <div class="profile-header cta-right">
                 <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
             </div>
             <h1>Modifier les données de {{ profile.firstname }}</h1>
                 {{ form_start(profile_form, {'attr': {'class': 'form update-form'}}) }}
+
                     <div class="{{ (user.roles[0] == 'ROLE_ADMIN') ? '' : 'hidden' }}">
                             {{ form_label(profile_form.firstname) }} 
                             {{ form_widget(profile_form.firstname) }}
@@ -46,9 +49,11 @@
 
                     {{ form_row(profile_form.availability) }}
                     {{ form_row(profile_form.send, {'label': 'Modifier'}) }}
+
                 {{ form_end(profile_form) }}
 
             {% endif %}
         </div>
     </section>
+    
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block title %}Mon espace personnel{% endblock %}
 
 {% block body %}
+
     <section class="profile">
 
         {% for type, messages in app.flashes %}
@@ -23,6 +24,7 @@
                 <a href="{{ path('profile') }}" class="cta">Retour</a>
             </div>
             <div class="profile-infos">
+
                 {% block profile_data %}
                     {% include "profile/profile_data.html.twig" %}
                 {% endblock %}
@@ -31,6 +33,7 @@
                     <h2>Mes compétences</h2>
                     <a href="{{ path('add_skill') }}" class="cta add"><i class="fas fa-plus"></i></a>
                     {% if skills %}
+
                         <ul class="skills-list">
                             {% for skill in skills %}
                                 <li class="skill">
@@ -50,14 +53,19 @@
                                     </div>
                                     <div class="skill-like">
                                         {% if skill.appreciated == 1 %}
+
                                             <i class="far fa-thumbs-up"></i>
+                                            
                                         {% endif %}
                                     </div>
                                 </li>
                             {% endfor %}
                         </ul>
+
                     {% else %}
+
                         <p>Vous n'avez pas encore ajouté vos compétences.</p>
+                    
                     {% endif %}
                 </div>
             </div>
@@ -65,4 +73,5 @@
         {% endif %}
         </div>
     </section>
+
 {% endblock %}

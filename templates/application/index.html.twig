@@ -3,13 +3,17 @@
 {% block title %}Candidature{% endblock %}
 
 {% block body %}
+
     <section>
         <div class="container">
             <h1>Formulaire de candidature</h1>
             {% if is_granted('ROLE_USER') and not is_granted('ROLE_EMPLOYEE') %}
+
                 {{ form_start(application_form, {'attr': {'class': 'form application-form'}}) }}
                 {{ form_end(application_form) }}
+                
             {% endif %}
         </div>
     </section>
+
 {% endblock %}
