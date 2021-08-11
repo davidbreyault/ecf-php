@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une entreprise{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_ADMIN') %}
+                
+                <div class="profile-header cta-right">
+                    <a href="{{ path('companies') }}" class="cta">Retour</a>
+                </div>
+                <h1>{{ (company is defined) ? 'Modifier' : 'Ajouter' }} une entreprise à votre liste</h1>
+                {{ form_start(company_form, {'attr': {'class': 'form'}}) }}
+
+                    {{ form_row(company_form.name) }}
+                    {{ form_row(company_form.address) }}
+                    {{ form_row(company_form.postcode) }}
+                    {{ form_row(company_form.town) }}
+                    {{ form_row(company_form.phone_number) }}
+                    {% if company is defined %}
+                        
+                        {{ form_row(company_form.send, {'label': 'Modifier'}) }}
+                    
+                    {% else %}
+                        
+                        {{ form_row(company_form.send, {'label': 'Ajouter'}) }}
+                    
+                    {% endif %}
+
+                {{ form_end(company_form) }}
+
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

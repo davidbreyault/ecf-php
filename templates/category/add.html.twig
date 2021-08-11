@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une catégorie{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_ADMIN') %}
+                
+                <div class="profile-header cta-right">
+                    <a href="{{ path('categories') }}" class="cta">Retour</a>
+                </div>
+                <h1>{{ (category is defined) ? 'Modifier' : 'Ajouter' }} une nouvelle catégorie de compétence</h1>
+                {{ form_start(category_form, {'attr': {'class': 'form'}}) }}
+
+                    {{ form_row(category_form.name) }}
+                    {% if category is defined %}
+                        
+                        {{ form_row(category_form.send, {'label': 'Modifier'}) }}
+                    
+                    {% else %}
+                        
+                        {{ form_row(category_form.send, {'label': 'Ajouter'}) }}
+                    
+                    {% endif %}
+
+                {{ form_end(category_form) }}
+
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

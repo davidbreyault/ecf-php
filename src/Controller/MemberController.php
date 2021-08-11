@@ -222,6 +222,8 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/demote", name="demote")
+     * 
+     * Rétrograder un membre de l'entreprise 
      */
     public function demote(Request $request, int $id): Response
     {
@@ -236,6 +238,8 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/promote", name="promote")
+     * 
+     * Promouvoir un membre de l'entreprise
      */
     public function promote(Request $request, int $id): Response
     {

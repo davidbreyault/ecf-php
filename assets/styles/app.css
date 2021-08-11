@@ -154,7 +154,9 @@ li[class] {
 
 
 
-.profile-header {
+.profile-header,
+.company-header,
+.category-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -183,8 +185,6 @@ li[class] {
 }
 .profile-data img {
   display: block;
-  /* margin-left: auto;
-  margin-right: auto; */
   margin-bottom: 2rem;
 }
 .profile-data > p {
@@ -289,7 +289,6 @@ li[class] {
 .mission .actions {
   display: flex;
   align-items: center;
-
 }
 .mission-header a.update {
   color: var(--seconday-background);
@@ -404,6 +403,57 @@ li.profile-user {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+
+
+
+a.update i {
+  color: var(--secondary-background);
+}
+a.delete i {
+  margin-left: 0.3rem;
+  color: var(--alert-color);
+  font-size: 1.9rem;
+}
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+.companies-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2rem;
+}
+.company-header {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--borders);
+}
+li.company {
+  padding: 2rem;
+  border-radius: 0.2rem;
+  background-color: var(--dashboard-feature);
+  box-shadow: var(--shadow);
+}
+li.company > p:last-of-type { 
+  color: var(--borders);
+  font-style: italic;
+}
+
+
+
+
+li.category {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: var(--dashboard-feature);
+  border-radius: 0.2rem;
+  box-shadow: var(--shadow);
 }
 
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Entreprises{% endblock %}
+{% block title %}Catégories{% endblock %}
 
 {% block body %}
 
@@ -30,24 +30,20 @@
                     {% endblock %}
                     
                     <div class="profile-dashboard">
-                        <h2>Entreprise</h2>
-                        <a href="{{ path('add_company') }}" class="cta add"><i class="fas fa-plus"></i></a>
-                        {% if companies is not null %}
+                        <h2>Catégories</h2>
+                        <a href="{{ path('add_category') }}" class="cta add"><i class="fas fa-plus"></i></a>
+                        {% if categories is not null %}
 
-                            <ul class="companies-list">
-                                {% for company in companies %}
-                                    <li class="company">
-                                        <div class="company-header">
-                                            <h3>{{ company.name }}</h3>
+                            <ul class="categories-list">
+                                {% for category in categories %}
+                                    <li class="category">
+                                        <div class="category-header">
+                                            <h3>{{ category.name }}</h3>
                                             <div class="actions">
-                                                <a href="{{ path('update_company', {'id': company.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                                                <a href="{{ path('delete_company', {'id': company.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
+                                                <a href="{{ path('update_category', {'id': category.id})}}" class="update"><i class="fas fa-pen"></i></a>
+                                                <a href="{{ path('delete_category', {'id': category.id})}}" class="delete"><i class="fas fa-times-circle"></i></a>
                                             </div>
                                         </div>
-                                        <p>{{ company.address }}</p>
-                                        <p>{{ company.postcode }}</p>
-                                        <p>{{ company.town }}</p>
-                                        <p>{{ company.phoneNumber }}</p>
                                     </li>
                                 {% endfor %}
                             </ul>
