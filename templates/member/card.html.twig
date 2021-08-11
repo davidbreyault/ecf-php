@@ -37,6 +37,20 @@
                                 
                                     <a href="{{ path('takeon_candidate', {'id': profile.id}) }}" class="cta">Embaucher {{ profile.firstname }}</a>
                                 
+                                {% else %}
+
+                                    {% if profile.roles[0] == 'ROLE_EMPLOYEE' %}
+
+                                        <a href="{{ path('promote', {'id': profile.id}) }}" class="cta">Promouvoir {{ profile.firstname }}</a>
+                                    
+                                    {% elseif profile.roles[0] == 'ROLE_COMMERCIAL' %}
+
+                                        <a href="{{ path('demote', {'id': profile.id}) }}" class="cta">Rétrograder {{ profile.firstname }}</a>
+                                    
+                                    {% endif %}
+
+                                    <a href="{{ path('srikeoff_employee', {'id': profile.id}) }}" class="cta">Radier {{ profile.firstname }}</a>
+
                                 {% endif %}
                                 {# Empêche l'administrateur de supprimer son propre compte #}
                                 {% if user.email != profile.email %}

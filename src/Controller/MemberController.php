@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Experience;
 use App\Form\UserType;
 use App\Form\ApplicationType;
 use App\Form\SearchMemberType;
@@ -172,16 +173,78 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/takeon", name="takeon_candidate")
+     * 
+     * Embauche et ajout d'un candidat dans l'effectif de l'entreprise
      */
     public function takeOn(Request $request, int $id): Response
     {
         $profile = $this->entityManager->getRepository(User::class)->find($id);
         $profile->setIsEmployed(1);
         $profile->setRoles(['ROLE_EMPLOYEE']);
+        // Ajout d'une expérience par défaut lors de l'embauche d'un candidat
+        $experience = new Experience;
+        $experience->setProfession('Concepteur Développeur d\'Applications Web');
+        $experience->setCompanyName('IS Corp');
+        $experience->setWorkplaceTown('Tours');
+        $experience->setDateStart(new \DateTimeImmutable());
+        $experience->setDescription('Toute l\'équipe IS Corp vous souhaite la bienvenue !');
+        $experience->setUser($profile);
+
+        $this->entityManager->persist($profile);
+        $this->entityManager->persist($experience);
+        $this->entityManager->flush();
+        $this->addFlash('success', 'Félicitations ! Vous avez embauché ' . $profile->getFirstname() . ' ' . $profile->getLastname());
+        return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/strikeoff", name="srikeoff_employee")
+     * 
+     * Radiation d'un membre de l'entreprise
+     */
+    public function strikeOff(Request $request, int $id): Response
+    {
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+        $profile->setIsEmployed(0);
+        $profile->setRoles([]);
+        // Mettre fin à la mission actuellement suivi en entreprise
+        if (!empty($profile->getExperience()->toArray())) {
+            if (is_null($profile->getExperience()[0]->getDateEnd())) {
+                $profile->getExperience()[0]->setDateEnd(new \DateTimeImmutable());
+            }
+        }
 
         $this->entityManager->persist($profile);
         $this->entityManager->flush();
-        $this->addFlash('success', 'Félicitations ! Vous avez embauché ' . $profile->getFirstname() . ' ' . $profile->getLastname());
+        $this->addFlash('success', $profile->getFirstname() . ' ' . $profile->getLastname() . ' a été radié de votre effectif entreprise.');
+        return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/demote", name="demote")
+     */
+    public function demote(Request $request, int $id): Response
+    {
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+        $profile->setRoles(['ROLE_EMPLOYEE']);
+
+        $this->entityManager->persist($profile);
+        $this->entityManager->flush();
+        $this->addFlash('success', $profile->getFirstname() . ' ' . $profile->getLastname() . ' a bien été rétrogradé.');
+        return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
+    }
+
+    /**
+     * @Route("/profile/member/{id}/promote", name="promote")
+     */
+    public function promote(Request $request, int $id): Response
+    {
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+        $profile->setRoles(['ROLE_COMMERCIAL']);
+
+        $this->entityManager->persist($profile);
+        $this->entityManager->flush();
+        $this->addFlash('success', $profile->getFirstname() . ' ' . $profile->getLastname() . ' a bien été promû.');
         return $this->redirectToRoute('card_member', ['id' => $profile->getId()]);
     }
 }

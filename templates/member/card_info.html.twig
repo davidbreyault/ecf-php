@@ -16,9 +16,13 @@
                 </div>
                 <div class="actions">
                     {% if is_granted('ROLE_COMMERCIAL') %}
+                        {# Le commercial a seulement les droits de modifications sur les profils collaborateurs et candidats #}
+                        {% if profile.roles[0]  != 'ROLE_COMMERCIAL' and profile.roles[0]  != 'ROLE_ADMIN' %}
 
-                        <a href="{{ path('update_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                            <a href="{{ path('update_member', {'id': profile.id}) }}" class="update"><i class="fas fa-pen"></i></a>
                     
+                        {% endif %}
+
                     {% endif %}
                 </div>
             </div>

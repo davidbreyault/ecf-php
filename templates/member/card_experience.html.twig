@@ -3,9 +3,13 @@
     <div class="member-missions">
         <h2>Expériences de {{ profile.firstname }}</h2>
         {% if is_granted('ROLE_COMMERCIAL') %}
-
-            <a href="{{ path('add_experience_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
+            {# Le commercial a seulement les droits d'ajouts sur les profils collaborateurs et candidats #}
+            {% if profile.roles[0]  != 'ROLE_COMMERCIAL' and profile.roles[0]  != 'ROLE_ADMIN' %}
+                                    
+                <a href="{{ path('add_experience_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
         
+            {% endif %}
+
         {% endif %}
         {% if experiences %}
 
@@ -20,8 +24,12 @@
                                     <a href="{{ path('delete_experience_member', {'id': experience.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
                                 
                                 {% elseif is_granted('ROLE_COMMERCIAL') %}
-                                    
-                                    <a href="{{ path('update_experience_member', {'id': experience.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                                    {# Le commercial a seulement les droits de modifications sur les profils collaborateurs et candidats #}
+                                    {% if profile.roles[0]  != 'ROLE_COMMERCIAL' and profile.roles[0]  != 'ROLE_ADMIN' %}
+                                        
+                                        <a href="{{ path('update_experience_member', {'id': experience.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+
+                                    {% endif %}
 
                                 {% endif %}
                             </div>

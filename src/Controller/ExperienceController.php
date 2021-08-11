@@ -86,6 +86,7 @@ class ExperienceController extends AbstractController
 
         return $this->render('profile/experience/update.html.twig', [
             'user'              => $user,
+            'experience'        => $experience,
             'experience_form'   => $form->createView()
         ]);
     }
