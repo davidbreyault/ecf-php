@@ -41,56 +41,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $query = $this->createQueryBuilder('u')
             ->select('u');
 
-            if (!is_null($settings['skill']) || !is_null($settings['level'])) {
-                $query = $query
-                    ->innerJoin('u.skill', 's')
-                    ->addSelect('s');
-            }
-
             if (!is_null($settings['name'])) {
                 $query = $query
                     ->where('u.lastname = :lastname')
                     ->setParameter('lastname', $settings['name']);
             }
 
-            if (!is_null($settings['skill'])) {
+            if (!is_null($settings['technology'])) {
                 $query = $query
                     // ->innerJoin('u.skill', 's', 'WITH', 's.name = :name')
                     // ->addSelect('s')
-                    ->andWhere('s.name = :name')
-                    ->setParameter('name', $settings['skill']->getName());
+                    ->innerJoin('u.expertise', 'e')
+                    ->addSelect('e')
+                    ->innerJoin('e.technology', 't')
+                    ->addSelect('t')
+                    ->andWhere('t.name = :name')
+                    ->setParameter('name', $settings['technology']->getName());
             }
 
             if (!is_null($settings['level'])) {
                 $query = $query
-                    ->andWhere('s.level >= :level')
+                    ->innerJoin('u.expertise', 'e')
+                    ->addSelect('e')
+                    ->andWhere('e.level >= :level')
                     ->setParameter('level', $settings['level']);
             }
 
-        return $query->getQuery()->getResult();
-    }
-
-    /**
-     * Returns an array of User Candidate objects 
-     */
-    public function findAllCandidates()
-    {
-        $query = $this->createQueryBuilder('u')
-            ->select('u')
-            ->where('u.is_employed = :isEmployed')
-            ->setParameter('isEmployed', 0);
-        return $query->getQuery()->getResult();
-    }
-
-    /**
-     * Returns an array of User Employee objects 
-     */
-    public function findAllEmployees()
-    {
-        $query = $this->createQueryBuilder('u')
-            ->select('u')
-            ->where('u.is_employed = :isEmployed')
-            ->setParameter('isEmployed', 1);
         return $query->getQuery()->getResult();
     }
 

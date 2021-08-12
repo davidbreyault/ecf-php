@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Skill;
-use App\Entity\Category;
+use App\Entity\Expertise;
+use App\Entity\Technology;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,14 +11,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\SkillRepository;
 
-class SkillType extends AbstractType
+class ExpertiseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label'         => 'Compétence / Technologie',
+            ->add('technology', EntityType::class, [
+                'label'         => 'Technologie',
+                'class'         => Technology::class,
+                'choice_label'  => 'name',
                 'required'      => true
             ])
             ->add('level', ChoiceType::class, [
@@ -41,12 +44,6 @@ class SkillType extends AbstractType
                 ],
                 'required'      => true
             ])
-            ->add('category', EntityType::class, [
-                'label'         => 'Catégorie',
-                'class'         => Category::class,
-                'choice_label'  => 'name',
-                'required'      => true
-            ])
             ->add('send', SubmitType::class, [
                 'label'         => 'Ajouter'
             ])
@@ -56,7 +53,7 @@ class SkillType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Skill::class,
+            'data_class' => Expertise::class,
         ]);
     }
 }

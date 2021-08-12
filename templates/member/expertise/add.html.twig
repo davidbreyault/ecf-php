@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une compétence{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="container">
+            {% if is_granted('ROLE_COMMERCIAL') %}
+                
+                <div class="profile-header cta-right">
+                    <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
+                </div>
+                <h1>{{ (expertise is defined) ? 'Modifier' : 'Ajouter' }} une compétence à {{ profile.firstname }}</h1>
+                {{ form_start(expertise_form, {'attr': {'class': 'form'}}) }}
+
+                    <div>
+                        {{ form_label(expertise_form.technology) }} 
+                        {{ form_widget(expertise_form.technology) }}
+                    </div>
+                    <div>
+                        {{ form_label(expertise_form.level, '', {'label': 'Estimez son niveau de compétence'}) }} 
+                        {{ form_widget(expertise_form.level) }}
+                    </div>
+                    <div>
+                        {{ form_label(expertise_form.appreciated) }} 
+                        {{ form_widget(expertise_form.appreciated) }}
+                    </div>
+                    {% if expertise is defined %}
+
+                        {{ form_row(expertise_form.send, {'label': 'Modifier'}) }}
+                    
+                    {% else %}
+
+                        {{ form_row(expertise_form.send, {'label': 'Ajouter'}) }}
+                    
+                    {% endif %}
+                    
+                {{ form_end(expertise_form) }}
+                
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

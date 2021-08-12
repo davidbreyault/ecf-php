@@ -25,13 +25,13 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Technology::class, mappedBy="category")
      */
-    private $skills;
+    private $technology;
 
     public function __construct()
     {
-        $this->skills = new ArrayCollection();
+        $this->technology = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,29 +52,29 @@ class Category
     }
 
     /**
-     * @return Collection|Skill[]
+     * @return Collection|Technology[]
      */
-    public function getSkills(): Collection
+    public function getTechnology(): Collection
     {
-        return $this->skills;
+        return $this->technology;
     }
 
-    public function addSkill(Skill $skill): self
+    public function addTechnology(Technology $technology): self
     {
-        if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
-            $skill->setCategory($this);
+        if (!$this->technology->contains($technology)) {
+            $this->technology[] = $technology;
+            $technology->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeSkill(Skill $skill): self
+    public function removeTechnology(Technology $technology): self
     {
-        if ($this->skills->removeElement($skill)) {
+        if ($this->technology->removeElement($technology)) {
             // set the owning side to null (unless already changed)
-            if ($skill->getCategory() === $this) {
-                $skill->setCategory(null);
+            if ($technology->getCategory() === $this) {
+                $technology->setCategory(null);
             }
         }
 

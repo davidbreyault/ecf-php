@@ -89,11 +89,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $experience;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="users")
-     */
-    private $skill;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $is_employed;
@@ -103,13 +98,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Expertise::class, mappedBy="user")
+     */
+    private $expertise;
+
     
 
     public function __construct()
     {
         $this->experience = new ArrayCollection();
-        $this->skill = new ArrayCollection();
-        //$this->is_employed = 1;
+        $this->expertise = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -327,30 +326,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Skill[]
-     */
-    public function getSkill(): Collection
-    {
-        return $this->skill;
-    }
-
-    public function addSkill(Skill $skill): self
-    {
-        if (!$this->skill->contains($skill)) {
-            $this->skill[] = $skill;
-        }
-
-        return $this;
-    }
-
-    public function removeSkill(Skill $skill): self
-    {
-        $this->skill->removeElement($skill);
-
-        return $this;
-    }
-
     public function getIsEmployed(): ?bool
     {
         return $this->is_employed;
@@ -395,6 +370,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBirth(?\DateTimeInterface $birth): self
     {
         $this->birth = $birth;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Expertise[]
+     */
+    public function getExpertise(): Collection
+    {
+        return $this->expertise;
+    }
+
+    public function addExpertise(Expertise $expertise): self
+    {
+        if (!$this->expertise->contains($expertise)) {
+            $this->expertise[] = $expertise;
+            $expertise->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpertise(Expertise $expertise): self
+    {
+        if ($this->expertise->removeElement($expertise)) {
+            // set the owning side to null (unless already changed)
+            if ($expertise->getUser() === $this) {
+                $expertise->setUser(null);
+            }
+        }
 
         return $this;
     }

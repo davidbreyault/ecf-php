@@ -450,10 +450,14 @@ li.company > p:last-of-type {
 
 li.category {
   margin-bottom: 2rem;
-  padding: 2rem;
+  padding: 1rem;
   background-color: var(--dashboard-feature);
   border-radius: 0.2rem;
   box-shadow: var(--shadow);
+}
+.category > p:last-of-type {
+  font-style: italic;
+  color: var(--profile-data);
 }
 
 

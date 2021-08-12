@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Skill;
-use App\Repository\SkillRepository;
+use App\Entity\Technology;
+use App\Repository\TechnologyRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,14 +21,14 @@ class SearchMemberType extends AbstractType
                 'label'         => 'Nom',
                 'required'      => false
             ])
-            ->add('skill', EntityType::class, [
-                'label'         => 'Compétence',
-                'class'         => Skill::class,
+            ->add('technology', EntityType::class, [
+                'label'         => 'Technologie',
+                'class'         => Technology::class,
                 'multiple'      => false,   
                 'choice_label'  => 'name',
                 'required'      => false,
-                'query_builder' => function(SkillRepository $er) {
-                    return $er->getDistinctValues();
+                'query_builder' => function(TechnologyRepository $er) {
+                    return $er->sortTechnologies();
                 }
             ])
             ->add('level', ChoiceType::class, [

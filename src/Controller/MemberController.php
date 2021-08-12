@@ -64,6 +64,7 @@ class MemberController extends AbstractController
 
         if ($searchMemberForm->isSubmitted() && $searchMemberForm->isValid()) {
             $settings = $searchMemberForm->getData();
+            //dd($settings);
             $profiles = $this->entityManager->getRepository(User::class)->searchProfile($settings);
         }
 
@@ -80,13 +81,13 @@ class MemberController extends AbstractController
     {
         $user = $this->getUser();
         $profile = $this->entityManager->getRepository(User::class)->find($id);
-        $skills = $profile->getSkill()->toArray();
+        $expertises = $profile->getExpertise()->toArray();
         $experiences = $profile->getExperience()->toArray();
 
         return $this->render('member/card.html.twig', [
             'user'              => $user,
             'profile'           => $profile,
-            'skills'            => $skills,
+            'expertises'        => $expertises,
             'experiences'       => $experiences
         ]);
     }
@@ -172,11 +173,11 @@ class MemberController extends AbstractController
         }
 
         // Suppression des compétences
-        $skills = $profile->getSkill();
-        foreach($skills as $skill) {
-            $profile->removeSkill($skill);
-            $this->entityManager->persist($skill);
-            $this->entityManager->remove($skill);
+        $expertises = $profile->getExpertise();
+        foreach($expertises as $expertise) {
+            $profile->removeExpertise($expertise);
+            $this->entityManager->persist($expertise);
+            $this->entityManager->remove($expertise);
             $this->entityManager->flush();
         }
 
