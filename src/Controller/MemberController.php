@@ -7,6 +7,7 @@ use App\Entity\Experience;
 use App\Form\UserType;
 use App\Form\ApplicationType;
 use App\Form\SearchMemberType;
+use App\Form\ProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,14 +26,30 @@ class MemberController extends AbstractController
     /**
      * @Route("/profile/members", name="members")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $user = $this->getUser();
         $profiles = $this->entityManager->getRepository(User::class)->findAll();
 
+        $form = $this->createForm(ProfileType::class, $profiles);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $profiles = $form->getData();
+            $status = $profiles['is_employed'];
+            $profiles = $this->entityManager->getRepository(User::class)->findBy(['is_employed' => $status]);
+
+            return $this->render('member/index.html.twig', [
+                'user'              => $user,
+                'profiles'          => $profiles,
+                'profile_form'      => $form->createView()
+            ]);
+        }
+
         return $this->render('member/index.html.twig', [
             'user'              => $user,
-            'profiles'          => $profiles
+            'profiles'          => $profiles,
+            'profile_form'      => $form->createView()
         ]);
     }
 

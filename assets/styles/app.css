@@ -511,6 +511,16 @@ li.category {
   border: 1px solid #8F8F9D;
   border-radius: 2px;
 }
+.form.filter {
+  display: flex;
+  max-width: 100%;
+}
+.form.filter div {
+  margin: 0;
+}
+.form.filter div:first-of-type {
+  margin-right: 1rem;
+}
 
 
 

@@ -2,7 +2,11 @@
 
     <div class="member-skills">
         <h2>Compétences de {{ profile.firstname }}</h2>
-        {% if is_granted('ROLE_COMMERCIAL') %}
+        {% if is_granted('ROLE_ADMIN') %}
+
+            <a href="{{ path('add_skill_member', {'id': profile.id }) }}" class="cta add"><i class="fas fa-plus"></i></a>
+
+        {% elseif is_granted('ROLE_COMMERCIAL') %}
             {# Le commercial a seulement les droits d'ajouts sur les profils collaborateurs et candidats #}
             {% if profile.roles[0]  != 'ROLE_COMMERCIAL' and profile.roles[0]  != 'ROLE_ADMIN' %}
                                     

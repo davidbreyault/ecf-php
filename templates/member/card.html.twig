@@ -48,9 +48,13 @@
                                         <a href="{{ path('demote', {'id': profile.id}) }}" class="cta">Rétrograder {{ profile.firstname }}</a>
                                     
                                     {% endif %}
+                                        {# Empêche l'administrateur de supprimer son propre compte #}
+                                        {% if user.email != profile.email %}
+                                    
+                                            <a href="{{ path('srikeoff_employee', {'id': profile.id}) }}" class="cta">Radier {{ profile.firstname }}</a>
 
-                                    <a href="{{ path('srikeoff_employee', {'id': profile.id}) }}" class="cta">Radier {{ profile.firstname }}</a>
-
+                                        {% endif %}
+                                        
                                 {% endif %}
                                 {# Empêche l'administrateur de supprimer son propre compte #}
                                 {% if user.email != profile.email %}

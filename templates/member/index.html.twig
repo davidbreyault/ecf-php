@@ -39,6 +39,13 @@
 
                             {% endif %}
                         </div>
+                        {{ form_start(profile_form, {'attr': {'class': 'form filter'}}) }}
+                            <div>
+                                {{ form_label(profile_form.is_employed, '', {'label_attr': {'class': 'screen-reader-text'}}) }} 
+                                {{ form_widget(profile_form.is_employed) }}
+                            </div>
+                            {{ form_row(profile_form.send) }}
+                        {{ form_end(profile_form) }}
                         {% if profiles is not null %}
 
                             <ul class="profiles-list">

@@ -70,6 +70,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $query->getQuery()->getResult();
     }
 
+    /**
+     * Returns an array of User Candidate objects 
+     */
+    public function findAllCandidates()
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.is_employed = :isEmployed')
+            ->setParameter('isEmployed', 0);
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Returns an array of User Employee objects 
+     */
+    public function findAllEmployees()
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.is_employed = :isEmployed')
+            ->setParameter('isEmployed', 1);
+        return $query->getQuery()->getResult();
+    }
+
     
     // /**
     //  * @return User[] Returns an array of User objects
