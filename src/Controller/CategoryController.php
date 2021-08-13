@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
 
             $this->entityManager->persist($category);
             $this->entityManager->flush();
-            $this->addFlash('success', $category->getName() . ' a bien été ajouté à votre liste de catégories.');
+            $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a bien été modifiée.');
             return $this->redirectToRoute('categories');
         }
 

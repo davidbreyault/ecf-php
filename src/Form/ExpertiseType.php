@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Expertise;
 use App\Entity\Technology;
+use App\Repository\TechnologyRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Repository\SkillRepository;
 
 class ExpertiseType extends AbstractType
 {
@@ -22,7 +22,10 @@ class ExpertiseType extends AbstractType
                 'label'         => 'Technologie',
                 'class'         => Technology::class,
                 'choice_label'  => 'name',
-                'required'      => true
+                'required'      => true,
+                'query_builder' => function(TechnologyRepository $er) {
+                    return $er->sortTechnologies();
+                }
             ])
             ->add('level', ChoiceType::class, [
                 'label'         => 'Estimez votre niveau sur une échelle de 0 à 5',

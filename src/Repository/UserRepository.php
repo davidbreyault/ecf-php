@@ -49,22 +49,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
             if (!is_null($settings['technology'])) {
                 $query = $query
-                    // ->innerJoin('u.skill', 's', 'WITH', 's.name = :name')
-                    // ->addSelect('s')
                     ->innerJoin('u.expertise', 'e')
                     ->addSelect('e')
                     ->innerJoin('e.technology', 't')
                     ->addSelect('t')
                     ->andWhere('t.name = :name')
                     ->setParameter('name', $settings['technology']->getName());
-            }
 
-            if (!is_null($settings['level'])) {
-                $query = $query
-                    ->innerJoin('u.expertise', 'e')
-                    ->addSelect('e')
-                    ->andWhere('e.level >= :level')
-                    ->setParameter('level', $settings['level']);
+                    if (!is_null($settings['level'])) {
+                        $query = $query
+                            ->andWhere('e.level >= :level')
+                            ->setParameter('level', $settings['level']);
+                    }
             }
 
         return $query->getQuery()->getResult();

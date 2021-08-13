@@ -35,7 +35,7 @@
                         {% if technologies is not null %}
 
                             <ul class="categories-list">
-                                {% for technology in technologies %}
+                                {% for technology in technologies|sort((a, b) => a.name <=> b.name) %}
                                     <li class="category">
                                         <div class="category-header">
                                             <h3>{{ technology.name }}</h3>
