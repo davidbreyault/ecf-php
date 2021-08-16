@@ -19,6 +19,8 @@ Conservez seulement la ligne 30
 
 Renseignez vos identifiants à phpMyAdmin, nommez la future base de données.
 
+`DATABASE_URL="mysql://`__db_username__`:`__db_password__`@127.0.0.1:3306/`__db_name__`?serverVersion=5.7"`
+
 #### Création de la base de données
 `symfony console doctrine:database:create`
 

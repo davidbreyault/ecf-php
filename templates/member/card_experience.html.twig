@@ -21,6 +21,15 @@
                 {% for experience in experiences|sort((a, b) => b.dateStart <=> a.dateStart) %}
                     <li class="mission">
                         <div class="mission-header">
+                            {% if experience.dateEnd %}
+                            
+                                <p class="mission-date">du {{ experience.dateStart|date('d/m/Y') }} au {{ experience.dateEnd|date('d/m/Y') }}</p>
+                            
+                            {% else %}
+                                
+                                <p class="mission-date">depuis le {{ experience.dateStart|date('d/m/Y') }}</p>
+                            
+                            {% endif %}
                             <div class="actions">
                                 {% if is_granted('ROLE_ADMIN') %}
 
@@ -37,15 +46,6 @@
 
                                 {% endif %}
                             </div>
-                            {% if experience.dateEnd %}
-                            
-                                <p class="mission-date">du {{ experience.dateStart|date('d/m/Y') }} au {{ experience.dateEnd|date('d/m/Y') }}</p>
-                            
-                            {% else %}
-                                
-                                <p class="mission-date">depuis le {{ experience.dateStart|date('d/m/Y') }}</p>
-                            
-                            {% endif %}
                         </div>
                         <div class="mission-infos">
                             <h3>{{ experience.profession }}</h3>

@@ -31,7 +31,7 @@
 
                     <div class="profile-dashboard">
                         <h2>Effectif</h2>
-                        <div class="actions-cta">
+                        <div class="actions">
                             <a href="{{ path('search_members') }}" class="cta">Recherche avancée</a>
                             {% if is_granted('ROLE_ADMIN') %}
                             
@@ -48,9 +48,9 @@
                         {{ form_end(profile_form) }}
                         {% if profiles is not null %}
 
-                            <ul class="profiles-list">
+                            <ul class="users-list">
                             {% for profile in profiles|reverse %}
-                                <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} profile-user">
+                                <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} user">
                                     <div>
                                         <h3>{{ profile.firstname }} {{ profile.lastname }}</h3>
                                         {% block member_roles %}

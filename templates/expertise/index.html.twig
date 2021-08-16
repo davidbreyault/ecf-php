@@ -38,10 +38,12 @@
                             {% for expertise in expertises %}
                                 <li class="skill">
                                     <div class="skill-header">
-                                        <a href="{{ path('update_expertise', {'id': expertise.id}) }}" class="update"><i class="fas fa-pen"></i></a>
-                                        <a href="{{ path('delete_expertise', {'id': expertise.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
+                                        <h3>{{ expertise.getTechnology().getName() }}</h3>
+                                        <div class="actions">
+                                            <a href="{{ path('update_expertise', {'id': expertise.id}) }}" class="update"><i class="fas fa-pen"></i></a>
+                                            <a href="{{ path('delete_expertise', {'id': expertise.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
+                                        </div>
                                     </div>
-                                    <h3>{{ expertise.getTechnology().getName() }}</h3>
                                     <p class="italic">{{ expertise.getTechnology().getCategory().getName() }}</p>
                                     <div class="skill-level">
                                         <p class="rating hidden">{{ expertise.level }}</p>

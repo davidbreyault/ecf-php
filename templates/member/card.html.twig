@@ -32,7 +32,7 @@
                     <div class="profile-dashboard">
                         {% if is_granted('ROLE_ADMIN') %}
                         
-                            <div class="actions-cta">
+                            <div class="actions">
                                 {% if profile.isEmployed == 0 %}
                                 
                                     <a href="{{ path('takeon_candidate', {'id': profile.id}) }}" class="cta">Embaucher {{ profile.firstname }}</a>

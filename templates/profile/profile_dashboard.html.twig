@@ -4,7 +4,7 @@
         {% if is_granted('ROLE_EMPLOYEE') %}
 
             <h2>Mon tableau de bord</h2>
-            <div class="actions-cta">
+            <div class="actions">
                 <a href="{{ path('expertises') }}" class="cta">Mes compétences</a>
                 <a href="{{ path('experiences') }}" class="cta">Mes missions</a>
                 <a href="#" class="cta">Mes documents</a>
@@ -14,7 +14,7 @@
         {% if is_granted('ROLE_COMMERCIAL') %}
 
             <h2>Effectif</h2>
-            <div class="actions-cta">
+            <div class="actions">
                 <a href="{{ path('members') }}" class="cta">Gérer les profils</a>
             </div>
 
@@ -22,7 +22,7 @@
         {% if is_granted('ROLE_ADMIN') %}
 
             <h2>Nomenclature</h2>
-            <div class="actions-cta">
+            <div class="actions">
                 <a href="{{ path('companies') }}" class="cta">Gérer les entreprises</a>
                 <a href="{{ path('categories') }}" class="cta">Gérer les catégories</a>
                 <a href="{{ path('technologies') }}" class="cta">Gérer les technologies</a>
@@ -35,7 +35,7 @@
             <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
         
         {% endif %}
-        <div class="actions-cta">
+        <div class="actions">
             {% if user.address %}
 
                 <a href="{{ path('update_data_profile') }}" class="cta">Modifier mes données</a>
