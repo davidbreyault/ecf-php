@@ -156,6 +156,18 @@ class MemberController extends AbstractController
     }
 
     /**
+     * @Route("/profile/member/{id}/delete/confirmation", name="delete_confirmation")
+     */
+    public function delete_confirmation(int $id): Response
+    {
+        $profile = $this->entityManager->getRepository(User::class)->find($id);
+        
+        return $this->render('member/delete.html.twig', [
+            'profile'           => $profile
+        ]);
+    }
+
+    /**
      * @Route("/profile/member/{id}/delete", name="delete_member")
      */
     public function delete(Request $request, int $id): Response

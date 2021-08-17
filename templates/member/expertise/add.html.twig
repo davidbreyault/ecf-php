@@ -8,7 +8,7 @@
         <div class="container">
             {% if is_granted('ROLE_COMMERCIAL') %}
                 
-                <div class="profile-header cta-right">
+                <div class="profile-header unique-item">
                     <a href="{{ app.request.headers.get('referer') }}" class="cta">Retour</a>
                 </div>
                 <h1>{{ (expertise is defined) ? 'Modifier' : 'Ajouter' }} une compétence à {{ profile.firstname }}</h1>

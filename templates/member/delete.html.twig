@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimez {{ profile.firstname }} {{ profile.lastname }}{% endblock %}
+
+{% block body %}
+
+    <section class="profile">
+        <div class="alert">
+            <div class="container">
+                <p>Vous êtes sur le point de supprimer le compte de {{ profile.firstname }} {{ profile.lastname }}. Cette action est rédibitoire. Etes-vous sûr de continuer ?</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="actions">
+                <a href="{{ path('delete_member', {'id': profile.id}) }}" class="cta delete">Supprimer {{ profile.firstname }} {{ profile.lastname }}</a>
+                <a href="{{ path('card_member', {'id': profile.id}) }}" class="cta">Retour</a>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}
