@@ -8,7 +8,7 @@
         <div class="container">
             {% if is_granted('ROLE_EMPLOYEE') %}
                 
-                <div class="profile-header cta-right">
+                <div class="profile-header unique-item">
                     <a href="{{ path('expertises') }}" class="cta">Retour</a>
                 </div>
                 <h1>{{ (expertise is defined) ? 'Modifier' : 'Ajouter' }} une compétence</h1>

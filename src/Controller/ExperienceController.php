@@ -29,7 +29,7 @@ class ExperienceController extends AbstractController
         $user = $this->getUser();
         $experiences = $user->getExperience()->toArray();
 
-        return $this->render('profile/experience/index.html.twig', [
+        return $this->render('experience/index.html.twig', [
             'user'          => $user,
             'experiences'   => $experiences    
         ]);
@@ -57,7 +57,7 @@ class ExperienceController extends AbstractController
             return $this->redirectToRoute('experiences');
         }
 
-        return $this->render('profile/experience/add.html.twig', [
+        return $this->render('experience/add.html.twig', [
             'user'              => $user,
             'experience_form'   => $form->createView()
         ]);
@@ -84,7 +84,7 @@ class ExperienceController extends AbstractController
             return $this->redirectToRoute('experiences');
         }
 
-        return $this->render('profile/experience/update.html.twig', [
+        return $this->render('experience/add.html.twig', [
             'user'              => $user,
             'experience'        => $experience,
             'experience_form'   => $form->createView()

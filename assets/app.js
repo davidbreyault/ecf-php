@@ -10,6 +10,7 @@ import './styles/base.css';
 import './styles/app.css';
 
 // Scripts JS
+import './scripts/menu-button.js';
 import './scripts/fill-bubble.js';
 
 // start the Stimulus application

@@ -8,7 +8,7 @@
         <div class="container">
             {% if is_granted('ROLE_COMMERCIAL') %}
 
-                <div class="profile-header cta-right">
+                <div class="profile-header unique-item">
                     <a href="{{ path('members') }}" class="cta">Retour</a>
                 </div>
                 <h1>Recherche avancée</h1>
@@ -16,9 +16,9 @@
                 {{ form_end(search_member_form) }}
                 {% if profiles is not null %}
 
-                    <ul class="profiles-list">
+                    <ul class="users-list">
                         {% for profile in profiles|reverse %}
-                            <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} profile-user">
+                            <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} user">
                                 <div>
                                     <h3>{{ profile.firstname }} {{ profile.lastname }}</h3>
                                     {% block member_roles %}

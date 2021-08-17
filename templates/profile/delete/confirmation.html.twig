@@ -5,9 +5,13 @@
 {% block body %}
 
     <section class="profile">
+        <div class="alert">
+            <div class="container">
+                <p>Vous êtes sur le point de supprimer votre compte, cette action est rédibitoire. Etes-vous sur de continuer ?</p>
+            </div>
+        </div>
         <div class="container">
-            <p>Vous êtes sur le point de supprimer votre compte, cette action est rédibitoire. Etes-vous sur de continuer ?</p>
-            <div class="actions-cta">
+            <div class="actions">
                 <a href="{{ path('delete_profile') }}" class="cta delete">Supprimer mon compte</a>
                 <a href="{{ path('profile') }}" class="cta">Retour</a>
             </div>

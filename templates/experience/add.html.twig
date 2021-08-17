@@ -1,29 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifiez votre compétence{% endblock %}
+{% block title %}Ajoutez une expérience{% endblock %}
 
 {% block body %}
 
     <section>
         <div class="container">
             {% if is_granted('ROLE_EMPLOYEE') %}
-
-                <div class="profile-header cta-right">
+                
+                <div class="profile-header unique-item">
                     <a href="{{ path('experiences') }}" class="cta">Retour</a>
                 </div>
-                <h1>Modifiez votre mission</h1>
+                <h1>{{ (experience is defined) ? 'Modifier' : 'Ajouter' }} une expérience</h1>
                 {{ form_start(experience_form, {'attr': {'class': 'form'}}) }}
-                    
                     {{ form_row(experience_form.profession) }}
                     {{ form_row(experience_form.company_name) }}
                     {{ form_row(experience_form.workplace_town) }}
                     {{ form_row(experience_form.date_start) }}
                     {{ form_row(experience_form.date_end) }}
                     {{ form_row(experience_form.description) }}
-                    {{ form_row(experience_form.send, {'label': 'Modifier'}) }}
+                    {% if experience is defined %}
+                        
+                        {{ form_row(experience_form.send, {'label': 'Modifier'}) }}
                     
+                    {% else %}
+                        
+                        {{ form_row(experience_form.send, {'label': 'Ajouter'}) }}
+                    
+                    {% endif %}
                 {{ form_end(experience_form) }}
-                
+
             {% endif %}
         </div>
     </section>
