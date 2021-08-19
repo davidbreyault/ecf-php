@@ -96,11 +96,6 @@ li[class] {
     max-width: calc(75em - 3rem);
   }
 }
-@media screen and (min-width: 87.5em) {
-  .container {
-    max-width: calc(87.5em - 3rem);
-  }
-}
 .hidden {
   display: none;
 }

@@ -8,7 +8,7 @@
         <div class="container">
             {% if is_granted('ROLE_ADMIN') %}
                 
-                <div class="profile-header cta-right">
+                <div class="profile-header unique-item">
                     <a href="{{ path('companies') }}" class="cta">Retour</a>
                 </div>
                 <h1>{{ (company is defined) ? 'Modifier' : 'Ajouter' }} une entreprise à votre liste</h1>

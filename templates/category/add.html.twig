@@ -8,7 +8,7 @@
         <div class="container">
             {% if is_granted('ROLE_ADMIN') %}
                 
-                <div class="profile-header cta-right">
+                <div class="profile-header unique-item">
                     <a href="{{ path('categories') }}" class="cta">Retour</a>
                 </div>
                 <h1>{{ (category is defined) ? 'Modifier' : 'Ajouter' }} une catégorie de compétence</h1>
