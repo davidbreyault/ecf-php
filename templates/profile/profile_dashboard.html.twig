@@ -1,13 +1,17 @@
 {% block profile_dashboard %}
 
     <div class="profile-dashboard">
-        {% if is_granted('ROLE_EMPLOYEE') %}
+        {% if is_granted('ROLE_USER') %}
 
             <h2>Mon tableau de bord</h2>
             <div class="actions">
-                <a href="{{ path('expertises') }}" class="cta">Mes compétences</a>
-                <a href="{{ path('experiences') }}" class="cta">Mes missions</a>
-                <a href="{{ path('files') }}" class="cta">Mes documents</a>
+            <a href="{{ path('files') }}" class="cta">Mes documents</a>
+                {% if is_granted('ROLE_EMPLOYEE') %}
+
+                    <a href="{{ path('expertises') }}" class="cta">Mes compétences</a>
+                    <a href="{{ path('experiences') }}" class="cta">Mes missions</a>
+
+                {% endif %}
             </div>
 
         {% endif %}
@@ -30,11 +34,6 @@
 
         {% endif %}
         <h2>Mon compte</h2>
-        {% if not user.address %}
-
-            <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
-        
-        {% endif %}
         <div class="actions">
             {% if user.address %}
 
@@ -51,6 +50,12 @@
             
             {% endif %}
         </div>
+        {% if not user.address %}
+
+            <p>Pour soumettre votre candidature, veuillez remplir le formulaire accessible en cliquant sur 'Candidatez'.</p>
+            <p>N'oubliez pas de déposer votre CV dans la section 'Mes documents'.</p>
+            
+        {% endif %}
     </div>
 
 {% endblock %}

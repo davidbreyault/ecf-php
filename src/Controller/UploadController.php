@@ -47,7 +47,6 @@ class UploadController extends AbstractController
             }
             return $this->render('upload/index.html.twig', [
                 'user'          => $user,
-                'upload'        => $upload,
                 'upload_form'   => $form->createView(),
             ]);
         }

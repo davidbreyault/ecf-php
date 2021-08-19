@@ -16,14 +16,16 @@ class UploadType extends AbstractType
     {
         $builder
             ->add('name', FileType::class, [
-                'label'         => 'Choisissez votre fichier',
-                'constraints' => [
+                'label'         => 'Choisissez votre fichier PDF',
+                'constraints'   => [
                     new File([ 
-                    'mimeTypes' => [ // Accepte seulement les fichiers pdf
+                    // Accepte seulement les fichiers pdf de moins de 1024ko
+                    'maxSize'   => '1024k',
+                    'mimeTypes' => [ 
                         'application/pdf',
                         'application/x-pdf'
                     ],
-                    'mimeTypesMessage' => 'This document isn\'t valid.',
+                    'mimeTypesMessage' => 'Please upload a valid PDF.',
                     ])
                 ],
             ])
