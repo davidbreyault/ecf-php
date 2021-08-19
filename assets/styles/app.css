@@ -633,6 +633,32 @@ li.category {
 
 
 
+.upload-form {
+  max-width: 100%;
+  margin-top: 2rem;
+}
+.upload-form > div {
+  margin: 0;
+}
+.upload-form > div:last-of-type {
+    margin: 0;
+}
+.upload-form #upload_name {
+  margin: 1rem 0;
+}
+.file {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.fa-file-pdf {
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+
+
+
+
 .footer {
   padding: 1.2rem 0;
   background-color: var(--secondary-background);

@@ -103,6 +103,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $expertise;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Upload::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $upload;
+
     
 
     public function __construct()
@@ -400,6 +405,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $expertise->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUpload(): ?Upload
+    {
+        return $this->upload;
+    }
+
+    public function setUpload(?Upload $upload): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($upload === null && $this->upload !== null) {
+            $this->upload->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($upload !== null && $upload->getUser() !== $this) {
+            $upload->setUser($this);
+        }
+
+        $this->upload = $upload;
 
         return $this;
     }
