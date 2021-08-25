@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimez une catégorie{% endblock %}
+
+{% block body %}
+
+    <section class="profile">
+        <div class="alert">
+            <div class="container">
+                <p>Vous êtes sur le point de supprimer la categorie '{{ category.name }}'. Cela nécessite également de supprimer toutes les technologies qui lui sont liées, ainsi que toutes les compétences utilisateurs liées à ces technologies. Cette action est rédibitoire. Etes-vous sûr de continuer ?</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="actions">
+                <a href="{{ path('delete_category', {'id': category.id}) }}" class="cta delete">Supprimer la catégorie</a>
+                <a href="{{ path('categories') }}" class="cta">Retour</a>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

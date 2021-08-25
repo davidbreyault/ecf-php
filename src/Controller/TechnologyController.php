@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Technology;
+use App\Entity\Category;
+use App\Entity\Expertise;
 use App\Form\TechnologyType;
 use App\Form\CategoryType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,15 +43,23 @@ class TechnologyController extends AbstractController
     {
         $technology = new Technology;
         $form = $this->createForm(TechnologyType::class, $technology);
+        $categories = $this->entityManager->getRepository(Category::class)->findAll();
+        //dd($categories);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $technology = $form->getData();
-
+            // Ajout d'une catégorie par défaut 
+            if (empty($categories)) {
+                $category = new Category;
+                $category->setName('Non-classée');
+                $technology->setCategory($category);
+                $this->entityManager->persist($category);
+            }
             $this->entityManager->persist($technology);
             $this->entityManager->flush();
-            $this->addFlash('success', $technology->getName() . ' a bien été ajouté à votre liste de technologies.');
+            $this->addFlash('success', 'La technologie \'' . $technology->getName() . '\' a bien été ajoutée à votre liste.');
             return $this->redirectToRoute('technologies');
         }
 
@@ -73,7 +83,7 @@ class TechnologyController extends AbstractController
 
             $this->entityManager->persist($technology);
             $this->entityManager->flush();
-            $this->addFlash('success', $technology->getName() . ' a bien été modifiée à votre liste de technologies.');
+            $this->addFlash('success', 'La technologie \'' . $technology->getName() . '\' a bien été modifiée de votre liste.');
             return $this->redirectToRoute('technologies');
         }
 
@@ -89,7 +99,12 @@ class TechnologyController extends AbstractController
     public function delete(Request $request, int $id): Response
     {
         $technology = $this->entityManager->getRepository(Technology::class)->find($id);
-
+        
+        $expertises = $technology->getExpertise()->toArray();
+        foreach($expertises as $expertise) {
+            $technology->removeExpertise($expertise);
+            $this->entityManager->remove($expertise);
+        }
         $this->entityManager->persist($technology);
         $this->entityManager->remove($technology);
         $this->entityManager->flush();

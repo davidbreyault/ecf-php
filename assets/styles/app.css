@@ -624,6 +624,9 @@ li.category {
 .form.filter div:last-of-type {
   flex: 1;
 }
+.new-password-form {
+  max-width: 100%;
+}
 
 
 

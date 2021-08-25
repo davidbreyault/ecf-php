@@ -156,7 +156,7 @@ class MemberController extends AbstractController
     }
 
     /**
-     * @Route("/profile/member/{id}/delete/confirmation", name="delete_confirmation")
+     * @Route("/profile/member/{id}/delete/confirmation", name="delete_member_confirmation")
      */
     public function delete_confirmation(int $id): Response
     {

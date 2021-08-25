@@ -48,7 +48,7 @@ class CategoryController extends AbstractController
 
             $this->entityManager->persist($category);
             $this->entityManager->flush();
-            $this->addFlash('success', $category->getName() . ' a bien été ajouté à votre liste de catégories.');
+            $this->addFlash('success', 'La catégorie \'' . $category->getName() . '\' a bien été ajoutée à votre liste.');
             return $this->redirectToRoute('categories');
         }
 
@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
 
             $this->entityManager->persist($category);
             $this->entityManager->flush();
-            $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a bien été modifiée.');
+            $this->addFlash('success', 'La catégorie \'' . $category->getName() . '\' a bien été modifiée.');
             return $this->redirectToRoute('categories');
         }
 
@@ -83,16 +83,38 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("/profile/category/{id}/delete/confirmation", name="delete_category_confirmation")
+     */
+    public function delete_confirmation(int $id): Response
+    {
+        $category = $this->entityManager->getRepository(Category::class)->find($id);
+        
+        return $this->render('category/delete.html.twig', [
+            'category'           => $category
+        ]);
+    }
+
+    /**
      * @Route("/profile/category/{id}/delete", name="delete_category")
      */
     public function delete(Request $request, int $id): Response
     {
         $category = $this->entityManager->getRepository(Category::class)->find($id);
-
-        $this->entityManager->persist($category);
+        $technologies = $category->getTechnology();
+        // Attention ! Cette action supprimera également les technologies liées à cette catégorie !
+        foreach($technologies as $technology) {
+            $category->removeTechnology($technology);
+            $this->entityManager->remove($technology);
+            $expertises = $technology->getExpertise()->toArray();
+            // La suppression d'une catégortie engendre également la suppression des compétences qui lui sont liées
+            foreach($expertises as $expertise) {
+                $technology->removeExpertise($expertise);
+                $this->entityManager->remove($expertise);
+            }
+        }
         $this->entityManager->remove($category);
         $this->entityManager->flush();
-        $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a bien été supprimée.');
+        $this->addFlash('success', 'La catégorie \'' . $category->getName() . '\' a bien été supprimée de votre liste.');
         return $this->redirectToRoute('categories');
     }
 }

@@ -59,7 +59,7 @@
                                 {# Empêche l'administrateur de supprimer son propre compte #}
                                 {% if user.email != profile.email %}
 
-                                    <a href="{{ path('delete_confirmation', {'id': profile.id}) }}" class="cta delete">Supprimer l'utilisateur</a>
+                                    <a href="{{ path('delete_member_confirmation', {'id': profile.id}) }}" class="cta delete">Supprimer l'utilisateur</a>
                                 
                                 {% endif %}
                             </div>
