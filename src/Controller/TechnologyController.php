@@ -94,6 +94,18 @@ class TechnologyController extends AbstractController
     }
 
     /**
+     * @Route("/profile/technology/{id}/delete/confirmation", name="delete_technology_confirmation")
+     */
+    public function delete_confirmation(int $id): Response
+    {
+        $technology = $this->entityManager->getRepository(Technology::class)->find($id);
+        
+        return $this->render('technology/delete.html.twig', [
+            'technology'           => $technology
+        ]);
+    }
+
+    /**
      * @Route("/profile/technology/{id}/delete", name="delete_technology")
      */
     public function delete(Request $request, int $id): Response
