@@ -23,6 +23,7 @@ class MemberController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+
     /**
      * @Route("/profile/members", name="members")
      */
@@ -54,7 +55,73 @@ class MemberController extends AbstractController
     }
 
     /**
+     * @Route("/profile/last-updated-members", name="last-updated-members")
+     * 
+     * Affiche les derniers profils mis à jour
+     */
+    public function last_updated_members(Request $request): Response
+    {
+        $user = $this->getUser();
+        $profiles = $this->entityManager->getRepository(User::class)->lastUpdatedProfiles();
+
+        $form = $this->createForm(ProfileType::class, $profiles);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $profiles = $form->getData();
+            $status = $profiles['is_employed'];
+            $profiles = $this->entityManager->getRepository(User::class)->findBy(['is_employed' => $status]);
+
+            return $this->render('member/index.html.twig', [
+                'user'              => $user,
+                'profiles'          => $profiles,
+                'profile_form'      => $form->createView()
+            ]);
+        }
+
+        return $this->render('member/index.html.twig', [
+            'user'              => $user,
+            'profiles'          => $profiles,
+            'profile_form'      => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profile/last-created-members", name="last-created-members")
+     * 
+     * Affiche les derniers profils crées
+     */
+    public function last_created_members(Request $request): Response
+    {
+        $user = $this->getUser();
+        $profiles = $this->entityManager->getRepository(User::class)->lastCreatedProfiles();
+
+        $form = $this->createForm(ProfileType::class, $profiles);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $profiles = $form->getData();
+            $status = $profiles['is_employed'];
+            $profiles = $this->entityManager->getRepository(User::class)->findBy(['is_employed' => $status]);
+
+            return $this->render('member/index.html.twig', [
+                'user'              => $user,
+                'profiles'          => $profiles,
+                'profile_form'      => $form->createView()
+            ]);
+        }
+
+        return $this->render('member/index.html.twig', [
+            'user'              => $user,
+            'profiles'          => $profiles,
+            'profile_form'      => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/profile/members/search", name="search_members")
+     * 
+     * Filtre les profils en fonction de différents critères
      */
     public function search(Request $request)
     {
@@ -109,6 +176,7 @@ class MemberController extends AbstractController
             $profile->setLastname(strtoupper($profile->getLastname()));
             $profile->setTown(strtoupper($profile->getTown()));
             $profile->setCreatedAt(new \DateTimeImmutable());
+            $profile->setUpdatedAt(new \DateTimeImmutable());
             // Si le nouveau profil compte parmi l'effectif de l'entreprise
             if ($profile->getIsEmployed()) {
                 // Attribution de son rôle
@@ -141,6 +209,7 @@ class MemberController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $profile = $form->getData();
+            $profile->setUpdatedAt(new \DateTimeImmutable());
 
             $this->entityManager->persist($profile);
             $this->entityManager->flush();
@@ -211,6 +280,7 @@ class MemberController extends AbstractController
         $profile = $this->entityManager->getRepository(User::class)->find($id);
         $profile->setIsEmployed(1);
         $profile->setRoles(['ROLE_EMPLOYEE']);
+        $profile->setUpdatedAt(new \DateTimeImmutable());
         // Ajout d'une expérience par défaut lors de l'embauche d'un candidat
         $experience = new Experience;
         $experience->setProfession('Concepteur Développeur d\'Applications Web');
@@ -237,6 +307,7 @@ class MemberController extends AbstractController
         $profile = $this->entityManager->getRepository(User::class)->find($id);
         $profile->setIsEmployed(0);
         $profile->setRoles([]);
+        $profile->setUpdatedAt(new \DateTimeImmutable());
         // Mettre fin à la mission actuellement suivi en entreprise
         if (!empty($profile->getExperience()->toArray())) {
             if (is_null($profile->getExperience()[0]->getDateEnd())) {
@@ -259,6 +330,7 @@ class MemberController extends AbstractController
     {
         $profile = $this->entityManager->getRepository(User::class)->find($id);
         $profile->setRoles(['ROLE_EMPLOYEE']);
+        $profile->setUpdatedAt(new \DateTimeImmutable());
 
         $this->entityManager->persist($profile);
         $this->entityManager->flush();
@@ -275,6 +347,7 @@ class MemberController extends AbstractController
     {
         $profile = $this->entityManager->getRepository(User::class)->find($id);
         $profile->setRoles(['ROLE_COMMERCIAL']);
+        $profile->setUpdatedAt(new \DateTimeImmutable());
 
         $this->entityManager->persist($profile);
         $this->entityManager->flush();

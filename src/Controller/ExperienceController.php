@@ -51,6 +51,7 @@ class ExperienceController extends AbstractController
             $experience = $form->getData();
 
             $user->addExperience($experience);
+            $user->setUpdatedAt(new \DateTimeImmutable());
             $this->entityManager->persist($experience);
             $this->entityManager->flush();
             $this->addFlash('success', 'Votre mission a bien été prise en compte.');
@@ -78,6 +79,7 @@ class ExperienceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $experience = $form->getData();
             $user->addExperience($experience);
+            $user->setUpdatedAt(new \DateTimeImmutable());
             $this->entityManager->persist($experience);
             $this->entityManager->flush();
             $this->addFlash('success', 'Votre mission a bien été modifiée.');
@@ -96,6 +98,8 @@ class ExperienceController extends AbstractController
      */
     public function delete(Request $request, $id): Response
     {
+        $user = $this->getUser();
+        $user->setUpdatedAt(new \DateTimeImmutable());
         $experience = $this->entityManager->getRepository(Experience::class)->find($id);
 
         $this->entityManager->persist($experience);
@@ -127,6 +131,7 @@ class ExperienceController extends AbstractController
             $experience = $form->getData();
 
             $profile->addExperience($experience);
+            $profile->setUpdatedAt(new \DateTimeImmutable());
             $this->entityManager->persist($experience);
             $this->entityManager->flush();
             $this->addFlash('success', 'La mission a bien été ajoutée sur le profil de ' . $profile->getFirstname());
@@ -156,6 +161,7 @@ class ExperienceController extends AbstractController
             $experience = $form->getData();
 
             $profile->addExperience($experience);
+            $profile->setUpdatedAt(new \DateTimeImmutable());
             $this->entityManager->persist($experience);
             $this->entityManager->flush();
             $this->addFlash('success', 'La mission a bien été modifiée sur le profil de ' . $profile->getFirstname());
@@ -179,6 +185,7 @@ class ExperienceController extends AbstractController
         $profile = $this->entityManager->getRepository(User::class)->find($profile_id);
 
         $profile->removeExperience($experience);
+        $profile->setUpdatedAt(new \DateTimeImmutable());
         $this->entityManager->persist($experience);
         $this->entityManager->remove($experience);
         $this->entityManager->flush();

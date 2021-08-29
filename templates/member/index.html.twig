@@ -46,10 +46,14 @@
                             </div>
                             {{ form_row(profile_form.send) }}
                         {{ form_end(profile_form) }}
+                        <div class="actions">
+                            <a href="{{ path('last-created-members') }}" class="cta">Derniers profils crées</a>
+                            <a href="{{ path('last-updated-members') }}" class="cta">Derniers profils modifiés</a>
+                        </div>
                         {% if profiles is not null %}
 
                             <ul class="users-list">
-                            {% for profile in profiles|reverse %}
+                            {% for profile in profiles %}
                                 <li class="{{ (profile.isEmployed == 1) ? 'is-employed' : '' }} user">
                                     <div>
                                         <h3>{{ profile.firstname }} {{ profile.lastname }}</h3>

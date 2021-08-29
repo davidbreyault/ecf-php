@@ -101,15 +101,24 @@ class CategoryController extends AbstractController
     {
         $category = $this->entityManager->getRepository(Category::class)->find($id);
         $technologies = $category->getTechnology();
-        // Attention ! Cette action supprimera également les technologies liées à cette catégorie !
-        foreach($technologies as $technology) {
-            $category->removeTechnology($technology);
-            $this->entityManager->remove($technology);
-            $expertises = $technology->getExpertise()->toArray();
-            // La suppression d'une catégortie engendre également la suppression des compétences qui lui sont liées
-            foreach($expertises as $expertise) {
-                $technology->removeExpertise($expertise);
-                $this->entityManager->remove($expertise);
+        $nc_category = $this->entityManager->getRepository(Category::class)->findBy(['name' => 'Non-classée']);
+        // Si la catégorie 'Non-classée' existe
+        if (!empty($nc_category)) {
+            // Pour chaque technologie appartenant à la catégorie à supprimer
+            foreach($technologies as $technology) {
+                // Attribution de leur nouvelle catégorie : 'Non classée'
+                $technology->setCategory($nc_category[0]);
+                $this->entityManager->persist($technology);
+            }
+        } else {
+            // Si non, création de la catégorie par défaut
+            $newCategory = new Category;
+            $newCategory->setName('Non-classée');
+            $this->entityManager->persist($newCategory);
+            $this->entityManager->flush();
+            foreach($technologies as $technology) {
+                $technology->setCategory($newCategory);
+                $this->entityManager->persist($technology);
             }
         }
         $this->entityManager->remove($category);

@@ -44,7 +44,6 @@ class TechnologyController extends AbstractController
         $technology = new Technology;
         $form = $this->createForm(TechnologyType::class, $technology);
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
-        //dd($categories);
 
         $form->handleRequest($request);
 

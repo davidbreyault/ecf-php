@@ -7,12 +7,24 @@
     <section class="profile">
         <div class="alert">
             <div class="container">
-                <p>Vous êtes sur le point de supprimer la categorie '{{ category.name }}'. Cela nécessite également de supprimer toutes les technologies qui lui sont liées, ainsi que toutes les compétences utilisateurs liées à ces technologies. Cette action est rédibitoire. Etes-vous sûr de continuer ?</p>
+                {% if category.name == 'Non-classée' %}
+
+                    <p>Vous ne pouvez pas supprimer la catégorie '{{ category.name }}'. Il s'agit de la catégorie par défaut</p>
+
+                {% else %}
+
+                    <p>Vous êtes sur le point de supprimer la catégorie '{{ category.name }}'. Toutes les technologies qui lui sont liées appartiendront à la catégorie par défaut : 'Non-classée'. Cette action est rédibitoire, êtes-vous sûr de continuer ?</p>
+
+                {% endif %}
             </div>
         </div>
         <div class="container">
             <div class="actions">
-                <a href="{{ path('delete_category', {'id': category.id}) }}" class="cta delete">Supprimer la catégorie</a>
+                {% if category.name != 'Non-classée' %}
+
+                    <a href="{{ path('delete_category', {'id': category.id}) }}" class="cta delete">Supprimer la catégorie</a>
+
+                {% endif %}
                 <a href="{{ path('categories') }}" class="cta">Retour</a>
             </div>
         </div>

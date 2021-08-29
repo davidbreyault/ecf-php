@@ -33,6 +33,7 @@ class ApplicationController extends AbstractController
             // Transformation du nom de et de la ville de l'utilisateur en majuscule
             $user->setLastname(strtoupper($user->getLastname()));
             $user->setTown(strtoupper($user->getTown()));
+            $user->setUpdatedAt(new \DateTimeImmutable());
             // Transfert en base de donnée
             $this->entityManager->persist($user);
             $this->entityManager->flush();

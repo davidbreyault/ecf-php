@@ -66,6 +66,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $query->getQuery()->getResult();
     }
 
+    public function lastUpdatedProfiles()
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u')
+            ->orderby('u.updatedAt', 'DESC');
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function lastCreatedProfiles()
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u')
+            ->orderby('u.created_at', 'DESC');
+
+        return $query->getQuery()->getResult();
+    }
+
     
     // /**
     //  * @return User[] Returns an array of User objects

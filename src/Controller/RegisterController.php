@@ -39,6 +39,7 @@ class RegisterController extends AbstractController
             // Par défaut, l'utilisateur n'est pas membre de l'entreprise lors de l'inscription
             $user->setIsEmployed(0);
             $user->setCreatedAt(new \DateTimeImmutable());
+            $user->setUpdatedAt(new \DateTimeImmutable());
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();

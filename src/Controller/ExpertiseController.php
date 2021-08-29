@@ -53,6 +53,7 @@ class ExpertiseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $expertise = $form->getData();
+            $user->setUpdatedAt(new \DateTimeImmutable());
             // Ajout de la compétence à l'utilisateur
             $user->addExpertise($expertise);
             $this->entityManager->persist($expertise);
@@ -83,6 +84,7 @@ class ExpertiseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $expertise = $form->getData();
+            $user->setUpdatedAt(new \DateTimeImmutable());
             $user->addExpertise($expertise);
             
             $this->entityManager->persist($expertise);
@@ -105,6 +107,8 @@ class ExpertiseController extends AbstractController
      */
     public function delete($id): Response
     {
+        $user = $this->getUser();
+        $user->setUpdatedAt(new \DateTimeImmutable());
         $expertise = $this->entityManager->getRepository(Expertise::class)->find($id);
 
         $this->entityManager->persist($expertise);
@@ -130,6 +134,7 @@ class ExpertiseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $expertise = $form->getData();
+            $profile->setUpdatedAt(new \DateTimeImmutable());
             $profile->addExpertise($expertise);
 
             $this->entityManager->persist($expertise);
@@ -160,6 +165,7 @@ class ExpertiseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $expertise = $form->getData();
+            $profile->setUpdatedAt(new \DateTimeImmutable());
             $profile->addExpertise($expertise);
 
             $this->entityManager->persist($expertise);
@@ -184,6 +190,7 @@ class ExpertiseController extends AbstractController
     {
         $expertise = $this->entityManager->getRepository(Expertise::class)->find($id);
         $profile = $this->entityManager->getRepository(User::class)->find($expertise->getUser()->getId());
+        $profile->setUpdatedAt(new \DateTimeImmutable());
         $profile->removeExpertise($expertise);
 
         $this->entityManager->persist($expertise);
