@@ -56,7 +56,7 @@ class UploadController extends AbstractController
                     $upload->setName($newFilename);
                     $upload->setUser($user);
                 }
-                
+
                 // ... persist the $upload variable or any other work
                 $this->entityManager->persist($upload);
                 $this->entityManager->flush();

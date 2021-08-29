@@ -1,0 +1,19 @@
+{% block card_document %}
+
+    <div class="member-documents">
+        <h2>Documents de {{ profile.firstname }}</h2>
+        {% if file %}
+
+            <div class="file">
+                <i class="far fa-file-pdf"></i>
+                <p>{{ file.name }}</p>
+            </div>
+
+        {% else %}
+
+            <p>{{ profile.firstname }} n'a pas encore ajouté de document.</p>
+
+        {% endif %}
+    </div>
+
+{% endblock %}

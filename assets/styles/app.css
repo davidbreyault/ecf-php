@@ -500,6 +500,7 @@ li.user {
   color: var(--primary-color);
 }
 .member-infos,
+.member-documents,
 .member-skills {
   margin-bottom: 4rem;
 }

@@ -148,11 +148,13 @@ class MemberController extends AbstractController
     {
         $user = $this->getUser();
         $profile = $this->entityManager->getRepository(User::class)->find($id);
+        $file = $profile->getUpload();
         $expertises = $profile->getExpertise()->toArray();
         $experiences = $profile->getExperience()->toArray();
 
         return $this->render('member/card.html.twig', [
             'user'              => $user,
+            'file'              => $file,
             'profile'           => $profile,
             'expertises'        => $expertises,
             'experiences'       => $experiences

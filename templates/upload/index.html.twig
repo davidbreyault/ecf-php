@@ -35,7 +35,10 @@
                             <i class="far fa-file-pdf"></i>
                             <p>{{ upload.name }}</p>
                         </div>
-                        <a href="{{ path('delete_file', {'id': upload.id}) }}" class="cta delete">Supprimer mon CV</a>
+                        <div class="actions">
+                            <a href="#" class="cta">Consulter</a>
+                            <a href="{{ path('delete_file', {'id': upload.id}) }}" class="cta delete">Supprimer mon CV</a>
+                        </div>
                         
                     {% else %}
 
