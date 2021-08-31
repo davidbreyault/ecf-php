@@ -8,6 +8,7 @@
                 <i class="far fa-file-pdf"></i>
                 <p>{{ file.name }}</p>
             </div>
+            <a href="{{ absolute_url(asset('uploads/' ~ file.name)) }}" class="cta" target="_blank">Consulter</a>
 
         {% else %}
 
