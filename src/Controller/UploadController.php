@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class UploadController extends AbstractController
 {
@@ -95,7 +97,11 @@ class UploadController extends AbstractController
     {
         $upload = $this->entityManager->getRepository(Upload::class)-> find($id);
         $upload->setUser(NULL);
-        
+        // Suppression du fichier dans le dossier
+        $fileName = $upload->getName();
+        $filesystem = new Filesystem();
+        $filesystem->remove(['uploads/'.$fileName]);
+        // Suppression du fichier dans la base de données
         $this->entityManager->persist($upload);
         $this->entityManager->remove($upload);
         $this->entityManager->flush();
