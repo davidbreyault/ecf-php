@@ -62,13 +62,13 @@ class UploadController extends AbstractController
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            $this->getParameter('upload_directory'),
+                            $this->getParameter('upload_directory_cv'),
                             $newFilename
                         );
                     } catch (FileException $e) {
                         // ... handle exception if something happens during file upload
                     }
-                    // updates the 'brochureFilename' property to store the PDF file name, instead of its contents
+                    // updates the 'newFilename' property to store the PDF file name, instead of its contents
                     $upload->setName($newFilename);
                     $upload->setUser($user);
                 }
@@ -100,9 +100,8 @@ class UploadController extends AbstractController
         // Suppression du fichier dans le dossier
         $fileName = $upload->getName();
         $filesystem = new Filesystem();
-        $filesystem->remove(['uploads/'.$fileName]);
+        $filesystem->remove(['uploads/cv/'.$fileName]);
         // Suppression du fichier dans la base de données
-        $this->entityManager->persist($upload);
         $this->entityManager->remove($upload);
         $this->entityManager->flush();
 

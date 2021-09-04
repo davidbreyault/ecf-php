@@ -36,9 +36,10 @@
                             <p>{{ upload.name }}</p>
                         </div>
                         <div class="actions">
-                            <a href="{{ absolute_url(asset('uploads/' ~ upload.name)) }}" class="cta" target="_blank">Consulter</a>
+                            <a href="{{ absolute_url(asset('uploads/cv/' ~ upload.name)) }}" class="cta" target="_blank">Ouvrir dans un nouvel onglet</a>
                             <a href="{{ path('delete_file', {'id': upload.id}) }}" class="cta delete">Supprimer mon CV</a>
                         </div>
+                        <embed src="{{ absolute_url(asset('uploads/cv/' ~ upload.name)) }}" type="" width="100%" height="600"> 
                         
                     {% else %}
 
