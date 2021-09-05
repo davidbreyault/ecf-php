@@ -27,7 +27,7 @@ Renseignez vos identifiants à phpMyAdmin, nommez la future base de données.
 #### Migration de la base de données vers votre phpMyAdmin
 `symfony console doctrine:migrations:migrate`
 
-Insertion du jeu de données dans votre base grâce au fichier __import.sql__
+Insertion du jeu de données dans la nouvelle base grâce au fichier __import.sql__
 
 #### Gestion des documents au sein de l'application
 `composer require symfony/filesystem`
@@ -47,7 +47,9 @@ yarn install
 
 ## Personnas
 
-Vous pouvez vous connecter en tant que chaque utilisateur ci-dessous en utilisant leurs identifiants. Bien entendu, vous pouvez également créer votre propre compte et vous attribuer tous les droits en modifiants les rôles dans la base de données.
+Vous pouvez vous connecter en tant que chaque utilisateur ci-dessous en utilisant leurs identifiants. Bien entendu, vous pouvez également créer votre propre compte et vous attribuer tous les droits en modifiants les rôles dans la base de données. Pour ce faire, utilisez directement le formulaire d'inscription sur l'application (Symfony s'occupera de hasher votre mot de passe), puis complétez le reste de vos données directement dans votre SGBD > table 'User'. Renseignez `["ROLE_ADMIN"]` dans le champs `roles`. Dans le champs, `is_employed`, renseignez la valeur `1` pour indiquer que vous faites parti de l'effectif de l'entreprise.
+
+Exemple : `('paul-auchon@is-corp.fr', '["ROLE_ADMIN"]', '$2y$13$F71iD067gdiK5cIArQc.qOOpe8bi1jZpH7as1jucHMK9HlsQNGkHa', 'Paul', 'AUCHON', 'M', '1985-08-23', '31 rue des Hirondelles', '37000', 'TOURS', '0600232111', '2021-08-11', 1, '2021-08-11 17:31:13', '2021-08-11 17:31:13'),`
 
 > Administrateur :
 > 
