@@ -27,10 +27,12 @@ class ExperienceController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $experiences = $user->getExperience()->toArray();
 
         return $this->render('experience/index.html.twig', [
             'user'          => $user,
+            'picture'       => $picture,
             'experiences'   => $experiences    
         ]);
     }
@@ -118,7 +120,7 @@ class ExperienceController extends AbstractController
     /**
      * @Route("/profile/member/{id}/experience/add", name="add_experience_member")
      */
-    public function add_experience(Request $request, int $id): Response
+    public function add_experience_to_someone(Request $request, int $id): Response
     {
         $experience = new Experience;
         $profile = $this->entityManager->getRepository(User::class)->find($id);
@@ -147,7 +149,7 @@ class ExperienceController extends AbstractController
     /**
      * @Route("/profile/member/{id}/experience/update", name="update_experience_member")
      */
-    public function update_experience(Request $request, int $id): Response
+    public function update_experience_to_someone(Request $request, int $id): Response
     {
         $experience = $this->entityManager->getRepository(Experience::class)->find($id);
         $profile_id = $experience->getUser()->getId();
@@ -178,7 +180,7 @@ class ExperienceController extends AbstractController
     /**
      * @Route("/profile/member/{id}/experience/delete", name="delete_experience_member")
      */
-    public function delete_experience(Request $request, int $id): Response
+    public function delete_experience_to_someone(Request $request, int $id): Response
     {
         $experience = $this->entityManager->getRepository(Experience::class)->find($id);
         $profile_id = $experience->getUser()->getId();

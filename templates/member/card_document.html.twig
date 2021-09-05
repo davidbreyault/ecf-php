@@ -8,8 +8,16 @@
                 <i class="far fa-file-pdf"></i>
                 <p>{{ file.name }}</p>
             </div>
-            <a href="{{ absolute_url(asset('uploads/' ~ file.name)) }}" class="cta" target="_blank">Consulter</a>
+            <div class="actions">
+                <a href="{{ absolute_url(asset('uploads/cv/' ~ file.name)) }}" class="cta" target="_blank">Ouvrir dans un nouvel onglet</a>
+                {% if is_granted('ROLE_ADMIN') %}
 
+                    <a href="{{ path('delete_file', {'id': file.id}) }}" class="cta delete">Supprimer le CV</a>
+
+                {% endif %}
+            </div>
+            <embed src="{{ absolute_url(asset('uploads/cv/' ~ file.name)) }}" type="" width="100%" height="500">
+            
         {% else %}
 
             <p>{{ profile.firstname }} n'a pas encore ajouté de document.</p>

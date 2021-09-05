@@ -29,10 +29,12 @@ class ExpertiseController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $expertises = $user->getExpertise()->toArray();
 
         return $this->render('expertise/index.html.twig', [
             'user'              => $user,
+            'picture'           => $picture,
             'expertises'        => $expertises
         ]);
     }

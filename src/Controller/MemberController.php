@@ -30,6 +30,7 @@ class MemberController extends AbstractController
     public function index(Request $request): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $profiles = $this->entityManager->getRepository(User::class)->findAll();
 
         $form = $this->createForm(ProfileType::class, $profiles);
@@ -42,6 +43,7 @@ class MemberController extends AbstractController
 
             return $this->render('member/index.html.twig', [
                 'user'              => $user,
+                'picture'           => $picture,
                 'profiles'          => $profiles,
                 'profile_form'      => $form->createView()
             ]);
@@ -49,6 +51,7 @@ class MemberController extends AbstractController
 
         return $this->render('member/index.html.twig', [
             'user'              => $user,
+            'picture'           => $picture,
             'profiles'          => $profiles,
             'profile_form'      => $form->createView()
         ]);
@@ -62,6 +65,7 @@ class MemberController extends AbstractController
     public function last_updated_members(Request $request): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $profiles = $this->entityManager->getRepository(User::class)->lastUpdatedProfiles();
 
         $form = $this->createForm(ProfileType::class, $profiles);
@@ -74,6 +78,7 @@ class MemberController extends AbstractController
 
             return $this->render('member/index.html.twig', [
                 'user'              => $user,
+                'picture'           => $picture,
                 'profiles'          => $profiles,
                 'profile_form'      => $form->createView()
             ]);
@@ -81,6 +86,7 @@ class MemberController extends AbstractController
 
         return $this->render('member/index.html.twig', [
             'user'              => $user,
+            'picture'           => $picture,
             'profiles'          => $profiles,
             'profile_form'      => $form->createView()
         ]);
@@ -94,6 +100,7 @@ class MemberController extends AbstractController
     public function last_created_members(Request $request): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $profiles = $this->entityManager->getRepository(User::class)->lastCreatedProfiles();
 
         $form = $this->createForm(ProfileType::class, $profiles);
@@ -106,6 +113,7 @@ class MemberController extends AbstractController
 
             return $this->render('member/index.html.twig', [
                 'user'              => $user,
+                'picture'           => $picture,
                 'profiles'          => $profiles,
                 'profile_form'      => $form->createView()
             ]);
@@ -113,6 +121,7 @@ class MemberController extends AbstractController
 
         return $this->render('member/index.html.twig', [
             'user'              => $user,
+            'picture'           => $picture,
             'profiles'          => $profiles,
             'profile_form'      => $form->createView()
         ]);
@@ -147,6 +156,7 @@ class MemberController extends AbstractController
     public function card(Request $request, int $id)
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $profile = $this->entityManager->getRepository(User::class)->find($id);
         $file = $profile->getUpload();
         $expertises = $profile->getExpertise()->toArray();
@@ -154,6 +164,7 @@ class MemberController extends AbstractController
 
         return $this->render('member/card.html.twig', [
             'user'              => $user,
+            'picture'           => $picture,
             'file'              => $file,
             'profile'           => $profile,
             'expertises'        => $expertises,

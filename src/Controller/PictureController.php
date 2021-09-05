@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Upload;
-use App\Form\UploadType;
+use App\Entity\Picture;
+use App\Form\PictureType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
-class UploadController extends AbstractController
+class PictureController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
@@ -24,7 +24,7 @@ class UploadController extends AbstractController
     }
 
     /**
-     * @Route("/profile/files", name="files")
+     * @Route("/profile/picture", name="picture")
      */
     public function index(Request $request): Response
     {
@@ -43,12 +43,11 @@ class UploadController extends AbstractController
             return $str;
         }
         $user = $this->getUser();
-        $picture = $user->getPicture();
-        if (!is_null($user->getUpload())) {
-            $upload = $this->entityManager->getRepository(Upload::class)->find($user->getUpload()->getId());
+        if (!is_null($user->getPicture())) {
+            $picture = $this->entityManager->getRepository(Picture::class)->find($user->getPicture()->getId());
         } else {
-            $upload = new Upload();
-            $form = $this->createForm(UploadType::class, $upload);
+            $picture = new Picture();
+            $form = $this->createForm(PictureType::class, $picture);
 
             $form->handleRequest($request);
 
@@ -58,64 +57,62 @@ class UploadController extends AbstractController
                 // so the PDF file must be processed only when a file is uploaded
                 if ($file) {
                     $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = 'cv-'.strtolower(unaccent($user->getFirstname())).'-'.strtolower(unaccent($user->getLastname())).'-'.uniqid().'.'.$file->guessExtension();
+                    $newFilename = 'img-'.strtolower(unaccent($user->getFirstname())).'-'.strtolower(unaccent($user->getLastname())).'-'.uniqid().'.'.$file->guessExtension();
 
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            $this->getParameter('upload_directory_cv'),
+                            $this->getParameter('upload_directory_pictures'),
                             $newFilename
                         );
                     } catch (FileException $e) {
                         // ... handle exception if something happens during file upload
                     }
                     // updates the 'newFilename' property to store the PDF file name, instead of its contents
-                    $upload->setName($newFilename);
-                    $upload->setUser($user);
+                    $picture->setName($newFilename);
+                    $picture->setUser($user);
                 }
                 // ... persist the $upload variable or any other work
-                $this->entityManager->persist($upload);
+                $this->entityManager->persist($picture);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'Merci ! Votre fichier a bien été pris en compte !');
-                return $this->redirectToRoute('files');
+                return $this->redirectToRoute('profile');
             }
-            return $this->render('upload/index.html.twig', [
+            return $this->render('picture/index.html.twig', [
                 'user'          => $user,
-                'picture'       => $picture,
                 'upload_form'   => $form->createView(),
             ]);
         }
         
-        return $this->render('upload/index.html.twig', [
-            'user'          => $user,
-            'picture'       => $picture,
-            'upload'        => $upload,
+        return $this->render('picture/index.html.twig', [
+            'user'           => $user,
+            'picture'        => $picture,
         ]);
     }
 
     /**
-     * @Route("/profile/file/{id}/delete", name="delete_file")
+     * @Route("/profile/picture/{id}/delete", name="delete_picture")
      */
     public function delete(Request $request, int $id): Response
     {
-        $upload = $this->entityManager->getRepository(Upload::class)->find($id);
-        $upload_user = $upload->getUser();
-        $upload->setUser(NULL);
+        $picture = $this->entityManager->getRepository(Picture::class)->find($id);
+        $picture_user = $picture->getUser();
+        $picture->setUser(NULL);
 
         // Suppression du fichier dans le dossier
-        $fileName = $upload->getName();
+        $fileName = $picture->getName();
         $filesystem = new Filesystem();
-        $filesystem->remove(['uploads/cv/'.$fileName]);
+        $filesystem->remove(['uploads/pictures/'.$fileName]);
         // Suppression du fichier dans la base de données
-        $this->entityManager->remove($upload);
+        $this->entityManager->remove($picture);
         // Si le propriétaire du document et l'utilisateur connecté correspondent à la même personne
-        $upload_user === $this->getUser()
-            ? $this->addFlash('success', 'Votre CV a bien été supprimé.') 
-            : $this->addFlash('success', 'Le CV de ' . $upload_user->getFirstname() . ' a bien été supprimé.');
+        $picture_user === $this->getUser()
+            ? $this->addFlash('success', 'Votre photo de profil a bien été supprimé.') 
+            : $this->addFlash('success', 'La photo de ' . $picture_user->getFirstname() . ' a bien été supprimée.');
         $this->entityManager->flush();
 
-        return $upload_user === $this->getUser() 
-            ? $this->redirectToRoute('files') 
-            : $this->redirectToRoute('card_member', ['id' => $upload_user->getId()]);
+        return $picture_user === $this->getUser() 
+            ? $this->redirectToRoute('profile') 
+            : $this->redirectToRoute('card_member', ['id' => $picture_user->getId()]);
     }
 }

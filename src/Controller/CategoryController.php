@@ -25,10 +25,12 @@ class CategoryController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
 
         return $this->render('category/index.html.twig', [
             'user'                => $user,
+            'picture'             => $picture,
             'categories'          => $categories
         ]);
     }

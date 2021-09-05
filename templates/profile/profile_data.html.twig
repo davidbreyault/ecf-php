@@ -2,7 +2,25 @@
 
     <div class="profile-data">
         <div class="main-data">
-            <img src="https://eu.ui-avatars.com/api/?name={{ user.firstname }}+{{ user.lastname }}&size=120&background=FFD900&color=000" alt="profile-picture">
+            <div class="profile-picture">
+                {% if picture.name is defined and picture.name is not null %}
+                    
+                    <img src="{{ absolute_url(asset('uploads/pictures/' ~ picture.name)) }}" alt="profile-picture">
+
+                {% else %}
+
+                    <img src="https://eu.ui-avatars.com/api/?name={{ user.firstname }}+{{ user.lastname }}&size=200&background=FFD900&color=000" alt="profile-picture">
+
+                {% endif %}
+                <div class="actions">
+                    <a href="{{ path('picture') }}" class="update"><i class="fas fa-pen"></i></a>
+                    {% if picture.name is defined and picture.name is not null %}
+                    
+                        <a href="{{ path('delete_picture', {'id': picture.id}) }}" class="delete"><i class="fas fa-times-circle"></i></a>
+
+                    {% endif %}
+                </div>
+            </div>
             <h2>{{ user.firstname }} {{ user.lastname }}</h2>
             
             {% block profile_roles %}

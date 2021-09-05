@@ -113,6 +113,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $picture;
+
     
 
     public function __construct()
@@ -444,6 +449,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($picture === null && $this->picture !== null) {
+            $this->picture->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($picture !== null && $picture->getUser() !== $this) {
+            $picture->setUser($this);
+        }
+
+        $this->picture = $picture;
 
         return $this;
     }

@@ -28,10 +28,12 @@ class TechnologyController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $technologies = $this->entityManager->getRepository(Technology::class)->findAll();
 
         return $this->render('technology/index.html.twig', [
             'user'              => $user,
+            'picture'           => $picture,
             'technologies'      => $technologies
         ]);
     }

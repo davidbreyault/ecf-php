@@ -25,6 +25,7 @@ class NewPasswordController extends AbstractController
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser();
+        $picture = $user->getPicture();
         $form = $this->createForm(NewPasswordType::class, $user);
 
         $form->handleRequest($request);
@@ -42,6 +43,7 @@ class NewPasswordController extends AbstractController
 
         return $this->render('new_password/index.html.twig', [
             'user'                  => $user,
+            'picture'               => $picture,
             'new_password_form'     => $form->createView()
         ]);
     }

@@ -104,6 +104,7 @@ li[class] {
 }
 a.update i {
   color: var(--secondary-background);
+  font-size: 1.6rem;
 }
 a.delete i {
   margin-left: 0.3rem;
@@ -281,6 +282,34 @@ a.delete i {
 .profile h1 {
   text-align: left;
 }
+.profile-picture {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+@media screen and (min-width: 36em) and (max-width: 61.9rem) {
+  .profile-picture {
+    flex-direction: column-reverse;
+  }
+}
+.profile-picture img {
+  display: block;
+  width: 17rem;
+  height: 17rem;
+  object-fit: cover;
+}
+.profile-picture-mini {
+  display: block;
+  width: 9rem;
+  height: 9rem;
+  object-fit: cover;
+}
+.profile-picture-medium {
+  display: block;
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+}
 .profile-infos {
   display: flex;
   flex-direction: column;
@@ -330,6 +359,11 @@ a.delete i {
     width: 30%;
     padding: 2rem;
     border-radius: 2rem;
+  }
+}
+@media screen and (min-width: 36em) and (max-width: 61.9rem) {
+  .contact-data {
+    font-size: 1.4rem;
   }
 }
 .profile-data img {
@@ -478,7 +512,7 @@ li.user {
 }
 @media screen and (min-width: 36em) {
   .member-data {
-    width: 100%;
+    width: calc(100% - 14rem);
     margin-left: 2rem;
     padding-left: 2rem;
     border-left: solid 1px var(--borders);
@@ -492,6 +526,9 @@ li.user {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 2rem;
+}
+.member-data-header h2 {
+  margin-bottom: 0;
 }
 .member-data .data {
   color: var(--profile-data);
@@ -650,9 +687,10 @@ li.category {
   align-items: center;
   margin-bottom: 2rem;
 }
-.fa-file-pdf {
+.fa-file-pdf,
+.fa-camera {
   margin-right: 1rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 

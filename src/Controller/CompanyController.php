@@ -24,11 +24,13 @@ class CompanyController extends AbstractController
      */
     public function index(): Response
     {
-        $companies = $this->entityManager->getRepository(Company::class)->findAll();
         $user = $this->getUser();
+        $picture = $user->getPicture();
+        $companies = $this->entityManager->getRepository(Company::class)->findAll();
 
         return $this->render('company/index.html.twig', [
             'user'              => $user,
+            'picture'           => $picture,
             'companies'         => $companies
         ]);
     }
