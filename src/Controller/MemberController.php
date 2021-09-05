@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class MemberController extends AbstractController
 {
@@ -152,6 +156,8 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}", name="card_member")
+     * 
+     * Affiche les données d'un utilisateur
      */
     public function card(Request $request, int $id)
     {
@@ -174,6 +180,8 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/members/add", name="add_member")
+     * 
+     * Ajoute un utilisateur
      */
     public function add(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -210,6 +218,8 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/update", name="update_member")
+     * 
+     * Modifie les données d'un utilisateur
      */
     public function update(Request $request, int $id): Response
     {
@@ -239,6 +249,8 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/delete/confirmation", name="delete_member_confirmation")
+     * 
+     * Confirme la supression d'un utilisateur
      */
     public function delete_confirmation(int $id): Response
     {
@@ -251,17 +263,40 @@ class MemberController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/delete", name="delete_member")
+     * 
+     * Supprime un compte utilisateur
      */
     public function delete(Request $request, int $id): Response
     {
         // La suppression d'un utilisateur implique d'abord la suppression de ses expériences et de ses compétences pour éviter les erreurs relationnelles SQL.
         $profile = $this->entityManager->getRepository(User::class)->find($id);
+        $picture = $profile->getPicture();
+        $upload = $profile->getUpload();
         
+        // Suppression de la photo de profil
+        if (!is_null($picture)) {
+            // Suppression du fichier dans le dossier
+            $fileName = $picture->getName();
+            $filesystem = new Filesystem();
+            $filesystem->remove(['uploads/pictures/'.$fileName]);
+            // Suppression du fichier dans la base de données
+            $this->entityManager->remove($picture);
+        }
+
+        // Suppression du document
+        if (!is_null($upload)) {
+            // Suppression du fichier dans le dossier
+            $fileName = $upload->getName();
+            $filesystem = new Filesystem();
+            $filesystem->remove(['uploads/cv/'.$fileName]);
+            // Suppression du fichier dans la base de données
+            $this->entityManager->remove($upload);
+        }
+
         // Suppression des expériences
         $experiences = $profile->getExperience();
         foreach($experiences as $experience) {
             $profile->removeExperience($experience);
-            $this->entityManager->persist($experience);
             $this->entityManager->remove($experience);
             $this->entityManager->flush();
         }
@@ -270,13 +305,11 @@ class MemberController extends AbstractController
         $expertises = $profile->getExpertise();
         foreach($expertises as $expertise) {
             $profile->removeExpertise($expertise);
-            $this->entityManager->persist($expertise);
             $this->entityManager->remove($expertise);
             $this->entityManager->flush();
         }
 
         // Enfin, suppression de l'utilisateur
-        $this->entityManager->persist($profile);
         $this->entityManager->remove($profile);
         $this->entityManager->flush();
         $this->addFlash('success', 'L\'utilisateur a bien été supprimé.');
@@ -286,7 +319,7 @@ class MemberController extends AbstractController
     /**
      * @Route("/profile/member/{id}/takeon", name="takeon_candidate")
      * 
-     * Embauche et ajout d'un candidat dans l'effectif de l'entreprise
+     * Embauche et ajoute un candidat dans l'effectif de l'entreprise
      */
     public function takeOn(Request $request, int $id): Response
     {
@@ -313,7 +346,7 @@ class MemberController extends AbstractController
     /**
      * @Route("/profile/member/{id}/strikeoff", name="srikeoff_employee")
      * 
-     * Radiation d'un membre de l'entreprise
+     * Radier un membre de l'entreprise
      */
     public function strikeOff(Request $request, int $id): Response
     {
@@ -321,7 +354,7 @@ class MemberController extends AbstractController
         $profile->setIsEmployed(0);
         $profile->setRoles([]);
         $profile->setUpdatedAt(new \DateTimeImmutable());
-        // Mettre fin à la mission actuellement suivi en entreprise
+        // Met fin à la mission actuellement suivi en entreprise
         if (!empty($profile->getExperience()->toArray())) {
             if (is_null($profile->getExperience()[0]->getDateEnd())) {
                 $profile->getExperience()[0]->setDateEnd(new \DateTimeImmutable());

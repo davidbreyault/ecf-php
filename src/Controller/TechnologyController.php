@@ -118,7 +118,6 @@ class TechnologyController extends AbstractController
             $technology->removeExpertise($expertise);
             $this->entityManager->remove($expertise);
         }
-        $this->entityManager->persist($technology);
         $this->entityManager->remove($technology);
         $this->entityManager->flush();
         $this->addFlash('success', 'La technologie ' . $technology->getName() . ' a bien été supprimée.');

@@ -42,7 +42,7 @@ class ExpertiseController extends AbstractController
     /**
      * @Route("/profile/expertise/add", name="add_expertise")
      * 
-     * Ajout d'une compétence à l'utilisateur connecté
+     * Ajoute une compétence à l'utilisateur connecté
      */
     public function add(Request $request): Response
     {
@@ -73,7 +73,7 @@ class ExpertiseController extends AbstractController
     /**
      * @Route("profile/expertise/update/{id}", name="update_expertise")
      * 
-     * Mise à jour d'une compétence à l'utilisateur connecté
+     * Modifie une compétence à l'utilisateur connecté
      */
     public function update(Request $request, $id): Response
     {
@@ -105,7 +105,7 @@ class ExpertiseController extends AbstractController
     /**
      * @Route("profile/expertise/delete/{id}", name="delete_expertise")
      * 
-     * Suppression d'une compétence à l'utilisateur connecté
+     * Supprime une compétence à l'utilisateur connecté
      */
     public function delete($id): Response
     {
@@ -123,7 +123,7 @@ class ExpertiseController extends AbstractController
     /**
      * @Route("/profile/member/{id}/expertise/add", name="add_expertise_member")
      * 
-     * Ajout d'une compétence à un autre utilisateur
+     * Ajoute une compétence à un autre utilisateur
      */
     public function add_expertise_to_someone(Request $request, int $id): Response
     {
@@ -154,7 +154,7 @@ class ExpertiseController extends AbstractController
     /**
      * @Route("/profile/member/{id}/expertise/update", name="update_expertise_member")
      * 
-     * Mise à jour d'une compétence à un autre utilisateur
+     * Modifie une compétence à un autre utilisateur
      */
     public function update_expertise_to_someone(Request $request, int $id): Response
     {
@@ -186,7 +186,7 @@ class ExpertiseController extends AbstractController
     /**
      * @Route("/profile/member/{id}/expertise/delete", name="delete_expertise_member")
      * 
-     * Suppression d'une compétence à un autre utilisateur
+     * Supprime une compétence à un autre utilisateur
      */
     public function delete_expertise_to_someone(Request $request, int $id): Response
     {

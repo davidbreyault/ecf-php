@@ -92,6 +92,8 @@ class PictureController extends AbstractController
 
     /**
      * @Route("/profile/picture/{id}/delete", name="delete_picture")
+     * 
+     * Supprime la photo de profil de l'utilsateur
      */
     public function delete(Request $request, int $id): Response
     {

@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ProfileController extends AbstractController
 {
@@ -36,6 +40,8 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/profile/delete_confirmation", name="delete_profile_confirmation")
+     * 
+     * Confirmation de la suppression du compte utilisateur
      */
     public function delete_profile_confirmation(): Response
     {
@@ -44,12 +50,32 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/profile/delete", name="delete_profile")
+     * 
+     * Supprime le compte de l'utilisateur connecté (seulement pour les candidats)
      */
     public function delete_profile(): Response
     {
         $user = $this->getUser();
-
-        $this->entityManager->persist($user);
+        $picture = $user->getPicture();
+        $upload = $user->getUpload();
+        // Suppression de la photo de profil
+        if (!is_null($picture)) {
+            // Suppression du fichier dans le dossier
+            $fileName = $picture->getName();
+            $filesystem = new Filesystem();
+            $filesystem->remove(['uploads/pictures/'.$fileName]);
+            // Suppression du fichier dans la base de données
+            $this->entityManager->remove($picture);
+        }
+        // Suppression du document
+        if (!is_null($upload)) {
+            // Suppression du fichier dans le dossier
+            $fileName = $upload->getName();
+            $filesystem = new Filesystem();
+            $filesystem->remove(['uploads/cv/'.$fileName]);
+            // Suppression du fichier dans la base de données
+            $this->entityManager->remove($upload);
+        }
         // Déconnexion en force de l'utilisateur avant suppression de ce dernier    
         $this->get('security.token_storage')->setToken(null);
         $this->entityManager->remove($user);
@@ -61,6 +87,8 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/profile/data/update", name="update_data_profile")
+     * 
+     * Modifie les données de l'utilsateur connecté
      */
     public function update_data_profile(Request $request): Response
     {

@@ -39,6 +39,8 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/profile/experience/add", name="add_experience")
+     * 
+     * Ajoute une expérience à l'utilisateur connecté
      */
     public function add(Request $request): Response
     {
@@ -68,6 +70,8 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/profile/experience/update/{id}", name="update_experience")
+     * 
+     * Modifie une expérience à l'utilisateur connecté
      */
     public function update(Request $request, $id): Response
     {
@@ -97,6 +101,8 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/profile/experience/delete/{id}", name="delete_experience")
+     * 
+     * Supprime une expérience à l'utilisateur connecté
      */
     public function delete(Request $request, $id): Response
     {
@@ -119,6 +125,8 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/experience/add", name="add_experience_member")
+     * 
+     * Ajoute une expérience à un autre utilisateur
      */
     public function add_experience_to_someone(Request $request, int $id): Response
     {
@@ -148,6 +156,8 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/experience/update", name="update_experience_member")
+     * 
+     * Modifie une expérience à un autre utilisateur
      */
     public function update_experience_to_someone(Request $request, int $id): Response
     {
@@ -179,6 +189,8 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/profile/member/{id}/experience/delete", name="delete_experience_member")
+     * 
+     * Supprime une expérience à un autre utilisateur
      */
     public function delete_experience_to_someone(Request $request, int $id): Response
     {

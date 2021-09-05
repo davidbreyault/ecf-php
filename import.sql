@@ -59,7 +59,8 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `firstname`, `lastname`,
 (7, 'pacomelaizautre@jaimel.fr', '[]', '$argon2id$v=19$m=65536,t=4,p=1$84Pv5RtDj5bFrwMC3Ke3Zw$/urRAiK+uLLu+EgBh8MuNckrSHw/N++tR/2gZSK0NAY', 'Pacôme', 'LAIZAUTRE', 'M', '1996-03-03', '174 rue des Gaulois', '06000', 'NICE', '0655105510', '2021-10-20', 0, '2021-08-11 16:36:51', '2021-08-11 16:39:11'),
 (8, 'lea-ricot@is-corp.fr', '[\"ROLE_COMMERCIAL\"]', '$argon2id$v=19$m=65536,t=4,p=1$dyFakF7wJbGW37BvgYaXKw$Irl8OK0jOtIwhvhH1WxLSji63WxY8gzZnm/qudbzfEU', 'Léa', 'RICOT', 'F', '1991-09-30', '10 place Maryse Bastié', '37000', 'TOURS', '0600101011', '2021-08-11', 1, '2021-08-11 17:01:45', '2021-08-11 17:01:45'),
 (9, 'jean-bonneau@is-corp.fr', '[\"ROLE_EMPLOYEE\"]', '$argon2id$v=19$m=65536,t=4,p=1$xkmaEA8zrotElo1AHif1Qw$5eFqhxSBx4ScpGNY1ZqHPVjEmfxbMAgMioI/2RuIYto', 'Jean', 'BONNEAU', 'M', '1987-11-16', '8bis rue des Vignes', '37400', 'VOUVRAY', '0699118822', '2021-08-11', 1, '2021-08-11 17:06:03', '2021-08-20 11:11:03'),
-(10, 'bruno-dagen@is-corp.fr', '[\"ROLE_EMPLOYEE\"]', '$argon2id$v=19$m=65536,t=4,p=1$VqpmaveLrT9bjFA6H/RrTA$SPYOxv4FmfyZj0aVmVmCCQdIcCGIQOuPd+9zKq1vvDk', 'Bruno', 'DAGEN', 'M', '1975-08-06', '101 Boulevard du Maréchal Joffre', '37230', 'FONDETTES', '0699001199', '2021-08-11', 1, '2021-08-11 17:12:24', '2021-08-11 17:12:24');
+(10, 'bruno-dagen@is-corp.fr', '[\"ROLE_EMPLOYEE\"]', '$argon2id$v=19$m=65536,t=4,p=1$VqpmaveLrT9bjFA6H/RrTA$SPYOxv4FmfyZj0aVmVmCCQdIcCGIQOuPd+9zKq1vvDk', 'Bruno', 'DAGEN', 'M', '1975-08-06', '101 Boulevard du Maréchal Joffre', '37230', 'FONDETTES', '0699001199', '2021-08-11', 1, '2021-08-11 17:12:24', '2021-08-11 17:12:24'),
+(11, 'alinehea@jaimel.com', '[]', '$2y$13$5wSAloqbUE1zQ6hDiiBeEettngg..PZHZUSlb5m0mouzwd8srfGTW', 'Aline', 'HEA', 'F', '1994-12-10', '13 avenue Victor Hugo', '49000', 'ANGERS', '0678001011', '2021-09-06', 0, '2021-09-05 14:57:58', '2021-09-05 14:58:51');
 
 -- --------------------------------------------------------
 --
@@ -101,16 +102,19 @@ INSERT INTO expertise (`id`, `technology_id`, `user_id`, `level`, `appreciated`)
 -- --------------------------------------------------------
 INSERT INTO `picture` (`id`, `user_id`, `name`) VALUES
 (1, 2, 'img-marc-hassin-613487f6ce36d.jpg'),
-(2, 7, 'img-pacome-laizautre-6134888023dc7.png'),
-(3, 3, 'img-annie-mahle-613488fc7d26e.png');
+(3, 3, 'img-annie-mahle-613488fc7d26e.png'),
+(5, 7, 'img-pacome-laizautre-6134e54e12b1a.png'),
+(6, 11, 'img-aline-hea-6134e5a36c6f8.jpg');
+
 
 -- --------------------------------------------------------
 --
 -- Dumping data for table upload
 --
 -- --------------------------------------------------------
+
 INSERT INTO `upload` (`id`, `name`, `user_id`) VALUES
-(1, 'cv-pacome-laizautre-613488979a401.pdf', 7);
+(2, 'cv-pacome-laizautre-6134e57d89e07.pdf', 7);
 
 -- --------------------------------------------------------
 --
