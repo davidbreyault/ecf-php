@@ -47,7 +47,7 @@
                     <p><span>Téléphone :</span>{{ user.phoneNumber }}</p>
                 </div>
                 <div class="data">
-                    <p><span>Date de naissance :</span>{{ user.birth|date('F j, Y') }}</p>
+                    <p><span>Date de naissance :</span>{{ user.birth|date('d/m/Y') }}</p>
                 </div>
                 <div class="data">
                     <p><span>Age :</span>{{ date('now').diff((date(user.birth))).format('%y ans') }}</p>

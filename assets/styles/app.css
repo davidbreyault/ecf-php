@@ -530,6 +530,21 @@ li.user {
 .member-data-header h2 {
   margin-bottom: 0;
 }
+.member-data-name {
+  display: flex;
+}
+.member-data-name span.indicator {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 1rem;
+  border-radius: 50%;
+}
+.member-data-name span.available {
+  background-color: var(--success-color);
+}
+.member-data-name span.not-available {
+  background-color: var(--alert-color);
+}
 .member-data .data {
   color: var(--profile-data);
 }

@@ -85,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $phone_number;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date")
      */
     private $availability;
 
@@ -305,12 +305,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvailability(): ?string
+    public function getAvailability(): ?\DateTimeInterface
     {
         return $this->availability;
     }
 
-    public function setAvailability(string $availability): self
+    public function setAvailability(?\DateTimeInterface $availability): self
     {
         $this->availability = $availability;
 

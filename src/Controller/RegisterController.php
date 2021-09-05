@@ -25,6 +25,13 @@ class RegisterController extends AbstractController
      */
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        function unaccent($str)
+        {
+            $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
+            $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
+            $str = str_replace($search, $replace, $str);
+            return $str;
+        }
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
 
@@ -35,7 +42,7 @@ class RegisterController extends AbstractController
             // On encode le mot de passe
             $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             // Transformation du nom de l'utilisateur en majuscule
-            $user->setLastname(strtoupper($user->getLastname()));
+            $user->setLastname(strtoupper(unaccent($user->getLastname())));
             // Par défaut, l'utilisateur n'est pas membre de l'entreprise lors de l'inscription
             $user->setIsEmployed(0);
             $user->setCreatedAt(new \DateTimeImmutable());

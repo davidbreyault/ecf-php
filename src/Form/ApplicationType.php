@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,14 +57,13 @@ class ApplicationType extends AbstractType
                 'label'         => 'Téléphone',
                 'required'      => true
             ])
-            ->add('availability', ChoiceType::class, [
+            ->add('availability', DateType::class, [
                 'label'         => 'Disponibilité',
-                'choices'       => [
-                    'Immédiate'             => 'Immédiate',
-                    'Dans 1 mois'           => 'Dans 1 mois',
-                    'Dans 3 mois'           => 'Dans 3 mois',
-                    'Supérieure à 3 mois'   => 'Supérieure à 3 mois'
-                ]
+                'required'      => true,
+                'format'        => 'ddMMyyyy',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
             ])
             ->add('send', SubmitType::class, [
                 'label'         => 'Envoyer'

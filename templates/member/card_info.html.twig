@@ -15,7 +15,10 @@
         <div class="member-data">
             <div class="member-data-header">
                 <div>
-                    <h2>{{ profile.firstname }} {{ profile.lastname }}</h2>
+                    <div class="member-data-name">
+                        <h2>{{ profile.firstname }} {{ profile.lastname }}</h2>
+                        <span {{ (date(profile.availability) < date('now')) ? "class='indicator available'" : "class='indicator not-available'" }}></span>
+                    </div>
 
                     {% block member_roles %}
                         {% include "member/member_role.html.twig" %}
@@ -39,7 +42,36 @@
                 </div>
             </div>
             <div class="data">
-                <p><span>Disponibilité : </span>{{ profile.availability }}</p>
+                <p><span>Disponible : </span>
+                    {% set trans_month_hash = { 
+                            "January":      "Janvier",
+                            "Febuary":      "Février",
+                            "March":        "Mars",
+                            "April":        "Avril",
+                            "May":          "Mai",
+                            "June":         "Juin",
+                            "July":         "Juillet",
+                            "August":       "Août",
+                            "September":    "Septembre",
+                            "October":      "Octobre",
+                            "November":     "Novembre",
+                            "December":     "Décembre"
+                        } 
+                    %}
+
+                    {% set difference = date(profile.availability).diff(date('now')) %}
+                    {% set leftDays = difference.days %}
+                    {# Si la date de disponibilité est antérieure à la date d'aujourd'hui #}
+                    {% if date(profile.availability) < date('now') %}
+
+                        Oui
+
+                    {% else %}
+
+                        le {{ profile.availability|date('j') }} {{ trans_month_hash[profile.availability|date('F')] }} {{ profile.availability|date('Y') }}, (sous {{ leftDays }} jours)
+                        
+                    {% endif %}
+                </p>
             </div>
             <div class="data">
                 <p><span>Adresse : </span>{{ profile.address }}</p>
@@ -57,7 +89,7 @@
                 <p><span>Téléphone : </span>{{ profile.phoneNumber }}</p>
             </div>
             <div class="data">
-                <p><span>Date de naissance : </span>{{ profile.birth|date('F j, Y') }}</p>
+                <p><span>Date de naissance : </span>{{ profile.birth|date('d/m/Y') }}</p>
             </div>
             <div class="data">
                 <p><span>Age : </span>{{ date('now').diff((date(profile.birth))).format('%y ans') }}</p>
