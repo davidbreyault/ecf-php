@@ -1,7 +1,7 @@
 # Portail de compétence
 L'objectif du projet est de créer un outil de gestion de compétences, permettant de centraliser les informations des collaborateurs et de leurs compétences. Il est souhaité la conception et le développement d'une solution moderne et innovante afin de gérer au mieux le suivi des candidats et des collaborateurs d'une entreprise, et ainsi faciliter le travail des ressources humaines et de l'équipe commerciale. 
 
-Pour se faire, j'ai imaginé une entreprise fictive avec la création de plusieurs personnas ayant chacun des droits différents. Dès lors que vous aurez importé le fichier 'import.sql' dans votre SGBD, vous aurez la possibilité de vous connecter sous chaque profil, pour découvrir l'application et les droits d'accès réservés selon tel ou tel rôle. 
+Pour se faire, j'ai imaginé une entreprise fictive (IS-Corp) avec la création de plusieurs personnages ayant chacun des droits différents. Dès lors que vous aurez importé le fichier 'import.sql' dans votre SGBD, vous aurez la possibilité de vous connecter sous chaque profil, pour découvrir l'application et les droits d'accès réservés selon tel ou tel rôle. 
 
 ## Installation du projet
 
@@ -28,6 +28,9 @@ Renseignez vos identifiants à phpMyAdmin, nommez la future base de données.
 `symfony console doctrine:migrations:migrate`
 
 Insertion du jeu de données dans votre base grâce au fichier __import.sql__
+
+#### Gestion des documents au sein de l'application
+`composer require symfony/filesystem`
 
 #### Installation de Symfony Encore
 
@@ -65,3 +68,5 @@ Vous pouvez vous connecter en tant que chaque utilisateur ci-dessous en utilisan
 > 
 > email : `laureloge@jaimel.fr` 
 > password :	 `timesup`
+
+Dernièrement, un utilisateur qui répond au nom de Pacôme Laizautre s'est inscrit sur l'application et a candidaté pour rejoindre l'équipe IS-Corp. Il a uploadé son CV sur la plateforme. Vous devriez pouvoir le consulter si vous êtes connecté en tant qu'administrateur ou commercial.
