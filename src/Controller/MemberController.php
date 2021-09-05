@@ -185,6 +185,13 @@ class MemberController extends AbstractController
      */
     public function add(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        function unaccent($str)
+        {
+            $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
+            $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
+            $str = str_replace($search, $replace, $str);
+            return $str;
+        }
         $profile = new User;
         $addMemberForm = $this->createForm(UserType::class, $profile);
         $addMemberForm->handleRequest($request);
@@ -194,8 +201,8 @@ class MemberController extends AbstractController
             // Encodage du mot de passe
             $profile->setPassword($passwordEncoder->encodePassword($profile, $profile->getPassword()));
             // Transformation du nom de et de la ville de l'utilisateur en majuscule
-            $profile->setLastname(strtoupper($profile->getLastname()));
-            $profile->setTown(strtoupper($profile->getTown()));
+            $profile->setLastname(strtoupper(unaccent($profile->getLastname())));
+            $profile->setTown(strtoupper(unaccent($profile->getTown())));
             $profile->setCreatedAt(new \DateTimeImmutable());
             $profile->setUpdatedAt(new \DateTimeImmutable());
             // Si le nouveau profil compte parmi l'effectif de l'entreprise

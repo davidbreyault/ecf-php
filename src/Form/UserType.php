@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -31,7 +32,7 @@ class UserType extends AbstractType
                     'label' => 'Mot de passe'
                 ],
                 'second_options'  => [
-                    'label' => 'Confirmez votre mot de passe'
+                    'label' => 'Confirmez le mot de passe'
                 ]
             ])
             ->add('firstname', TextType::class, [
@@ -74,14 +75,13 @@ class UserType extends AbstractType
                 'label'         => 'Téléphone',
                 'required'      => true
             ])
-            ->add('availability', ChoiceType::class, [
+            ->add('availability', DateType::class, [
                 'label'         => 'Disponibilité',
-                'choices'       => [
-                    'Immédiate'             => 'Immédiate',
-                    'Dans 1 mois'           => 'Dans 1 mois',
-                    'Dans 3 mois'           => 'Dans 3 mois',
-                    'Supérieure à 3 mois'   => 'Supérieure à 3 mois'
-                ]
+                'required'      => true,
+                'format'        => 'ddMMyyyy',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
             ])
             ->add('is_employed', ChoiceType::class, [
                 'label'         => 'Embauché',
