@@ -24,10 +24,6 @@ class ApplicationType extends AbstractType
                 'label'         => 'Nom',
                 'required'      => true
             ])
-            ->add('address', TextType::class, [
-                'label'         => 'Adresse',
-                'required'      => true
-            ])
             ->add('gender', ChoiceType::class, [
                 'label'         => 'Genre',
                 'required'      => true,
@@ -43,6 +39,10 @@ class ApplicationType extends AbstractType
                 'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
+            ])
+            ->add('address', TextType::class, [
+                'label'         => 'Adresse',
+                'required'      => true
             ])
             ->add('postcode', TextType::class, [
                 'label'         => 'Code Postal',

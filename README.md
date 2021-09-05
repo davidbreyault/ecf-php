@@ -6,7 +6,7 @@ Pour se faire, j'ai imaginé une entreprise fictive (IS-Corp) avec la création 
 ## Installation du projet
 
 #### Récupération du projet
-`git clone https://github.com/davidbreyault/ecf-php.git`
+`git clone https://github.com/davidbreyault/portail-de-competences.git`
 
 #### Installation des dépendances
 `composer install`

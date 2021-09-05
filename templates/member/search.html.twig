@@ -27,7 +27,15 @@
                                     <a href="{{ path('card_member', {'id': profile.id}) }}">Plus d'infos</a>
                                 </div>
                                 <div>
-                                    <img src="https://eu.ui-avatars.com/api/?name={{ profile.firstname }}+{{ profile.lastname }}&size=50&background={{ (profile.gender == 'M') ? '448CF8' : 'FF9DAD' }}&color=FFF" alt="profile-picture">
+                                    {% if profile.getPicture.name is defined and profile.getPicture.name is not null %}
+                    
+                                        <img src="{{ absolute_url(asset('uploads/pictures/' ~ profile.getPicture.name)) }}" alt="profile-picture" class="profile-picture-mini">
+
+                                    {% else %}
+
+                                        <img src="https://eu.ui-avatars.com/api/?name={{ profile.firstname }}+{{ profile.lastname }}&size=200&background={{ (profile.gender == 'M') ? '448CF8' : 'FF9DAD' }}&color=FFF" alt="profile-picture" class="profile-picture-mini">
+
+                                    {% endif %}
                                 </div>
                             </li>
                         {% endfor %}
