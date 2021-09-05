@@ -52,11 +52,11 @@ INSERT INTO technology (`id`, `category_id`, `name`) VALUES
 -- --------------------------------------------------------
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `firstname`, `lastname`, `gender`, `birth`, `address`, `postcode`, `town`, `phone_number`, `availability`, `is_employed`, `created_at`, `updated_at`) VALUES
 (1, 'paul-auchon@is-corp.fr', '[\"ROLE_ADMIN\"]', '$2y$13$F71iD067gdiK5cIArQc.qOOpe8bi1jZpH7as1jucHMK9HlsQNGkHa', 'Paul', 'AUCHON', 'M', '1985-08-23', '31 rue des Hirondelles', '37000', 'TOURS', '0600232111', '', 1, '2021-08-11 17:31:13', '2021-08-11 17:31:13'),
-(2, 'marc-hassin@is-corp.fr', '[\"ROLE_COMMERCIAL\"]', '$2y$13$cYtHA8maidWPeEmitxGTZ.nUhwNr83OPIRyjXfhWE.YvTgZO5/RhG', 'Marc', 'HASSIN', 'M', '1990-02-26', '47 rue Jean Moulin', '37000', 'SAINT AVERTIN', '0600102030', 'Immédiate', 1, '2021-08-11 15:41:26', '2021-08-13 07:51:46'),
+(2, 'marc-hassin@is-corp.fr', '[\"ROLE_COMMERCIAL\"]', '$2y$13$cYtHA8maidWPeEmitxGTZ.nUhwNr83OPIRyjXfhWE.YvTgZO5/RhG', 'Marc', 'HASSIN', 'M', '1986-02-26', '47 rue Jean Moulin', '37000', 'SAINT AVERTIN', '0600102030', 'Immédiate', 1, '2021-08-11 15:41:26', '2021-08-13 07:51:46'),
 (3, 'annie-mahle@is-corp.fr', '[\"ROLE_EMPLOYEE\"]', '$2y$13$8zzq.TIc/86YIBUVqOn4m.cRprNxTokkcAqau/nAeh8JRFC5QZDbi', 'Annie', 'MAHLE', 'F', '1982-12-01', '9 rue des Douves', '37500', 'CHINON', '0601103111', 'Dans 1 mois', 1, '2021-08-11 15:44:09', '2021-08-26 07:01:32'),
 (4, 'laureloge@jaimel.fr', '[]', '$2y$13$h50hOtgcJTTxh7PYLq5QCO/QEiT3Gq.LpaC2R/vg6dbZzj28HXQOS', 'Laure', 'LOGE', 'F', '1994-04-10', '10 place des Vosges', '88000', 'EPINAL', '0601020304', 'Dans 3 mois', 0, '2021-08-11 15:49:00', '2021-08-11 15:49:00'),
 (5, 'john-doe@is-corp.fr', '[\"ROLE_EMPLOYEE\"]', '$argon2id$v=19$m=65536,t=4,p=1$fR0tpFDOxBfURVWTek5/AQ$1/3LTBYH6qAxiPgUCdCRfGeXbWXqdVnu/5En75EmuXQ', 'John', 'DOE', 'M', '1992-12-02', '5 rue Monsieur Le Prince', '37230', 'FONDETTES', '0556543345', 'Dans 1 mois', 1, '2021-08-11 16:03:29', '2021-08-16 12:33:29'),
-(7, 'pacomelaizautre@jaimel.fr', '[]', '$argon2id$v=19$m=65536,t=4,p=1$/ivzY+wAZCk5xvlxYNqQTw$WjeHU6cXlk8J11LsRkQ5tNVoHuV5Ekgk5GYptZzwdEI', 'Pacôme', 'LAIZAUTRE', 'M', '1996-03-03', '18 rue de Viroflay', '75015', 'PARIS', '0655105510', 'Immédiate', 0, '2021-08-11 16:36:51', '2021-08-11 16:39:11'),
+(7, 'pacomelaizautre@jaimel.fr', '[]', '$argon2id$v=19$m=65536,t=4,p=1$84Pv5RtDj5bFrwMC3Ke3Zw$/urRAiK+uLLu+EgBh8MuNckrSHw/N++tR/2gZSK0NAY', 'Pacôme', 'LAIZAUTRE', 'M', '1996-03-03', '18 rue de Viroflay', '75015', 'PARIS', '0655105510', 'Immédiate', 0, '2021-08-11 16:36:51', '2021-08-11 16:39:11'),
 (8, 'lea-ricot@is-corp.fr', '[\"ROLE_COMMERCIAL\"]', '$argon2id$v=19$m=65536,t=4,p=1$dyFakF7wJbGW37BvgYaXKw$Irl8OK0jOtIwhvhH1WxLSji63WxY8gzZnm/qudbzfEU', 'Léa', 'RICOT', 'F', '1991-09-30', '10 place Maryse Bastié', '37000', 'TOURS', '0600101011', 'Immédiate', 1, '2021-08-11 17:01:45', '2021-08-11 17:01:45'),
 (9, 'jean-bonneau@is-corp.fr', '[\"ROLE_EMPLOYEE\"]', '$argon2id$v=19$m=65536,t=4,p=1$xkmaEA8zrotElo1AHif1Qw$5eFqhxSBx4ScpGNY1ZqHPVjEmfxbMAgMioI/2RuIYto', 'Jean', 'BONNEAU', 'M', '1987-11-16', '8bis rue des Vignes', '37400', 'VOUVRAY', '0699118822', 'Dans 3 mois', 1, '2021-08-11 17:06:03', '2021-08-20 11:11:03'),
 (10, 'bruno-dagen@is-corp.fr', '[\"ROLE_EMPLOYEE\"]', '$argon2id$v=19$m=65536,t=4,p=1$VqpmaveLrT9bjFA6H/RrTA$SPYOxv4FmfyZj0aVmVmCCQdIcCGIQOuPd+9zKq1vvDk', 'Bruno', 'DAGEN', 'M', '1975-08-06', '101 Boulevard du Maréchal Joffre', '37230', 'FONDETTES', '0699001199', 'Immédiate', 1, '2021-08-11 17:12:24', '2021-08-11 17:12:24');
@@ -93,6 +93,24 @@ INSERT INTO expertise (`id`, `technology_id`, `user_id`, `level`, `appreciated`)
 (28, 12, 1, 5, 1),
 (29, 1, 9, 5, 1),
 (30, 20, 3, 5, 1);
+
+-- --------------------------------------------------------
+--
+-- Dumping data for table picture
+--
+-- --------------------------------------------------------
+INSERT INTO `picture` (`id`, `user_id`, `name`) VALUES
+(1, 2, 'img-marc-hassin-613487f6ce36d.jpg'),
+(2, 7, 'img-pacome-laizautre-6134888023dc7.png'),
+(3, 3, 'img-annie-mahle-613488fc7d26e.png');
+
+-- --------------------------------------------------------
+--
+-- Dumping data for table upload
+--
+-- --------------------------------------------------------
+INSERT INTO `upload` (`id`, `name`, `user_id`) VALUES
+(1, 'cv-pacome-laizautre-613488979a401.pdf', 7);
 
 -- --------------------------------------------------------
 --
