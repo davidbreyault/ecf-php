@@ -305,7 +305,6 @@ class MemberController extends AbstractController
         foreach($experiences as $experience) {
             $profile->removeExperience($experience);
             $this->entityManager->remove($experience);
-            $this->entityManager->flush();
         }
 
         // Suppression des compétences
@@ -313,7 +312,6 @@ class MemberController extends AbstractController
         foreach($expertises as $expertise) {
             $profile->removeExpertise($expertise);
             $this->entityManager->remove($expertise);
-            $this->entityManager->flush();
         }
 
         // Enfin, suppression de l'utilisateur
